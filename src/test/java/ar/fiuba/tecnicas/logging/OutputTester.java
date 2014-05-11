@@ -1,18 +1,18 @@
 package ar.fiuba.tecnicas.logging;
 
-public class OutputTester implements IOutput{
+public class OutputTester implements IOutput {
 
 	protected String buffer;
 
 	public OutputTester() {
-		buffer="";
+		buffer = "";
 	}
 
 	@Override
 	public void out(String mensaje) {
 		buffer = mensaje;
-		
 	}
+
 	public String getMessage() {
 		return buffer;
 	}

@@ -22,7 +22,8 @@ public class OutputFile implements IOutput {
 	public void out(String message) {
 		// TODO ver nombre de log harcodeado
 		try {
-			File statText = new File("log.txt");
+			// "log.txt"
+			File statText = new File(fileName);
 			FileOutputStream is = new FileOutputStream(statText);
 			OutputStreamWriter osw = new OutputStreamWriter(is);
 			Writer w = new BufferedWriter(osw);
