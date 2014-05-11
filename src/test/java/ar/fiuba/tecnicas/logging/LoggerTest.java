@@ -5,12 +5,13 @@ import static org.junit.Assert.assertEquals;
 
 
 public class LoggerTest {
-	
-	private Logger logger = new Logger();
-	
+	private OutputTester outTester = new OutputTester();
+	private Logger logger = new Logger(Niveles.debbug, outTester);
+
 	@Test
-    public void log() {
-        logger.logear("PRUEBA");
-        assertEquals(true, true);
-    }
+	public void log() {
+		String message = "PRUEBA";
+		logger.logear(message);
+		assertEquals(message, outTester.getMessage());
+	}
 }
