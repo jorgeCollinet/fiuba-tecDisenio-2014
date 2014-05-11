@@ -13,23 +13,30 @@ import java.io.Writer;
  */
 
 public class Logger {
+	protected IOutput out;
+
 	/**
-	 * 
+	 * @param nivel nivel de log
+	 * @param salida
 	 */
-	public Logger() {
-		// TODO Auto-generated constructor stub
+	public Logger(Niveles nivel, IOutput salida) {
+		// TODO terminar de implementar
+		out = salida;
 	}
-	
+
 	public void logear(String message) {
-	    try {
-	        File statText = new File("log.txt");
-	        FileOutputStream is = new FileOutputStream(statText);
-	        OutputStreamWriter osw = new OutputStreamWriter(is);    
-	        Writer w = new BufferedWriter(osw);
-	        w.write(message);
-	        w.close();
-	    } catch (IOException e) {
-	        System.err.println("Problem writing to the file statsTest.txt");
-	    }
+		/*try {
+			File statText = new File("log.txt");
+			FileOutputStream is = new FileOutputStream(statText);
+			OutputStreamWriter osw = new OutputStreamWriter(is);
+			Writer w = new BufferedWriter(osw);
+			w.write(message);
+			w.close();
+			
+			
+		} catch (IOException e) {
+			System.err.println("Problem writing to the file statsTest.txt");
+		}*/
+		out.out(message);
 	}
 }
