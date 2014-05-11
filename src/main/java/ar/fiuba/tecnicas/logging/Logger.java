@@ -25,18 +25,7 @@ public class Logger {
 	}
 
 	public void logear(String message) {
-		/*try {
-			File statText = new File("log.txt");
-			FileOutputStream is = new FileOutputStream(statText);
-			OutputStreamWriter osw = new OutputStreamWriter(is);
-			Writer w = new BufferedWriter(osw);
-			w.write(message);
-			w.close();
-			
-			
-		} catch (IOException e) {
-			System.err.println("Problem writing to the file statsTest.txt");
-		}*/
+		// TODO aca va logica de parseo
 		out.out(message);
 	}
 }

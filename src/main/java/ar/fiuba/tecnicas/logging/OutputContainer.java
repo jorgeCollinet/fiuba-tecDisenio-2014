@@ -8,7 +8,6 @@ import java.util.ArrayList;
  */
 public class OutputContainer implements IOutput {
 	public ArrayList<IOutput> outputs;
-	
 	/**
 	 * 
 	 */
@@ -21,6 +20,14 @@ public class OutputContainer implements IOutput {
 		for (IOutput out : outputs) {
 			out.out(mensaje);
 		}
+	}
+
+	public void addOutput(IOutput output) {
+		outputs.add(output);
+	}
+
+	public void deleteOutput(IOutput output) {
+		outputs.remove(output);
 	}
 
 }
