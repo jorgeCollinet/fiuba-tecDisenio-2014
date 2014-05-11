@@ -7,8 +7,20 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+/**
+ * @author Grupo3
+ * 
+ */
+
 public class Logger {
-	public void writing() {
+	/**
+	 * 
+	 */
+	public Logger() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void warning() {
 	    try {
 	        File statText = new File("log.txt");
 	        FileOutputStream is = new FileOutputStream(statText);
