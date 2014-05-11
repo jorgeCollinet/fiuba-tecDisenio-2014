@@ -10,7 +10,7 @@ public class LoggerTest {
 	
 	@Test
     public void log() {
-        logger.writing();
+        logger.logear("PRUEBA");
         assertEquals(true, true);
     }
 }
