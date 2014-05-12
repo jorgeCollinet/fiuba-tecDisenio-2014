@@ -18,6 +18,7 @@ public class Logger {
 	}
 
 	public void logear(String message) {
+		// TODO aca va logica de seleccion de nivel
 		// TODO aca va logica de parseo
 		out.out(message);
 	}
