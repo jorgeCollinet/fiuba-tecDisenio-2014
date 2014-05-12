@@ -1,4 +1,6 @@
-package ar.fiuba.tecnicas.logging;
+package ar.fiuba.tecnicas.test;
+
+import ar.fiuba.tecnicas.logging.*;
 
 public class OutputTester implements IOutput {
 
