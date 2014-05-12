@@ -1,3 +1,7 @@
 /target
 .*
 /bin
+/log.txt
+/loggersProperties.txt
+/loooooooog.txt
+/propertiesLog.txt

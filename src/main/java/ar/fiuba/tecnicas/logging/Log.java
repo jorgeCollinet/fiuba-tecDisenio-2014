@@ -33,7 +33,7 @@ public class Log {
 	 * @param fileName
 	 * @throws Exception 
 	 */
-	static protected void loadConfiguration(String fileName) throws Exception {
+	public static void loadConfiguration(String fileName) throws Exception {
 		ConfigurationFileName = fileName;
 		
 		createEmptyFile(ConfigurationFileName);
@@ -42,20 +42,13 @@ public class Log {
 		
 		logFileName = prop.getProperty("logFileName", "log.txt");
 		createEmptyFile(logFileName);
-		propertiesLoggersFileName = prop.getProperty("propertiesLoggersFileName", "loggersProperties.txt");
-		createEmptyFile(propertiesLoggersFileName);
-		
-		// FIXME pasar a una forma mas linda, esta llamada no deveria estar aca
-		// me gustaria que Log no conociera a OutputBuilder
-		OutputBuilder.setOutputFileName(logFileName);
-		loggers = LoggerBuilder.generateLoggers(propertiesLoggersFileName);
+	
+		loggers = LoggerBuilder.generateLoggers(prop);
 	}
 	
-	static protected void saveConfiguration() throws IOException{
+	public static void saveConfiguration() throws IOException{
 		FileOutputStream fileOut = new FileOutputStream(ConfigurationFileName);
 		prop.store(fileOut, "no comment");
-		
-		
 	}
 
 	/**
@@ -69,5 +62,4 @@ public class Log {
 		}
 
 	}
-
 }

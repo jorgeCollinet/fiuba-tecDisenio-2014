@@ -1,5 +1,7 @@
 package ar.fiuba.tecnicas.logging;
 
+import java.util.Properties;
+
 public class OutputBuilder {
 
 	protected static String fileName;
@@ -8,23 +10,14 @@ public class OutputBuilder {
 	}
 
 	/**
-	 * metodo que deberia sacar y buscar una solucion mas prolija
-	 * 
-	 * @param fileName
-	 */
-	// FIXME pasar a una forma mas linda
-	public static void setOutputFileName(String fileName) {
-		OutputBuilder.fileName = fileName;
-	}
-
-	/**
 	 * 
 	 * @param outputType
 	 * @return
 	 * @throws Exception
 	 */
-	public static IOutput generateOutput(String outputStringValues)
+	public static IOutput generateOutput(String outputStringValues,Properties prop)
 			throws Exception {
+		fileName = prop.getProperty("logFileName", "log.txt");
 		boolean exito = false;
 		OutputContainer container = new OutputContainer();
 		if (outputStringValues.contains(OutputType.console.toString())) {

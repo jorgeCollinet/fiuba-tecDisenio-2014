@@ -2,11 +2,9 @@
 Este sería el formato de el archivo propertiesLog
 nombreLogFile log.txt
 nombrePropertiesLoggers loggersProperties.txt
-
-Este sería el formato de el archivo propertiesLog
-NIVEL - TIPO DE SALIDA
-Ejemplos:
-info - console
-warning - console,file
-error - file
-fatal - file,console
+NIVEL = TIPO DE SALIDA
+		Ejemplos:
+		info = console
+		warning = console,file
+		error = file
+		fatal = file,console
