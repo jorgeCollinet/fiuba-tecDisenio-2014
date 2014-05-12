@@ -1,12 +1,7 @@
 package ar.fiuba.tecnicas.logging;
 
 import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.io.FileOutputStream;
-
 import org.junit.Test;
-
 
 public class LogTest {
 

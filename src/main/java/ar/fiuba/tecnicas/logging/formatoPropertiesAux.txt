@@ -7,6 +7,6 @@ Este sería el formato de el archivo propertiesLog
 NIVEL - TIPO DE SALIDA
 Ejemplos:
 info - console
-warning - console
+warning - console,file
 error - file
-fatal - file
+fatal - file,console

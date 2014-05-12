@@ -34,24 +34,27 @@ public class Log {
 	 * @throws Exception 
 	 */
 	static protected void loadConfiguration(String fileName) throws Exception {
-		createEmptyFile(fileName);
 		ConfigurationFileName = fileName;
+		
+		createEmptyFile(ConfigurationFileName);
 		Log.inStream = new FileInputStream(ConfigurationFileName);
 		prop.load(inStream);
 		
-		logFileName = prop.getProperty("nombreLogFile", "log.txt");
+		logFileName = prop.getProperty("logFileName", "log.txt");
 		createEmptyFile(logFileName);
-		propertiesLoggersFileName = prop.getProperty("nombrePropertiesLoggers", "loggersProperties.txt");
+		propertiesLoggersFileName = prop.getProperty("propertiesLoggersFileName", "loggersProperties.txt");
 		createEmptyFile(propertiesLoggersFileName);
-		// FIXME pasar a una forma mas linda, esta llamada no deveria estar aca
-		OutputBuilder.setOutputFileName(logFileName);
 		
+		// FIXME pasar a una forma mas linda, esta llamada no deveria estar aca
+		// me gustaria que Log no conociera a OutputBuilder
+		OutputBuilder.setOutputFileName(logFileName);
 		loggers = LoggerBuilder.generateLoggers(propertiesLoggersFileName);
 	}
 	
 	static protected void saveConfiguration() throws IOException{
 		FileOutputStream fileOut = new FileOutputStream(ConfigurationFileName);
 		prop.store(fileOut, "no comment");
+		
 		
 	}
 
