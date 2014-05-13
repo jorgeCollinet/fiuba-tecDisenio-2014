@@ -1,5 +1,9 @@
 package ar.fiuba.tecnicas.test;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import ar.fiuba.tecnicas.logging.*;
 
 public class OutputTester implements IOutput {
@@ -18,5 +22,14 @@ public class OutputTester implements IOutput {
 	public String getMessage() {
 		return buffer;
 	}
+	
+	@Test
+    public void outputTesterTest() {
+        OutputTester outputTester = new OutputTester();
+        String message = "testMessage";
+        
+        outputTester.out(message);   
+		assertEquals(message, outputTester.getMessage());
+    }
 
 }

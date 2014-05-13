@@ -12,11 +12,9 @@ public class LoggerTest {
 
 	@Test
 	public void log() {
-		String message = "PRUEBA";
-		String formato="";
-		String separador=",";
-		Formato format = new Formato(formato, separador);
-		Logger logger = new Logger(Niveles.debbug, outTester, format);
+		String message = "TEXTO PRUEBA";
+		Formato formato = new Formato("%m", null);
+		Logger logger = new Logger(Niveles.debbug, outTester, formato);
 		
 		logger.logear(Niveles.error, message);
 		assertEquals(message, outTester.getMessage());
