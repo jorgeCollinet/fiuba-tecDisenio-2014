@@ -12,7 +12,7 @@ import java.util.Properties;
  * @author Grupo3
  */
 public class Log {
-	protected static ArrayList<Logger> loggers;
+	protected static ArrayList<Logger> loggers = new ArrayList<Logger>();
 	protected static InputStream inStream;
 	protected static Properties prop = new Properties();
 	protected static String ConfigurationFileName;
@@ -44,11 +44,6 @@ public class Log {
 		createEmptyFile(logFileName);
 	
 		loggers = LoggerBuilder.generateLoggers(prop);
-	}
-	
-	public static void saveConfiguration() throws IOException{
-		FileOutputStream fileOut = new FileOutputStream(ConfigurationFileName);
-		prop.store(fileOut, "no comment");
 	}
 
 	/**

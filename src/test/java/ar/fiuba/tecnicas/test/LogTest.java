@@ -16,7 +16,6 @@ public class LogTest {
 	@Test
 	public void testLoadConfiguration() throws Exception{
 		Log.loadConfiguration("propertiesLog.txt");
-		Log.saveConfiguration();
 		
 		//TODO: Este test esta fallando cuando se hace el container.addOutput(new OutputConsole()); dentro de OutputBuilder
 		ArrayList<Logger> loggers = Log.getLoggers();

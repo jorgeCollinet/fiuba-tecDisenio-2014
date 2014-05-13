@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Clase encargada de agrupar distintos outputs
  */
 public class OutputContainer implements IOutput {
-	public ArrayList<IOutput> outputs;
+	public ArrayList<IOutput> outputs = new ArrayList<IOutput>();
 	/**
 	 * 
 	 */

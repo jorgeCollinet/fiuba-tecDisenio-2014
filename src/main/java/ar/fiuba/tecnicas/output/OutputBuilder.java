@@ -3,7 +3,7 @@ package ar.fiuba.tecnicas.output;
 
 public class OutputBuilder {
 
-	protected static String fileName;
+	protected static String  fileName;
 
 	protected OutputBuilder() {
 	}
@@ -21,10 +21,12 @@ public class OutputBuilder {
 			throws Exception {
 
 		OutputContainer container = new OutputContainer();
+		OutputConsole consola = new OutputConsole();
+		container.addOutput(consola);
 		String[] list = outputStringValues.split(",");
 		for (String item : list) {
 			if (item.contains(OutputType.console.toString())) {
-				container.addOutput(new OutputConsole());
+				container.addOutput(consola);
 			} else if (item.contains(OutputType.file.toString())) {
 				String[] tuplaFileNombreDeArchivo = item.split(":");
 				container.addOutput(new OutputFile(tuplaFileNombreDeArchivo[1]));
