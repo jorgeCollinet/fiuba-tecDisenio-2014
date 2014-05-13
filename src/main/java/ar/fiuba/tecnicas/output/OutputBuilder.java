@@ -1,6 +1,5 @@
 package ar.fiuba.tecnicas.output;
 
-import java.util.Properties;
 
 public class OutputBuilder {
 
@@ -10,29 +9,32 @@ public class OutputBuilder {
 	}
 
 	/**
+	 * A partir de un string con un determinado formato genera los distintos
+	 * tipos de outputs, dependiendo de cada output puede tener un valor
+	 * asociado, ej: nombre de archivo
 	 * 
 	 * @param outputType
 	 * @return
 	 * @throws Exception
 	 */
-	public static IOutput generateOutput(String outputStringValues,Properties prop)
+	public static IOutput generateOutput(String outputStringValues)
 			throws Exception {
-		fileName = prop.getProperty("logFileName", "log.txt");
-		boolean exito = false;
-		OutputContainer container = new OutputContainer();
-		if (outputStringValues.contains(OutputType.console.toString())) {
-			container.addOutput(new OutputConsole());
-			exito = true;
 
-		}
-		if (outputStringValues.contains(OutputType.file.toString())) {
-			container.addOutput(new OutputFile(fileName));
-			exito = true;
-		}
-		if (exito == false) {
-			throw new Exception(
-					"Output que intenta generar no pertenece a ningun tipo conocido, valor ingresado: "
-							+ outputStringValues);
+		OutputContainer container = new OutputContainer();
+		String[] list = outputStringValues.split(",");
+		for (String item : list) {
+			if (item.contains(OutputType.console.toString())) {
+				container.addOutput(new OutputConsole());
+			} else if (item.contains(OutputType.file.toString())) {
+				String[] tuplaFileNombreDeArchivo = item.split(":");
+				container.addOutput(new OutputFile(tuplaFileNombreDeArchivo[1]));
+			} else {
+				throw new Exception(
+						"Output que intenta generar no pertenece a ningun tipo conocido, string ingresado: "
+								+ outputStringValues
+								+ "\nelemento que no pertenece a ningún tipo: "
+								+ item + "\n");
+			}
 		}
 		return container;
 	}

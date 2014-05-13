@@ -22,7 +22,7 @@ public class LoggerBuilder {
 		for (Niveles nivel : Niveles.values()) {
 			if (prop.containsKey(nivel)) {
 				String datosDeNivel = prop.getProperty(nivel.toString());
-				IOutput out = OutputBuilder.generateOutput(datosDeNivel, prop);
+				IOutput out = OutputBuilder.generateOutput(datosDeNivel);
 				Formato format = new Formato(patron, separador);
 				Logger logger = new Logger(nivel, out,format);
 				loggers.add(logger);
