@@ -1,5 +1,6 @@
 package ar.fiuba.tecnicas.logging;
 import ar.fiuba.tecnicas.formato.Formato;
+import ar.fiuba.tecnicas.output.IOutput;
 
 /**
  * @author Grupo3

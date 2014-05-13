@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import ar.fiuba.tecnicas.formato.Formato;
+import ar.fiuba.tecnicas.output.IOutput;
+import ar.fiuba.tecnicas.output.OutputBuilder;
 
 public class LoggerBuilder {
 

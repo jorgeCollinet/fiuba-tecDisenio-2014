@@ -1,4 +1,4 @@
-package ar.fiuba.tecnicas.logging;
+package ar.fiuba.tecnicas.output;
 
 import java.io.BufferedWriter;
 import java.io.File;
