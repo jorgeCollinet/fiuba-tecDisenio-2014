@@ -1,8 +1,6 @@
 package ar.fiuba.tecnicas.formato;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import ar.fiuba.tecnicas.logging.Niveles;
 
 /**
