@@ -9,7 +9,7 @@ import org.junit.Test;
 import ar.fiuba.tecnicas.logging.Log;
 import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.Niveles;
-import ar.fiuba.tecnicas.logging.OutputConsole;
+import ar.fiuba.tecnicas.output.OutputConsole;
 
 public class LogTest {
 
