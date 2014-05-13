@@ -29,7 +29,7 @@ public class OutputBuilder {
 			container.addOutput(new OutputFile(fileName));
 			exito = true;
 		}
-		if (exito = false) {
+		if (exito == false) {
 			throw new Exception(
 					"Output que intenta generar no pertenece a ningun tipo conocido, valor ingresado: "
 							+ outputStringValues);

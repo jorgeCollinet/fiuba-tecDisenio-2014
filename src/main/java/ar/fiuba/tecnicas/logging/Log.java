@@ -56,9 +56,9 @@ public class Log {
 	 * @param nivel
 	 * @param message
 	 */
-	static void log(Enum<Niveles> nivel, String message) {
+	static void log(Niveles nivel, String message) {
 		for (Logger logger : loggers) {
-			logger.logear(message);
+			logger.logear(nivel, message);
 		}
 
 	}

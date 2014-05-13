@@ -1,10 +1,11 @@
 
 Este sería el formato de el archivo propertiesLog
-nombreLogFile log.txt
-nombrePropertiesLoggers loggersProperties.txt
+separador = 
+formato = 
 NIVEL = TIPO DE SALIDA
 		Ejemplos:
 		info = console
 		warning = console,file
-		error = file
+		error = file:log1.txt,file:log2.txt split()
 		fatal = file,console
+		

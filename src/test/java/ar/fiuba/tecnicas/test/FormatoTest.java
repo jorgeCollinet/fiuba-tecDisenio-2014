@@ -71,8 +71,8 @@ public class FormatoTest
     {
     	Formato formato = new Formato("%%", null);
         assertEquals("%",formato.darFormato(null,null));
-        formato.setFormato("%%%", null);
-        assertEquals("%%",formato.darFormato(null,null));
+        formato.setFormato("%%F%", null);
+        assertEquals("%F%",formato.darFormato(null,null));
         formato.setFormato("%%%%", null);
         assertEquals("%%",formato.darFormato(null,null));
     }
