@@ -27,10 +27,13 @@ public class Logger {
 	}
 
 	public void logear(Niveles nivel, String message) {
-		// TODO aca va logica de seleccion de nivel
-		
-		// TODO aca va logica de parseo
-		message = formato.darFormato(message, nivel);
-		out.out(message);
+		if(this.nivel.compareTo(nivel) <= 0){
+			message = formato.darFormato(message, this.nivel);
+			out.out(message);
+		}
+	}
+	
+	public Niveles getNivel(){
+		return this.nivel;
 	}
 }

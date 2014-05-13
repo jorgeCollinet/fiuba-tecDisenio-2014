@@ -62,4 +62,8 @@ public class Log {
 		}
 
 	}
+	
+	public static ArrayList<Logger> getLoggers(){
+		return loggers;
+	}
 }
