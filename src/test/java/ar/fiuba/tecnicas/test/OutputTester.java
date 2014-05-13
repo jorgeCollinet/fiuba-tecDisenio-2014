@@ -4,7 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.*;
+
+import ar.fiuba.tecnicas.output.IOutput;
 
 public class OutputTester implements IOutput {
 
