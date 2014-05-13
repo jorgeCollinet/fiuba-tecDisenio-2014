@@ -15,7 +15,7 @@ public class FormatoTest
     {
 		// Nota: Test peculiar, su correcta ejecucion depende del numero de linea
 		// Por favor no mover a otro lugar en este archivo, o inventar algo mejor
-		Formato formato = new Formato("%L", null);
+		Formato formato = new Formato("%L");
         assertEquals("19",formato.darFormato(null,null));
     }
 	
@@ -24,7 +24,7 @@ public class FormatoTest
     {
 		// Nota: Test peculiar, su correcta ejecucion depende del numero de linea
 		// Por favor no mover a otro lugar en este archivo, o inventar algo mejor
-		Formato formato = new Formato("%F", null);
+		Formato formato = new Formato("%F");
         assertEquals("FormatoTest.java",formato.darFormato(null,null));
     }
 	
@@ -33,21 +33,21 @@ public class FormatoTest
     {
 		// Nota: Test peculiar, su correcta ejecucion depende del numero de linea
 		// Por favor no mover a otro lugar en este archivo, o inventar algo mejor
-		Formato formato = new Formato("%M", null);
+		Formato formato = new Formato("%M");
         assertEquals("testFormatoMetodo",formato.darFormato(null,null));
     }
 	
 	@Test
     public void testFormatoTexto() 
     {
-    	Formato formato = new Formato("Texto cualquiera.", null);
+    	Formato formato = new Formato("Texto cualquiera.");
         assertEquals("Texto cualquiera.",formato.darFormato(null,null));
     }
 	
 	@Test
     public void testFormatoNivel() 
     {
-        Formato formato = new Formato("%p", null);
+        Formato formato = new Formato("%p");
         assertEquals("info",formato.darFormato(null,Niveles.info));
         assertEquals("warning",formato.darFormato(null,Niveles.warning));
     }
@@ -55,33 +55,33 @@ public class FormatoTest
 	@Test
     public void testFormatoThread() 
     {
-    	Formato formato = new Formato("%t", null);
+    	Formato formato = new Formato("%t");
         assertEquals(Thread.currentThread().getName(),formato.darFormato(null,null));
     }
 	
 	@Test
     public void testFormatoMensaje() 
     {
-    	Formato formato = new Formato("%m", null);
+    	Formato formato = new Formato("%m");
         assertEquals("Un mensaje.",formato.darFormato("Un mensaje.",null));
     }
 	
 	@Test
     public void testFormatoEscape() 
     {
-    	Formato formato = new Formato("%%", null);
+    	Formato formato = new Formato("%%");
         assertEquals("%",formato.darFormato(null,null));
-        formato.setFormato("%%F%", null);
+        formato.setFormato("%%F%");
         assertEquals("%F%",formato.darFormato(null,null));
-        formato.setFormato("%%%%", null);
+        formato.setFormato("%%%%");
         assertEquals("%%",formato.darFormato(null,null));
     }
 	
 	@Test
     public void testFormatoSeparador() 
     {
-		Formato formato = new Formato("%n", "-");
-        assertEquals("-",formato.darFormato(null,null));
+		Formato formato = new Formato("%n");
+        assertEquals(Formato.separadorDefault,formato.darFormato(null,null));
         formato.setFormato("%n", "@");
         assertEquals("@",formato.darFormato(null,null));
     }
@@ -89,7 +89,7 @@ public class FormatoTest
 	@Test
     public void testFormatoFecha() 
     {
-		Formato formato = new Formato("%d{yyyy/MM/dd HH:mm:ss}", null);
+		Formato formato = new Formato("%d{yyyy/MM/dd HH:mm:ss}");
         assertEquals(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
         		.format(new Date()),formato.darFormato(null,null));
     }
@@ -97,9 +97,9 @@ public class FormatoTest
 	@Test
     public void testFormatoCompuesto() 
     {
-		Formato formato = new Formato("[%d{HH:mm:ss}] %n [%p] %n [%M] %n [%m]", "-");
+		Formato formato = new Formato("[%d{HH:mm:ss}] %n [%p] %n [%M] %n [%m]", "_");
 		assertEquals("["+new SimpleDateFormat("HH:mm:ss").format(new Date())+
-        		"] - [fatal] - [testFormatoCompuesto] - [Fallo algo.]",
+        		"] _ [fatal] _ [testFormatoCompuesto] _ [Fallo algo.]",
         		formato.darFormato("Fallo algo.",Niveles.fatal));        
     }
 	   

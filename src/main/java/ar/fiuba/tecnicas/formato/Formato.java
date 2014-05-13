@@ -12,14 +12,19 @@ import ar.fiuba.tecnicas.logging.Niveles;
  */
 public class Formato
 {
-	private String separador = "-";
-	private LinkedList<ISubformato> subformatos;
 	private static Pattern posiblesPatrones = Pattern.compile("(%[ptmnLFM%])|(%d\\{[^\\}]*\\})");
+	public static final String petronDefault = "%m";
+	public static final String separadorDefault = "-";
+	
+	private String separador = separadorDefault;
+	private LinkedList<ISubformato> subformatos;
+	
 	
 	/**
-	 * Crea un nuevo formato con el patrón asignador
-	 * Ver setFormato para la sintaxis soportada
+	 * Crea un nuevo formato con el patrón y separador asignados
+	 * Ver setFormato(String, String) para la sintaxis soportada
 	 * @param patron	String con el patrón
+	 * @param separador Separador a utilizar
 	 */
 	public Formato(String patron, String separador) 
 	{
@@ -27,19 +32,54 @@ public class Formato
 	}
 	
 	/**
+	 * Crea un nuevo formato con el patrón asignado y separador default
+	 * Ver setFormato(String, String) para la sintaxis soportada
+	 * @param patron	String con el patrón
+	 */
+	public Formato(String patron) 
+	{
+		setFormato(patron, null);
+	}
+	
+	/**
+	 * Dado un string con el formato deseado, crea los objetos internos del formato
+	 * Utiliza el separador por defecto
+	 * Ver setFormato(String, String) para la sintaxis soportada
+	 * @param patron	String con los patrones
+	 */
+	public void setFormato(String patron) 
+	{
+		setFormato(patron, null);
+	}
+	
+	/**
 	 * Dado un string con el formato deseado, crea los objetos internos del formato
 	 * @param patron	String con los patrones
+	 * @param separador	Separador a utilizar
+	 * Sintaxis soportada en patron:
+	 * 	● %d{xxxxxxx} acepta cualquier formato válido de SimpleDateFormat.
+	 *	● %p muestra el Nivel del mensaje.
+	 *	● %t muestra el nombre del thread actual.
+	 *	● %m muestra el contenido del mensaje logueado por el usuario.
+	 *	● %% muestra un % (es el escape de %).
+	 * 	● %n muestra el separador
+	 *	● %L muestra el numero de linea desde donde se llamo a darFormato, ignorando paquetes internos
+	 *	● %F muestra el nombre de archivo desde donde se llamo a darFormato, ignorando paquetes internos
+	 *	● %M muestra el nombre del método desde donde se llamo a darFormato, ignorando paquetes internos
 	 */
 	public void setFormato(String patron, String separador) 
 	{
 		if (separador != null)
 			this.separador = separador;
+		if (patron == null)
+			patron = petronDefault;
 		subformatos = new LinkedList<ISubformato>();
 		// Parseo
 		Matcher matcher = posiblesPatrones.matcher(patron);
 		while (matcher.find())
 		{
 			int inicioMatch = matcher.start();
+			int finMatch = matcher.end();
 			if (inicioMatch != 0)
 			{
 				subformatos.add(new SubformatoTexto(patron.substring(0,inicioMatch)));
@@ -50,7 +90,7 @@ public class Formato
 				switch(patron.charAt(inicioMatch+1))
 				{
 					case 'd':
-						subformatos.add(new SubformatoFecha(patron.substring(matcher.start()+3, matcher.end()-1)));
+						subformatos.add(new SubformatoFecha(patron.substring(matcher.start()+3, finMatch-1)));
 						break;
 					case 'p':
 						subformatos.add(new SubformatoNivel());
@@ -77,7 +117,7 @@ public class Formato
 						subformatos.add(new SubformatoNombreMetodo());
 						break;
 				}
-				patron = patron.substring(matcher.end());
+				patron = patron.substring(finMatch);
 			}
 			matcher.reset(patron);
 		}

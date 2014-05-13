@@ -12,17 +12,17 @@ public class ParametrosSubformato
 	private Niveles nivel;
 	private String separador;
 	private Thread thread;
-	private int numeroLinea;
+	private String numeroLinea;
 	private String nombreMetodo;
 	private String nombreArchivo;
 	private boolean procesoStack = false;
 	
 	/**
 	 * Constructor
-	 * @param mensaje	Mensaje
-	 * @param nivel		Nivel del mensaje
-	 * @param separador	Separador de campos
-	 * @param thread	Thread
+	 * @param mensaje	Mensaje				Mensaje a logear
+	 * @param nivel		Nivel del mensaje	Nivel del mensaje
+	 * @param separador	Separador 			Separador de campos
+	 * @param thread	Thread				Thread desde el cual se llama
 	 */
 	public ParametrosSubformato(String mensaje, Niveles nivel, String separador, Thread thread)
 	{
@@ -69,32 +69,45 @@ public class ParametrosSubformato
 	public String getNumeroLinea()
 	{
 		if (!procesoStack) obtenerDatosStack(thread);
-		return ""+numeroLinea;
+		return numeroLinea;
 	}
 
 	
 	/**
-	 * Dado un thread, obtiene de su stack información tras
-	 * descartar las relacionadas al paquete de login
+	 * Dado un thread, obtiene la información de su stack tras descartar las
+	 * relacionadas al paquete de login y a paquetes de java/junit/etc
 	 * @param thread	Thread a analizar
 	 */
 	private void obtenerDatosStack(Thread thread)
 	{
 		StackTraceElement[] stack = thread.getStackTrace();
 		int i = 0;
-		while (contienePaquetesTriviales(stack[i]))
+		while (i < stack.length && contienePaquetesTriviales(stack[i]))
 		{
 			++i;
 		}
-		numeroLinea = stack[i].getLineNumber();
-		nombreArchivo = stack[i].getFileName();
-		nombreMetodo = stack[i].getMethodName();
+		if (i >= stack.length)
+		{
+			numeroLinea = nombreArchivo = nombreMetodo = "Error al parsear stacktrace";
+		}
+		else
+		{
+			numeroLinea = ""+stack[i].getLineNumber();
+			nombreArchivo = stack[i].getFileName();
+			nombreMetodo = stack[i].getMethodName();
+		}
 		procesoStack = true;
 	}
+	
 	
 	private static Pattern paquetesTriviales = Pattern.compile("(java.*)|" +
 			"(ar.fiuba.tecnicas.formato.*)|(ar.fiuba.tecnicas.logging.*)|" +
 			"(sun.*)|(org.junit.*)");
+	/**
+	 * Avisa si un elemento del stack pertenece a paquetes de java/sun/junit/logging
+	 * @param elemento	Elemento del stack
+	 * @return			True si el paquete de ese elemento del stack pertenece a los nombrados
+	 */
 	private boolean contienePaquetesTriviales(StackTraceElement elemento)
 	{
 		String clase = elemento.getClassName();
