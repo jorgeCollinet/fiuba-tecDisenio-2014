@@ -9,6 +9,7 @@ import org.junit.Test;
 import ar.fiuba.tecnicas.logging.Log;
 import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.Niveles;
+import ar.fiuba.tecnicas.logging.OutputConsole;
 
 public class LogTest {
 
@@ -17,12 +18,14 @@ public class LogTest {
 		Log.loadConfiguration("propertiesLog.txt");
 		Log.saveConfiguration();
 		
+		//TODO: Este test esta fallando cuando se hace el container.addOutput(new OutputConsole()); dentro de OutputBuilder
 		ArrayList<Logger> loggers = Log.getLoggers();
-		for (Logger logger : loggers) {
+		assertEquals(1, loggers.size());
+		
+		/*for (Logger logger : loggers) {
 			Niveles nivel = logger.getNivel();
-			
-		}
-		assertEquals(true,true);
+			assertEquals(nivel,NivelInfo);
+		}*/
 	}
 
 }
