@@ -11,7 +11,7 @@ public class LoggerTest {
 	
 
 	@Test
-	public void logearDebbug() {
+	public void testLogearDebbug() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.debbug, outTester, formato);
@@ -21,7 +21,7 @@ public class LoggerTest {
 	}
 	
 	@Test
-	public void logearNivelMensajeInfoNivelLoggerDebbug() {
+	public void testLogearNivelMensajeInfoNivelLoggerDebbug() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.debbug, outTester, formato);
@@ -31,7 +31,7 @@ public class LoggerTest {
 	}
 	
 	@Test
-	public void logearNivelMensajeFatalNivelLoggerWarning() {
+	public void testLogearNivelMensajeFatalNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.warning, outTester, formato);
@@ -41,7 +41,7 @@ public class LoggerTest {
 	}
 	
 	@Test
-	public void logearNivelMensajeWarningNivelLoggerWarning() {
+	public void testLogearNivelMensajeWarningNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.warning, outTester, formato);
@@ -51,7 +51,7 @@ public class LoggerTest {
 	}
 	
 	@Test
-	public void noLogearNivelMensajeErrorNivelLoggerFatal() {
+	public void testNoLogearNivelMensajeErrorNivelLoggerFatal() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.fatal, outTester, formato);
@@ -62,7 +62,7 @@ public class LoggerTest {
 	}
 	
 	@Test
-	public void noLogearNivelMensajeDebugNivelLoggerWarning() {
+	public void testNoLogearNivelMensajeDebugNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.warning, outTester, formato);

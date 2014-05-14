@@ -32,7 +32,7 @@ public class Log {
 	 * @param nivel
 	 * @param message
 	 */
-	static void log(Niveles nivel, String message) {
+	public static void log(Niveles nivel, String message) {
 		for (Logger logger : loggers) {
 			logger.logear(nivel, message);
 		}

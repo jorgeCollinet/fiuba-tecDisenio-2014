@@ -2,9 +2,15 @@ package ar.fiuba.tecnicas.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -47,5 +53,51 @@ public class LogTest {
 		IOutput outputFileWarning = outputsWarning.get(1);
 		assertTrue(outputFileWarning instanceof OutputFile);
 	}
+	
+	@Test
+	public void testLogear() throws Exception {
+		Properties prop = new Properties();
+		prop.load(new FileInputStream(new File("propertiesLog.txt")));
+		Log.loadConfiguration(prop);
+		
+		String messageFatal = "mensaje fatal";
+		Log.log(Niveles.fatal, messageFatal);
+		
+		BufferedReader file = new BufferedReader(new FileReader("log1.txt"));
+	    try {
+	    	String sCurrentLine;
+	        String lastLine = "";
 
+	        while ((sCurrentLine = file.readLine()) != null){
+	            lastLine = sCurrentLine;
+	        }
+
+	        assertEquals(messageFatal, lastLine);
+	    } finally {
+	        file.close();
+	    }
+	}
+	
+	@Test
+	public void testNoLogear() throws Exception {
+		Properties prop = new Properties();
+		prop.load(new FileInputStream(new File("propertiesLog.txt")));
+		Log.loadConfiguration(prop);
+		
+		String messageDebbug = "mensaje debbug";
+		Log.log(Niveles.debbug, messageDebbug);
+		
+		BufferedReader file = new BufferedReader(new FileReader("log1.txt"));
+	    try {
+	    	String sCurrentLine;
+	        String lastLine = "";
+
+	        while ((sCurrentLine = file.readLine()) != null){
+	            lastLine = sCurrentLine;
+	        }
+	    	assertNotEquals(messageDebbug, lastLine);
+	    } finally {
+	        file.close();
+	    }
+	}
 }
