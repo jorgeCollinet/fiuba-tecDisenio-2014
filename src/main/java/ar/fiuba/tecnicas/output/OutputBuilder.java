@@ -22,7 +22,6 @@ public class OutputBuilder {
 
 		OutputContainer container = new OutputContainer();
 		OutputConsole consola = new OutputConsole();
-		container.addOutput(consola);
 		String[] list = outputStringValues.split(",");
 		for (String item : list) {
 			if (item.contains(OutputType.console.toString())) {
