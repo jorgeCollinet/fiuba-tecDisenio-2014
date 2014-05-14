@@ -7,7 +7,7 @@ import ar.fiuba.tecnicas.logging.*;
 import static org.junit.Assert.assertEquals;
 
 public class LoggerTest {
-	private OutputTester outTester = new OutputTester();
+	private OutputTest outTester = new OutputTest();
 	
 
 	@Test

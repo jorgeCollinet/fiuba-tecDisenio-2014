@@ -12,11 +12,11 @@ import ar.fiuba.tecnicas.output.OutputConsole;
 import ar.fiuba.tecnicas.output.OutputContainer;
 import ar.fiuba.tecnicas.output.OutputFile;
 
-public class OutputTester implements IOutput {
+public class OutputTest implements IOutput {
 
 	protected String buffer;
 
-	public OutputTester() {
+	public OutputTest() {
 		buffer = "";
 	}
 
