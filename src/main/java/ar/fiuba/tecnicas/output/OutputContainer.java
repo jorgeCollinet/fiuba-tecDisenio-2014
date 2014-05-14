@@ -29,5 +29,9 @@ public class OutputContainer implements IOutput {
 	public void deleteOutput(IOutput output) {
 		outputs.remove(output);
 	}
+	
+	public ArrayList<IOutput> getOutputs(){
+		return this.outputs;
+	}
 
 }

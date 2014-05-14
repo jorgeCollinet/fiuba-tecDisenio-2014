@@ -1,6 +1,7 @@
 package ar.fiuba.tecnicas.logging;
 import ar.fiuba.tecnicas.formato.Formato;
 import ar.fiuba.tecnicas.output.IOutput;
+import ar.fiuba.tecnicas.output.OutputContainer;
 
 /**
  * @author Grupo3
@@ -36,5 +37,9 @@ public class Logger {
 	
 	public Niveles getNivel(){
 		return this.nivel;
+	}
+	
+	public IOutput getOutput(){
+		return this.out;
 	}
 }
