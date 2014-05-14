@@ -9,6 +9,6 @@ public class OutputConsole implements IOutput {
 	
 	@Override
 	public void out(String mensaje) {
-		System.out.print(mensaje);
+		System.out.print(mensaje + "\n");
 	}
 }

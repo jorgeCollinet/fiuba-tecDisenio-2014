@@ -2,10 +2,9 @@ package ar.fiuba.tecnicas.output;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.PrintWriter;
 
 /**
  * @author Grupo3
@@ -31,16 +30,11 @@ public class OutputFile implements IOutput {
 
 	@Override
 	public void out(String message) {
-		
-		// TODO ver nombre de log harcodeado
 		try {
-			createEmptyFileIfNecesary(message);
-			FileOutputStream is = new FileOutputStream(file);
-			OutputStreamWriter osw = new OutputStreamWriter(is);
-			Writer w = new BufferedWriter(osw);
-			w.write(message);
-			w.close();
-
+			createEmptyFileIfNecesary(fileName);
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+			out.println(message);
+			out.close();
 		} catch (IOException e) {
 			System.err.println("Problem writing to the file" + fileName + "\n");
 		}

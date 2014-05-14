@@ -60,7 +60,7 @@ public class LogTest {
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
 		Log.loadConfiguration(prop);
 		
-		String messageFatal = "mensaje fatal";
+		String messageFatal = "mensaje fatal 2";
 		Log.log(Niveles.fatal, messageFatal);
 		
 		BufferedReader file = new BufferedReader(new FileReader("log1.txt"));

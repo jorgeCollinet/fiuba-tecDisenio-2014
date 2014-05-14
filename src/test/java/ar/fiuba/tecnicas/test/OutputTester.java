@@ -37,9 +37,13 @@ public class OutputTester implements IOutput {
 		
 		BufferedReader file = new BufferedReader(new FileReader("testOutputFile.txt"));
 	    try {
-	        String line = file.readLine();
-	        line = line.replace("\"", "");
-	        assertEquals(message, line);
+	    	String sCurrentLine;
+	        String lastLine = "";
+
+	        while ((sCurrentLine = file.readLine()) != null){
+	            lastLine = sCurrentLine;
+	        }
+	        assertEquals(message, lastLine);
 	    } finally {
 	        file.close();
 	    }
@@ -58,14 +62,18 @@ public class OutputTester implements IOutput {
 		outputContainer.addOutput(new OutputFile("testOutputContainer.txt"));
 		outputContainer.addOutput(new OutputConsole());
 		
-		String message = "mensaje de pruebabababab";
+		String message = "mensaje de prueba";
 		outputContainer.out(message);
 		
 		BufferedReader file = new BufferedReader(new FileReader("testOutputContainer.txt"));
 	    try {
-	        String line = file.readLine();
-	        line = line.replace("\"", "");
-	        assertEquals(message, line);
+	    	String sCurrentLine;
+	        String lastLine = "";
+
+	        while ((sCurrentLine = file.readLine()) != null){
+	            lastLine = sCurrentLine;
+	        }
+	        assertEquals(message, lastLine);
 	    } finally {
 	        file.close();
 	    }
