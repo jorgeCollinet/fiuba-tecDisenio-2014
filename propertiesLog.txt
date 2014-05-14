@@ -1,0 +1,6 @@
+#no comment
+#Mon May 12 22:37:41 PDT 2014
+separador = - 
+formato = %m
+info = console
+warning = console,file:log1.txt
