@@ -57,15 +57,15 @@ public class Formato
 	 * @param patron	String con los patrones
 	 * @param separador	Separador a utilizar
 	 * Sintaxis soportada en patron:
-	 * 	● %d{xxxxxxx} acepta cualquier formato válido de SimpleDateFormat.
-	 *	● %p muestra el Nivel del mensaje.
-	 *	● %t muestra el nombre del thread actual.
-	 *	● %m muestra el contenido del mensaje logueado por el usuario.
-	 *	● %% muestra un % (es el escape de %).
-	 * 	● %n muestra el separador
-	 *	● %L muestra el numero de linea desde donde se llamo a darFormato, ignorando paquetes internos
-	 *	● %F muestra el nombre de archivo desde donde se llamo a darFormato, ignorando paquetes internos
-	 *	● %M muestra el nombre del método desde donde se llamo a darFormato, ignorando paquetes internos
+	 * 	%d{xxxxxxx} acepta cualquier formato valido de SimpleDateFormat.
+	 *	%p muestra el Nivel del mensaje.
+	 *	%t muestra el nombre del thread actual.
+	 *	%m muestra el contenido del mensaje logueado por el usuario.
+	 *	%% muestra un % (es el escape de %).
+	 * 	%n muestra el separador
+	 *	%L muestra el numero de linea desde donde se llamo a darFormato, ignorando paquetes internos
+	 *	%F muestra el nombre de archivo desde donde se llamo a darFormato, ignorando paquetes internos
+	 *	%M muestra el nombre del metodo desde donde se llamo a darFormato, ignorando paquetes internos
 	 */
 	public void setFormato(String patron, String separador) 
 	{

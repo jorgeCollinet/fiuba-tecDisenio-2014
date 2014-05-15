@@ -17,8 +17,8 @@ public class OutputBuilder {
 	 * tipos de outputs, dependiendo de cada output puede tener un valor
 	 * asociado, ej: nombre de archivo
 	 * 
-	 * @param outputType
-	 * @return
+	 * @param outputStringValues
+	 * @return IOutput
 	 * @throws Exception
 	 */
 	public static IOutput generateOutput(String outputStringValues)
