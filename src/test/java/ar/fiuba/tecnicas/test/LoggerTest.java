@@ -6,11 +6,19 @@ import ar.fiuba.tecnicas.formato.Formato;
 import ar.fiuba.tecnicas.logging.*;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Clase utilizada para testear el Logger
+ * @author Grupo3
+ *
+ */
 public class LoggerTest {
 	private OutputMock outputMock = new OutputMock();
 	
 
 	@Test
+	/**
+	 * Test utilizado para testear el logeo de un mensaje debbug en un loger de nivel debbug
+	 */
 	public void testLogearDebbug() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
@@ -21,6 +29,9 @@ public class LoggerTest {
 	}
 	
 	@Test
+	/**
+	 * Test utilizado para testear el logeo de un mensaje info en un loger de nivel debbug
+	 */
 	public void testLogearNivelMensajeInfoNivelLoggerDebbug() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
@@ -31,6 +42,9 @@ public class LoggerTest {
 	}
 	
 	@Test
+	/**
+	 * Test utilizado para testear el logeo de un mensaje fatal en un loger de nivel warning
+	 */
 	public void testLogearNivelMensajeFatalNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
@@ -41,6 +55,9 @@ public class LoggerTest {
 	}
 	
 	@Test
+	/**
+	 * Test utilizado para testear el logeo de un mensaje warning en un loger de nivel warning
+	 */
 	public void testLogearNivelMensajeWarningNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
@@ -51,6 +68,9 @@ public class LoggerTest {
 	}
 	
 	@Test
+	/**
+	 * Test utilizado para testear que no se logee de un mensaje error en un loger de nivel fatal
+	 */
 	public void testNoLogearNivelMensajeErrorNivelLoggerFatal() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
@@ -62,6 +82,9 @@ public class LoggerTest {
 	}
 	
 	@Test
+	/**
+	 * Test utilizado para testear que no se logee de un mensaje debbug en un loger de nivel warning
+	 */
 	public void testNoLogearNivelMensajeDebugNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
