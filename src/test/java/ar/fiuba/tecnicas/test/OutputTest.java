@@ -7,28 +7,11 @@ import java.io.FileReader;
 
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.output.IOutput;
 import ar.fiuba.tecnicas.output.OutputConsole;
 import ar.fiuba.tecnicas.output.OutputContainer;
 import ar.fiuba.tecnicas.output.OutputFile;
 
-public class OutputTest implements IOutput {
-
-	protected String buffer;
-
-	public OutputTest() {
-		buffer = "";
-	}
-
-	@Override
-	public void out(String mensaje) {
-		buffer = mensaje;
-	}
-
-	public String getMessage() {
-		return buffer;
-	}
-	
+public class OutputTest {	
 	@Test
 	public void testOutputFile() throws Exception {
 		OutputFile outputFile = new OutputFile("testOutputFile.txt");
