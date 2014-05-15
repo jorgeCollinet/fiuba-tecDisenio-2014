@@ -25,6 +25,38 @@ public class LogTest {
 
 	@Test
 	public void testLoadConfiguration() throws Exception {
+		Properties properties = new Properties();
+		properties.setProperty("separador", "-");
+		properties.setProperty("formato", "%m");
+		properties.setProperty("fatal", "console");
+		properties.setProperty("debbug", "console,file:log1.txt");
+		
+		Log.loadConfiguration(properties);
+
+		ArrayList<Logger> loggers = Log.getLoggers();
+		assertEquals(2, loggers.size());
+
+		Logger loggerDebbug = loggers.get(0);
+		assertEquals(loggerDebbug.getNivel(), Niveles.debbug);
+		OutputContainer outputContainerWarning = (OutputContainer) loggerDebbug.getOutput();
+		ArrayList<IOutput> outputsWarning = outputContainerWarning.getOutputs();
+		assertEquals(2, outputsWarning.size());
+		IOutput outputConsoleWarning = outputsWarning.get(0);
+		assertTrue(outputConsoleWarning instanceof OutputConsole);
+		IOutput outputFileWarning = outputsWarning.get(1);
+		assertTrue(outputFileWarning instanceof OutputFile);
+		
+		Logger loggerFatal = loggers.get(1);
+		assertEquals(loggerFatal.getNivel(), Niveles.fatal);
+		OutputContainer outputContainerInfo = (OutputContainer) loggerFatal.getOutput();
+		ArrayList<IOutput> outputsInfo = outputContainerInfo.getOutputs();
+		assertEquals(1, outputsInfo.size());
+		IOutput outputConsoleInfo = outputsInfo.get(0);
+		assertTrue(outputConsoleInfo instanceof OutputConsole);
+	}
+
+	@Test
+	public void testLoadConfigurationByFile() throws Exception {
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
 		Log.loadConfiguration(prop);
@@ -57,7 +89,7 @@ public class LogTest {
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
 		Log.loadConfiguration(prop);
 		
-		String messageFatal = "mensaje fatal 2";
+		String messageFatal = "mensaje fatal";
 		Log.log(Niveles.fatal, messageFatal);
 		
 		BufferedReader file = new BufferedReader(new FileReader("log1.txt"));
