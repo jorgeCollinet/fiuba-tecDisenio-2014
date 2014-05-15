@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -133,7 +134,15 @@ public class LogTest {
 		String messageDebbug = "mensaje debbug";
 		Log.log(Niveles.debbug, messageDebbug);
 		
-		BufferedReader file = new BufferedReader(new FileReader("log1.txt"));
+		BufferedReader file;
+		try
+		{
+			file= new BufferedReader(new FileReader("log1.txt"));
+		}
+		catch (FileNotFoundException e)
+		{
+			return; // No existe el archivo porque nunca se escribitio en él
+		}
 	    try {
 	    	String sCurrentLine;
 	        String lastLine = "";
