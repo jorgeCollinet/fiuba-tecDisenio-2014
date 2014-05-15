@@ -1,6 +1,10 @@
 package ar.fiuba.tecnicas.output;
 
-
+/**
+ * Clase encargada de construir los distintos OutPuts que implementan la interfaz IOutput
+ * @author Grupo3
+ *
+ */
 public class OutputBuilder {
 
 	protected static String  fileName;

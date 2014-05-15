@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 /**
+ * Clase encargada de recibir todos los mensajes de log y redistribuirlo a los distintos loggers
  * @author Grupo3
  */
 public class Log {

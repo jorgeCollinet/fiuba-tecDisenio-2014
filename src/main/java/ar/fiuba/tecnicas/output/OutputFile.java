@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
+ * Clase encargada de escribir en un archivo
  * @author Grupo3
  * 
  */

@@ -2,6 +2,7 @@ package ar.fiuba.tecnicas.output;
 
 
 /**
+ * Clase encargada de escribir en consola
  * @author Grupo3
  * 
  */

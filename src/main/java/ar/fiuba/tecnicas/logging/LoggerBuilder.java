@@ -6,7 +6,11 @@ import java.util.Properties;
 import ar.fiuba.tecnicas.formato.Formato;
 import ar.fiuba.tecnicas.output.IOutput;
 import ar.fiuba.tecnicas.output.OutputBuilder;
-
+/**
+ * Clase encargada de la construccion de los loggers a partir de una instancia de la clase Properties
+ * @author Grupo3
+ *
+ */
 public class LoggerBuilder {
 
 	protected LoggerBuilder() {
