@@ -12,13 +12,31 @@ import ar.fiuba.tecnicas.logging.Niveles;
  */
 public class Formato
 {
-	private static Pattern posiblesPatrones = Pattern.compile("(%[ptmnLFM%])|(%d\\{[^\\}]*\\})");
 	public static final String petronDefault = "%m";
 	public static final String separadorDefault = "-";
+	private static final LinkedList<TuplaMatchSubformato> subFormatos = getSubformatos();
 	
 	private String separador = separadorDefault;
-	private LinkedList<ISubformato> subformatos;
+	private LinkedList<Subformato> subformatos;
 	
+	/**
+	 * Crea las tuplas de Patron-Subformato para reemplazar
+	 * @return		Una lista con las tuplas
+	 */
+	private static LinkedList<TuplaMatchSubformato> getSubformatos()
+	{	
+		LinkedList<TuplaMatchSubformato> lista = new LinkedList<TuplaMatchSubformato>();
+		lista.push(new TuplaMatchSubformato("%%",SubformatoEscape.class));
+		lista.push(new TuplaMatchSubformato("%d\\{[^\\}]*\\}",SubformatoFecha.class));
+		lista.push(new TuplaMatchSubformato("%m",SubformatoMensaje.class));
+		lista.push(new TuplaMatchSubformato("%p",SubformatoNivel.class));
+		lista.push(new TuplaMatchSubformato("%F",SubformatoNombreArchivo.class));
+		lista.push(new TuplaMatchSubformato("%M",SubformatoNombreMetodo.class));
+		lista.push(new TuplaMatchSubformato("%t",SubformatoNombreThread.class));
+		lista.push(new TuplaMatchSubformato("%L",SubformatoNumeroLinea.class));
+		lista.push(new TuplaMatchSubformato("%n",SubformatoSeparador.class));
+		return lista;
+	}
 	
 	/**
 	 * Crea un nuevo formato con el patrón y separador asignados
@@ -73,56 +91,37 @@ public class Formato
 			this.separador = separador;
 		if (patron == null)
 			patron = petronDefault;
-		subformatos = new LinkedList<ISubformato>();
+		subformatos = new LinkedList<Subformato>();
 		// Parseo
-		Matcher matcher = posiblesPatrones.matcher(patron);
-		while (matcher.find())
+		while (patron.length() > 0)
 		{
-			int inicioMatch = matcher.start();
-			int finMatch = matcher.end();
-			if (inicioMatch != 0)
+			int inicioMatch = patron.length();
+			int finMatch = patron.length();
+			TuplaMatchSubformato match = null;
+			for (TuplaMatchSubformato tupla : subFormatos)
+			{
+				Matcher matcher = tupla.getMatcher(patron);
+				if (matcher.find())
+				{
+					if (matcher.start() < inicioMatch)
+					{
+						inicioMatch = matcher.start();
+						finMatch = matcher.end();
+						match = tupla;
+					}
+				}
+			}
+			if (inicioMatch != 0) // El patron no estaba al inicio o no quedan patrones
 			{
 				subformatos.add(new SubformatoTexto(patron.substring(0,inicioMatch)));
 				patron = patron.substring(inicioMatch);
 			}
-			else
+			else if (match != null) // Patron al inicio
 			{
-				switch(patron.charAt(inicioMatch+1))
-				{
-					case 'd':
-						subformatos.add(new SubformatoFecha(patron.substring(matcher.start()+3, finMatch-1)));
-						break;
-					case 'p':
-						subformatos.add(new SubformatoNivel());
-						break;
-					case 't':
-						subformatos.add(new SubformatoNombreThread());
-						break;
-					case 'm':
-						subformatos.add(new SubformatoMensaje());
-						break;
-					case '%':
-						subformatos.add(new SubformatoEscape());
-						break;
-					case 'n':
-						subformatos.add(new SubformatoSeparador());
-						break;
-					case 'L':
-						subformatos.add(new SubformatoNumeroLinea());
-						break;
-					case 'F':
-						subformatos.add(new SubformatoNombreArchivo());
-						break;
-					case 'M':
-						subformatos.add(new SubformatoNombreMetodo());
-						break;
-				}
+				subformatos.add(match.getNewSubformato(patron.substring(inicioMatch, finMatch)));
 				patron = patron.substring(finMatch);
 			}
-			matcher.reset(patron);
 		}
-		// Quedo algun texto suelto
-		if (patron.length() > 0) subformatos.add(new SubformatoTexto(patron));
 	}
 	
 	/**
@@ -136,7 +135,7 @@ public class Formato
 		ParametrosSubformato parametros = new ParametrosSubformato
 					(mensaje, nivel, separador, Thread.currentThread());
 		String resultado = new String();
-		for (ISubformato subformato : subformatos)
+		for (Subformato subformato : subformatos)
 		{
 			resultado += subformato.darFormato(parametros);
 		}

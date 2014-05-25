@@ -1,6 +1,6 @@
 package ar.fiuba.tecnicas.formato.subformato;
 
-import ar.fiuba.tecnicas.formato.ISubformato;
+import ar.fiuba.tecnicas.formato.Subformato;
 import ar.fiuba.tecnicas.formato.ParametrosSubformato;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,16 +8,15 @@ import java.util.Date;
 /**
  * Subformato que devuelve la fecha con un formato especificado
  */
-public class SubformatoFecha implements ISubformato
+public class SubformatoFecha extends Subformato
 {
 	private SimpleDateFormat formato;
-
-	/**
-	 * @param formato	Segun la especificacion de SimpleDateFormat
-	 */
-	public SubformatoFecha(String formato) 
+	
+	public SubformatoFecha(String match)
 	{
-		this.formato = new SimpleDateFormat(formato);
+		super(match);
+		String formato = match.substring(match.indexOf("{")+1,match.lastIndexOf("}"));
+		this.formato = new SimpleDateFormat(formato);	
 	}
 
 	@Override

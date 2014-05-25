@@ -1,21 +1,22 @@
 package ar.fiuba.tecnicas.formato.subformato;
 
-import ar.fiuba.tecnicas.formato.ISubformato;
+import ar.fiuba.tecnicas.formato.Subformato;
 import ar.fiuba.tecnicas.formato.ParametrosSubformato;
 
 /**
  * Subformato que devuelve un texto estático cualquiera
  */
-public class SubformatoTexto implements ISubformato 
+public class SubformatoTexto extends Subformato 
 {
 	private String texto;
 	
 	/**
 	 * @param texto		Texto estático que devuelve este subformato
 	 */
-	public SubformatoTexto(String texto) 
+	public SubformatoTexto(String match) 
 	{
-		this.texto = texto;
+		super(match);
+		this.texto = match;
 	}
 
 	@Override
