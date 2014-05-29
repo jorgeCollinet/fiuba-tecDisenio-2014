@@ -16,6 +16,9 @@ public class ParametrosSubformato
 	private String nombreMetodo;
 	private String nombreArchivo;
 	private boolean procesoStack = false;
+	private static Pattern paquetesTriviales = Pattern.compile("(java\\..*)|" +
+			"(ar\\.fiuba\\.tecnicas\\.formato.*)|(ar\\.fiuba\\.tecnicas\\.logging.*)|" +
+			"(sun\\..*)|(org\\.junit\\..*)");
 	
 	/**
 	 * Constructor
@@ -99,10 +102,6 @@ public class ParametrosSubformato
 		procesoStack = true;
 	}
 	
-	
-	private static Pattern paquetesTriviales = Pattern.compile("(java.*)|" +
-			"(ar.fiuba.tecnicas.formato.*)|(ar.fiuba.tecnicas.logging.*)|" +
-			"(sun.*)|(org.junit.*)");
 	/**
 	 * Avisa si un elemento del stack pertenece a paquetes de java/sun/junit/logging
 	 * @param elemento	Elemento del stack

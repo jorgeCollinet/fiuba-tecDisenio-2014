@@ -5,7 +5,8 @@ import java.util.regex.Matcher;
 import java.lang.invoke.*;
 
 /**
- * Una tupla que contiene un patrón aparejado con un método que devuelve un subformato
+ * Una tupla que contiene un patrón (expresion regular)aparejado con una
+ * referencia a función que devuelve un subformato (constructor)
  */
 public class TuplaMatchSubformato 
 {
@@ -28,7 +29,7 @@ public class TuplaMatchSubformato
 	}
 	
 	/**
-	 * Devuelve un Matcher para matchear el patron interno de la tupla
+	 * Devuelve un Matcher para matchear contra el patron interno de la tupla
 	 * @param input		Secuencia de caracteres donde buscar el patron
 	 * @return			El matcher
 	 */

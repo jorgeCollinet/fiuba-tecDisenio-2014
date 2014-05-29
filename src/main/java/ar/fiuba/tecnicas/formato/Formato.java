@@ -14,8 +14,8 @@ public class Formato
 {
 	public static final String petronDefault = "%m";
 	public static final String separadorDefault = "-";
-	private static final LinkedList<TuplaMatchSubformato> subFormatos = getSubformatos();
 	
+	private static final LinkedList<TuplaMatchSubformato> subFormatos = getSubformatos();
 	private String separador = separadorDefault;
 	private LinkedList<Subformato> subformatos;
 	
