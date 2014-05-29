@@ -18,9 +18,7 @@ public class LoggerBuilder {
 
 	public static ArrayList<Logger> generateLoggers(Properties prop) throws Exception {
 		ArrayList<Logger> loggers = new ArrayList<>();
-		// TODO ver que hacer con el patron default
 		String patron = prop.getProperty("formato",null);
-		// TODO cer que hacer con el separador default
 		String separador = prop.getProperty("separador",null);
 		
 		for (Niveles nivel : Niveles.values()) {

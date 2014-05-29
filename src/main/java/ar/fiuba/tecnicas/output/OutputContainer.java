@@ -12,7 +12,6 @@ public class OutputContainer implements IOutput {
 	 * 
 	 */
 	public OutputContainer() {
-		// TODO ver como levantar outputs
 	}
 
 	@Override
