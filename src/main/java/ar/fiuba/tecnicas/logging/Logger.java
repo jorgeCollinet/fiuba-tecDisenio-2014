@@ -23,7 +23,6 @@ public class Logger {
 	 * @param salida
 	 */
 	public Logger(Niveles nivel, IOutput salida, Formato format) {
-		// TODO terminar de implementar
 		this.nivel = nivel;
 		this.formato = format;
 		out = salida;
