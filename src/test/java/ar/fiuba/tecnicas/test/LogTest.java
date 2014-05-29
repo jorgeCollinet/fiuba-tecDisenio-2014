@@ -2,12 +2,9 @@ package ar.fiuba.tecnicas.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -103,10 +100,13 @@ public class LogTest {
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
 		Log.loadConfiguration(prop);
 		
+		File file = new File("log1.txt");
+		file.createNewFile();
 		String messageFatal = "mensaje fatal";
 		Log.log(Niveles.fatal, messageFatal);
 		
 		assertEquals(messageFatal, FileHelper.getLastMessageLogged("log1.txt"));
+		file.delete();
 	}
 	
 	@Test
@@ -118,20 +118,12 @@ public class LogTest {
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
 		Log.loadConfiguration(prop);
 		
+		File file = new File("log1.txt");
+		file.createNewFile();
 		String messageDebbug = "mensaje debbug";
 		Log.log(Niveles.debbug, messageDebbug);
 		
-		try
-		{
-			FileReader file = new FileReader("log1.txt");
-		}
-		catch (FileNotFoundException e)
-		{
-			//No existe el archivo porque nunca se escribio en él (este metodo no escribio - comportamiento esperado)
-			return;
-		}
-		
-		//Si el archivo de Log ya existia, revisamos que el ultimo mensaje sea distinto al que intentamos loguear
-		assertNotEquals(FileHelper.getLastMessageLogged("log1.txt"),messageDebbug);
+		assertTrue(file.length() == 0);
+		file.delete();
 	}
 }

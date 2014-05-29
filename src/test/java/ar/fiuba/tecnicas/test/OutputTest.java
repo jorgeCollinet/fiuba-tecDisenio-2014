@@ -2,6 +2,8 @@ package ar.fiuba.tecnicas.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.output.OutputConsole;
@@ -22,9 +24,12 @@ public class OutputTest {
 	public void outputFile() throws Exception {
 		OutputFile outputFile = new OutputFile("testOutputFile.txt");
 		String message = "mensaje de prueba";
-		outputFile.out(message);
 		
-		assertEquals(message, FileHelper.getLastMessageLogged("testOutputFile.txt"));		
+		File file = new File("testOutputFile.txt");
+		file.createNewFile();
+		outputFile.out(message);
+		assertEquals(message, FileHelper.getLastMessageLogged("testOutputFile.txt"));
+		file.delete();
 	}
 	
 	@Test
@@ -46,9 +51,11 @@ public class OutputTest {
 		outputContainer.addOutput(new OutputFile("testOutputContainer.txt"));
 		outputContainer.addOutput(new OutputConsole());
 		
+		File file = new File("testOutputContainer.txt");
+		file.createNewFile();
 		String message = "mensaje de prueba";
 		outputContainer.out(message);
-		
-		assertEquals(message, FileHelper.getLastMessageLogged("testOutputContainer.txt"));	
+		assertEquals(message, FileHelper.getLastMessageLogged("testOutputContainer.txt"));
+		file.delete();
 	}
 }
