@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotEquals;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -33,7 +32,7 @@ public class LogTest {
 	/**
 	 * Test encargado de testear la configuracion de Log
 	 */
-	public void testLoadConfiguration() throws Exception {
+	public void loadConfiguration() throws Exception {
 		Properties properties = new Properties();
 		properties.setProperty("separador", "-");
 		properties.setProperty("formato", "%m");
@@ -68,7 +67,7 @@ public class LogTest {
 	/**
 	 * Test encargado de testear la configuracion de Log cargandolo desde un archivo
 	 */
-	public void testLoadConfigurationByFile() throws Exception {
+	public void loadConfigurationByFile() throws Exception {
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
 		Log.loadConfiguration(prop);
@@ -99,7 +98,7 @@ public class LogTest {
 	/**
 	 * Test encargado de testear el logeo de un mensaje
 	 */
-	public void testLogear() throws Exception {
+	public void logear() throws Exception {
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
 		Log.loadConfiguration(prop);
@@ -107,26 +106,14 @@ public class LogTest {
 		String messageFatal = "mensaje fatal";
 		Log.log(Niveles.fatal, messageFatal);
 		
-		BufferedReader file = new BufferedReader(new FileReader("log1.txt"));
-	    try {
-	    	String sCurrentLine;
-	        String lastLine = "";
-
-	        while ((sCurrentLine = file.readLine()) != null){
-	            lastLine = sCurrentLine;
-	        }
-
-	        assertEquals(messageFatal, lastLine);
-	    } finally {
-	        file.close();
-	    }
+		assertEquals(messageFatal, FileHelper.getLastMessageLogged("log1.txt"));
 	}
 	
 	@Test
 	/**
 	 * Test encargado de testear que no se logee un mensaje
 	 */
-	public void testNoLogear() throws Exception {
+	public void noLogear() throws Exception {
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
 		Log.loadConfiguration(prop);
@@ -134,25 +121,17 @@ public class LogTest {
 		String messageDebbug = "mensaje debbug";
 		Log.log(Niveles.debbug, messageDebbug);
 		
-		BufferedReader file;
 		try
 		{
-			file= new BufferedReader(new FileReader("log1.txt"));
+			FileReader file = new FileReader("log1.txt");
 		}
 		catch (FileNotFoundException e)
 		{
-			return; // No existe el archivo porque nunca se escribitio en él
+			//No existe el archivo porque nunca se escribio en él (este metodo no escribio - comportamiento esperado)
+			return;
 		}
-	    try {
-	    	String sCurrentLine;
-	        String lastLine = "";
-
-	        while ((sCurrentLine = file.readLine()) != null){
-	            lastLine = sCurrentLine;
-	        }
-	    	assertNotEquals(messageDebbug, lastLine);
-	    } finally {
-	        file.close();
-	    }
+		
+		//Si el archivo de Log ya existia, revisamos que el ultimo mensaje sea distinto al que intentamos loguear
+		assertNotEquals(FileHelper.getLastMessageLogged("log1.txt"),messageDebbug);
 	}
 }

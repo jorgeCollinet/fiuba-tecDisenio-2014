@@ -2,9 +2,6 @@ package ar.fiuba.tecnicas.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.output.OutputConsole;
@@ -22,30 +19,19 @@ public class OutputTest {
 	/**
 	 * Test encargado de testear el metodo out para OutputFile
 	 */
-	public void testOutputFile() throws Exception {
+	public void outputFile() throws Exception {
 		OutputFile outputFile = new OutputFile("testOutputFile.txt");
 		String message = "mensaje de prueba";
 		outputFile.out(message);
 		
-		BufferedReader file = new BufferedReader(new FileReader("testOutputFile.txt"));
-	    try {
-	    	String sCurrentLine;
-	        String lastLine = "";
-
-	        while ((sCurrentLine = file.readLine()) != null){
-	            lastLine = sCurrentLine;
-	        }
-	        assertEquals(message, lastLine);
-	    } finally {
-	        file.close();
-	    }
+		assertEquals(message, FileHelper.getLastMessageLogged("testOutputFile.txt"));		
 	}
 	
 	@Test
 	/**
 	 * Test encargado de testear el metodo out para OutputConsole
 	 */
-	public void testOutputConsole() {
+	public void outputConsole() {
 		OutputConsole outputConsole = new OutputConsole();
 		String message = "mensaje de prueba";
 		outputConsole.out(message);		
@@ -55,7 +41,7 @@ public class OutputTest {
 	/**
 	 * Test encargado de testear el metodo out para OutputContainer
 	 */
-	public void testOutputContainer() throws Exception {
+	public void outputContainer() throws Exception {
 		OutputContainer outputContainer = new OutputContainer();
 		outputContainer.addOutput(new OutputFile("testOutputContainer.txt"));
 		outputContainer.addOutput(new OutputConsole());
@@ -63,17 +49,6 @@ public class OutputTest {
 		String message = "mensaje de prueba";
 		outputContainer.out(message);
 		
-		BufferedReader file = new BufferedReader(new FileReader("testOutputContainer.txt"));
-	    try {
-	    	String sCurrentLine;
-	        String lastLine = "";
-
-	        while ((sCurrentLine = file.readLine()) != null){
-	            lastLine = sCurrentLine;
-	        }
-	        assertEquals(message, lastLine);
-	    } finally {
-	        file.close();
-	    }
+		assertEquals(message, FileHelper.getLastMessageLogged("testOutputContainer.txt"));	
 	}
 }

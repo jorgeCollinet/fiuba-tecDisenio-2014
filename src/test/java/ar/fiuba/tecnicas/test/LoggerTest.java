@@ -19,7 +19,7 @@ public class LoggerTest {
 	/**
 	 * Test utilizado para testear el logeo de un mensaje debbug en un loger de nivel debbug
 	 */
-	public void testLogearDebbug() {
+	public void logearDebbug() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.debbug, outputMock, formato);
@@ -32,7 +32,7 @@ public class LoggerTest {
 	/**
 	 * Test utilizado para testear el logeo de un mensaje info en un loger de nivel debbug
 	 */
-	public void testLogearNivelMensajeInfoNivelLoggerDebbug() {
+	public void logearNivelMensajeInfoNivelLoggerDebbug() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.debbug, outputMock, formato);
@@ -45,7 +45,7 @@ public class LoggerTest {
 	/**
 	 * Test utilizado para testear el logeo de un mensaje fatal en un loger de nivel warning
 	 */
-	public void testLogearNivelMensajeFatalNivelLoggerWarning() {
+	public void logearNivelMensajeFatalNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.warning, outputMock, formato);
@@ -58,7 +58,7 @@ public class LoggerTest {
 	/**
 	 * Test utilizado para testear el logeo de un mensaje warning en un loger de nivel warning
 	 */
-	public void testLogearNivelMensajeWarningNivelLoggerWarning() {
+	public void logearNivelMensajeWarningNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.warning, outputMock, formato);
@@ -71,7 +71,7 @@ public class LoggerTest {
 	/**
 	 * Test utilizado para testear que no se logee de un mensaje error en un loger de nivel fatal
 	 */
-	public void testNoLogearNivelMensajeErrorNivelLoggerFatal() {
+	public void noLogearNivelMensajeErrorNivelLoggerFatal() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.fatal, outputMock, formato);
@@ -85,7 +85,7 @@ public class LoggerTest {
 	/**
 	 * Test utilizado para testear que no se logee de un mensaje debbug en un loger de nivel warning
 	 */
-	public void testNoLogearNivelMensajeDebugNivelLoggerWarning() {
+	public void noLogearNivelMensajeDebugNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.warning, outputMock, formato);
