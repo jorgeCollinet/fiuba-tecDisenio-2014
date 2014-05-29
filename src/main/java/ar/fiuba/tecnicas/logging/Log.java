@@ -38,7 +38,7 @@ public class Log {
 	 */
 	public static void loadConfigurationFromFile(String fileName) throws Exception {
 		Properties prop = new Properties();
-		prop.load(new FileInputStream(new File("propertiesLog.txt")));
+		prop.load(new FileInputStream(new File(fileName)));
 		Log.loadConfiguration(prop);
 	}
 	
