@@ -11,7 +11,7 @@ public class SubformatoTexto extends Subformato
 	private String texto;
 	
 	/**
-	 * @param texto		Texto estático que devuelve este subformato
+	 * @param match		Texto estático que devuelve este subformato
 	 */
 	public SubformatoTexto(String match) 
 	{
