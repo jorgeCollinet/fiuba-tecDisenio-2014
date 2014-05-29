@@ -18,17 +18,9 @@ import ar.fiuba.tecnicas.output.OutputConsole;
 import ar.fiuba.tecnicas.output.OutputContainer;
 import ar.fiuba.tecnicas.output.OutputFile;
 
-/**
- * Clase utilizada para testear el Log
- * @author Grupo3
- *
- */
 public class LogTest {
 
 	@Test
-	/**
-	 * Test encargado de testear la configuracion de Log
-	 */
 	public void loadConfiguration() throws Exception {
 		Properties properties = new Properties();
 		properties.setProperty("separador", "-");
@@ -61,9 +53,6 @@ public class LogTest {
 	}
 
 	@Test
-	/**
-	 * Test encargado de testear la configuracion de Log cargandolo desde un archivo
-	 */
 	public void loadConfigurationByFile() throws Exception {
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
@@ -92,9 +81,6 @@ public class LogTest {
 	}
 	
 	@Test
-	/**
-	 * Test encargado de testear el logeo de un mensaje
-	 */
 	public void logear() throws Exception {
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
@@ -110,9 +96,6 @@ public class LogTest {
 	}
 	
 	@Test
-	/**
-	 * Test encargado de testear que no se logee un mensaje
-	 */
 	public void noLogear() throws Exception {
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(new File("propertiesLog.txt")));
