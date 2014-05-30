@@ -3,12 +3,19 @@ package ar.fiuba.tenicas.slf4jadapter;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 
+import ar.fiuba.tecnicas.logging.Log;
+import ar.fiuba.tecnicas.logging.Niveles;
+
 public final class LoggerAdapter implements Logger
 {
+	String nombreLogger;
+	public LoggerAdapter(String arg0) {
+		nombreLogger=arg0;
+	}
 
 	@Override
 	public void debug(String arg0) {
-		// TODO Auto-generated method stub
+		Log.log(Niveles.info, arg0, nombreLogger);
 		
 	}
 
@@ -128,8 +135,7 @@ public final class LoggerAdapter implements Logger
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return nombreLogger;
 	}
 
 	@Override

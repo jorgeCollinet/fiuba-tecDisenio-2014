@@ -21,6 +21,15 @@ public class LoggerTest {
 	}
 	
 	@Test
+	public void logearNivelMensajeInfoNivelLoggerTrace() {
+		String message = "TEXTO PRUEBA";
+		Formato formato = new Formato("%m", null);
+		Logger logger = new Logger(Niveles.trace, outputMock, formato);
+		
+		logger.logear(Niveles.trace, message);
+		assertEquals(message, outputMock.getMessage());
+	}
+	@Test
 	public void logearNivelMensajeInfoNivelLoggerDebbug() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);

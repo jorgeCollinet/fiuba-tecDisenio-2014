@@ -11,6 +11,7 @@ import java.util.Properties;
  * @author Grupo3
  */
 public class Log {
+	
 	protected static ArrayList<Logger> loggers = new ArrayList<Logger>();
 	protected static InputStream inStream;
 	protected static Properties configuration;
@@ -48,8 +49,18 @@ public class Log {
 	 * @param message
 	 */
 	public static void log(Niveles nivel, String message) {
+		String nombreLogger = Logger.DEFAULT_NAME_LOGGER;
+		Log.log(nivel, message, nombreLogger);
+
+	}
+	/**
+	 * 
+	 * @param nivel
+	 * @param message
+	 */
+	public static void log(Niveles nivel, String message,String nombreLogger) {
 		for (Logger logger : loggers) {
-			logger.logear(nivel, message);
+			logger.logear(nivel, message, nombreLogger);
 		}
 
 	}
