@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import ar.fiuba.tecnicas.filter.*;
 import ar.fiuba.tecnicas.formato.Formato;
 import ar.fiuba.tecnicas.output.IOutput;
 import ar.fiuba.tecnicas.output.OutputBuilder;
@@ -33,6 +34,7 @@ public class LoggerBuilder {
 			//Logger logger = new Logger(nivel, out,format);
 			loggers.add(logger);
 		}*/
+				
 		for (Niveles nivel : Niveles.values()) {
 			if (prop.containsKey(nivel.name())) {
 				String datosDeNivel = prop.getProperty(nivel.toString());
@@ -42,6 +44,12 @@ public class LoggerBuilder {
 				loggers.add(logger);
 			}
 		}
+		
+		/*JORGE en el parseo deberias hacer algo asi
+		En datos filters le pasas toda la info (nivel, nombreLogger, regex, claseCustom) y adentro hay q parsearlo
+		Logger logger = new Logger(nivel, out,format);
+		logger.setFilters(FilterBuilder.genetareFilters(datosFilters))
+		*/
 
 		return loggers;
 	}

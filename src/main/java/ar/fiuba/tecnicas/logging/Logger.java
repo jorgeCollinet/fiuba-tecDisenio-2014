@@ -1,5 +1,8 @@
 package ar.fiuba.tecnicas.logging;
 
+import java.util.ArrayList;
+
+import ar.fiuba.tecnicas.filter.*;
 import ar.fiuba.tecnicas.formato.Formato;
 import ar.fiuba.tecnicas.output.IOutput;
 
@@ -18,6 +21,7 @@ public class Logger {
 	protected Formato formato;
 	protected String nombre;
 	protected static final String DEFAULT_NAME_LOGGER = "";
+	private ArrayList<IFilter> filters = new ArrayList<IFilter>();
 
 	/**
 	 * @param nivel
@@ -51,8 +55,15 @@ public class Logger {
 	}
 	
 	public void logear(Niveles nivel, String message, String nombreLogger) {
-		// TODO utilizar un array de filtros
-		if (this.nivel.compareTo(nivel) <= 0 && this.nombre == nombreLogger) {
+		boolean hasToLog = true;
+		FilterData filterData = new FilterData(nivel, nombreLogger, message);
+		for (IFilter filter : this.filters) {
+			if(!filter.hasToLog(filterData)){
+				hasToLog = false;
+			}
+		}
+		
+		if(hasToLog){
 			message = formato.darFormato(message, this.nivel);
 			out.out(message);
 		}
@@ -64,5 +75,13 @@ public class Logger {
 
 	public IOutput getOutput() {
 		return this.out;
+	}
+	
+	public void addFilter(IFilter filter){
+		this.filters.add(filter);
+	}
+	
+	public void setFilters(ArrayList<IFilter> filters){
+		this.filters = filters;
 	}
 }
