@@ -8,6 +8,8 @@ import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.Niveles;
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 public class LoggerTest {
 	private OutputMock outputMock = new OutputMock();
 	
@@ -21,10 +23,12 @@ public class LoggerTest {
 		FilterNombre filterNombre = new FilterNombre("logger1");
 		FilterNivel filterNivel = new FilterNivel(Niveles.debbug);
 		FilterRegex filterRegex = new FilterRegex("TEXTO.*");
+		FilterCustom filterCustom = new FilterCustom("ar.fiuba.tecnicas.filter.FilterCustomHorario");
 		
 		logger.addFilter(filterNombre);
 		logger.addFilter(filterNivel);
 		logger.addFilter(filterRegex);
+		logger.addFilter(filterCustom);
 		
 		logger.logear(Niveles.debbug, message, "logger1");
 		assertEquals(message, outputMock.getMessage());
