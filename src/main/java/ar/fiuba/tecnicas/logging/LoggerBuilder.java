@@ -22,26 +22,29 @@ public class LoggerBuilder {
 		ArrayList<Logger> loggers = new ArrayList<>();
 		String patron = prop.getProperty("formato",null);
 		String separador = prop.getProperty("separador",null);
-
-		// TODO implementar parceo para 2da entrega
-		/*Enumeration<?> enume = prop.propertyNames();
-		while (enume.hasMoreElements()){
-			String key = (String) enume.nextElement();
-			String datosDeEntrada = prop.getProperty(key);
-			IOutput out = OutputBuilder.generateOutput(datosDeEntrada);
-			Formato format = new Formato(patron, separador);
-			Logger logger = generateLogger(datosDeEntrada,out,format);
-			//Logger logger = new Logger(nivel, out,format);
-			loggers.add(logger);
-		}*/
 				
-		for (Niveles nivel : Niveles.values()) {
+		/*for (Niveles nivel : Niveles.values()) {
 			if (prop.containsKey(nivel.name())) {
 				String datosDeNivel = prop.getProperty(nivel.toString());
 				IOutput out = OutputBuilder.generateOutput(datosDeNivel);
 				Formato format = new Formato(patron, separador);
 				Logger logger = new Logger(nivel, out,format);
 				loggers.add(logger);
+			}
+		}*/
+		// TODO implementar nuevo parceamiento de cada clase
+		for (Niveles nivel : Niveles.values()) {
+			if (prop.containsKey(nivel.name())) {
+				String datosDeNivel = prop.getProperty(nivel.toString());
+				String[] listOfDataLoggers = datosDeNivel.split("\n");
+				for(String loggerData : listOfDataLoggers) {					
+					IOutput out = OutputBuilder.generateOutput(loggerData);
+					ArrayList<IFilter> filters = FilterBuilder.generateFilters(nivel, loggerData);
+					// posible formatBuilder ??
+					Formato format = new Formato(patron, separador);
+					Logger logger = new Logger(nivel, filters, out, format);
+					loggers.add(logger);
+				}
 			}
 		}
 		

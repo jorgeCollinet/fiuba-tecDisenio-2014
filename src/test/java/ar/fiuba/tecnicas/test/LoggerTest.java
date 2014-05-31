@@ -34,7 +34,7 @@ public class LoggerTest {
 		assertEquals(message, outputMock.getMessage());
 	}
 	
-	/*@Test
+	@Test
 	public void logearNivelMensajeInfoNivelLoggerTrace() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
@@ -81,7 +81,7 @@ public class LoggerTest {
 		
 		logger.logear(Niveles.error, message);
 		System.out.print(outputMock.getMessage());
-		assertEquals("", outputMock.getMessage());
+		assertEquals("TEXTO PRUEBA", outputMock.getMessage());
 	}
 	
 	@Test
@@ -91,6 +91,6 @@ public class LoggerTest {
 		Logger logger = new Logger(Niveles.warning, outputMock, formato);
 		
 		logger.logear(Niveles.debbug, message);
-		assertEquals("", outputMock.getMessage());
-	}*/
+		assertEquals("TEXTO PRUEBA", outputMock.getMessage());
+	}
 }

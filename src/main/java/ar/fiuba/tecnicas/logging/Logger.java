@@ -32,8 +32,17 @@ public class Logger {
 		this.nivel = nivel;
 		this.formato = format;
 		out = salida;
-		this.nombre=DEFAULT_NAME_LOGGER;
+		this.nombre = DEFAULT_NAME_LOGGER;
 	}
+
+	public Logger(Niveles nivel, ArrayList<IFilter> filters, IOutput salida, Formato format) {
+		this.nivel = nivel;
+		this.formato = format;
+		out = salida;
+		this.nombre = DEFAULT_NAME_LOGGER;
+		this.filters = filters;
+	}
+	
 	
 	public Logger(String nombre,Niveles nivel, IOutput salida, Formato format){
 		this(nivel, salida, format);

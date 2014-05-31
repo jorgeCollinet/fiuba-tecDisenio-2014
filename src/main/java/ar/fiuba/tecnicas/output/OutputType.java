@@ -5,5 +5,5 @@ package ar.fiuba.tecnicas.output;
  *
  */
 public enum OutputType {
-	console, file
+	console, file , Class
 }

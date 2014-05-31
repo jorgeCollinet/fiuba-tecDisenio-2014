@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.logging.Log;
@@ -19,14 +20,21 @@ import ar.fiuba.tecnicas.output.OutputContainer;
 import ar.fiuba.tecnicas.output.OutputFile;
 
 public class LogTest {
-
-	/*@Test
+	
+	@Before
+    public void setUp() throws Exception{
+		// TODO generar aca el "propertiesLog.txt"
+		// se ejecuta antes de cada uno de los tests asegurando asi independencia
+		
+	}
+	
+	@Test
 	public void loadConfiguration() throws Exception {
 		Properties properties = new Properties();
 		properties.setProperty("separador", "-");
 		properties.setProperty("formato", "%m");
-		properties.setProperty("fatal", "console");
-		properties.setProperty("debbug", "console,file:log1.txt");
+		properties.setProperty("fatal", "LoggerPepe,Output>console");
+		properties.setProperty("debbug", "LoggerManolo,Output>console,Output>file:log1.txt");
 		
 		Log.loadConfiguration(properties);
 
@@ -51,7 +59,7 @@ public class LogTest {
 		IOutput outputConsoleInfo = outputsInfo.get(0);
 		assertTrue(outputConsoleInfo instanceof OutputConsole);
 	}
-
+	// FIXME no tiene que usar el archivo previamente existente
 	@Test
 	public void loadConfigurationByFile() throws Exception {
 		Properties prop = new Properties();
@@ -79,7 +87,7 @@ public class LogTest {
 		IOutput outputFileWarning = outputsWarning.get(1);
 		assertTrue(outputFileWarning instanceof OutputFile);
 	}
-	
+	// FIXME no tiene que usar el archivo previamente existente
 	@Test
 	public void logear() throws Exception {
 		Properties prop = new Properties();
@@ -95,6 +103,8 @@ public class LogTest {
 		file.delete();
 	}
 	
+	//FIXME test mal hecho, no puede cargar la configuracion de un archivo preexistente
+	//se tendria que generar en la misma prueba
 	@Test
 	public void noLogear() throws Exception {
 		Properties prop = new Properties();
@@ -108,5 +118,5 @@ public class LogTest {
 		
 		assertTrue(file.length() == 0);
 		file.delete();
-	}*/
+	}
 }
