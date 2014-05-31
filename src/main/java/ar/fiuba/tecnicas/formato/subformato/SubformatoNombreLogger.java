@@ -1,28 +1,25 @@
 package ar.fiuba.tecnicas.formato.subformato;
 
-import ar.fiuba.tecnicas.formato.Subformato;
 import ar.fiuba.tecnicas.formato.ParametrosSubformato;
+import ar.fiuba.tecnicas.formato.Subformato;
 
-/**
- * Subformato que devuelve el mensaje a logear
- */
-public class SubformatoMensaje extends Subformato
-{
+public class SubformatoNombreLogger extends Subformato {
 
-	public SubformatoMensaje(String match)
+	public SubformatoNombreLogger(String match) 
 	{
 		super(match);
 	}
-	
+
 	@Override
 	public String darFormato(ParametrosSubformato parametros)
 	{
-		return parametros.getMensaje();
+		return parametros.getLogger();
 	}
 	
 	@Override
 	public String getJSONTag() 
 	{
-		return "message";
+		return "logger";
 	}
+
 }

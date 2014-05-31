@@ -12,12 +12,13 @@ public class ParametrosSubformato
 	private Niveles nivel;
 	private String separador;
 	private Thread thread;
+	private String logger;
 	private String numeroLinea;
 	private String nombreMetodo;
 	private String nombreArchivo;
 	private boolean procesoStack = false;
 	private static Pattern paquetesTriviales = Pattern.compile("(java\\..*)|" +
-			"(ar\\.fiuba\\.tecnicas\\.formato.*)|(ar\\.fiuba\\.tecnicas\\.logging.*)|" +
+			"(ar\\.fiuba\\.tecnicas\\.formato.*)|(ar\\.fiuba\\.tecnicas\\.^(test).*)|" +
 			"(sun\\..*)|(org\\.junit\\..*)");
 	
 	/**
@@ -27,12 +28,13 @@ public class ParametrosSubformato
 	 * @param separador	Separador 			Separador de campos
 	 * @param thread	Thread				Thread desde el cual se llama
 	 */
-	public ParametrosSubformato(String mensaje, Niveles nivel, String separador, Thread thread)
+	public ParametrosSubformato(String mensaje, Niveles nivel, String separador, Thread thread, String logger)
 	{
 		this.mensaje = mensaje;
 		this.nivel = nivel;
 		this.separador = separador;
 		this.thread = thread;
+		this.logger = logger;
 	}
 	
 	public String getMensaje()
@@ -45,6 +47,12 @@ public class ParametrosSubformato
 	{
 		if (nivel == null) return "";
 		return nivel.toString();
+	}
+	
+	public String getLogger()
+	{
+		if (logger == null) return "";
+		return logger;
 	}
 
 	public String getSeparador()

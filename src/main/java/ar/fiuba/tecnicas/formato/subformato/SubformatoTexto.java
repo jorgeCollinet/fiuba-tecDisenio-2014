@@ -24,5 +24,11 @@ public class SubformatoTexto extends Subformato
 	{
 		return texto;
 	}
+	
+	@Override
+	public String getJSONTag() 
+	{
+		return null;
+	}
 
 }

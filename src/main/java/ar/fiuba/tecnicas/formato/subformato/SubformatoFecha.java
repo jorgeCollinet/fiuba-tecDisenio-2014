@@ -24,5 +24,11 @@ public class SubformatoFecha extends Subformato
 	{
 		return formato.format(new Date());
 	}
+	
+	@Override
+	public String getJSONTag() 
+	{
+		return "datetime";
+	}
 
 }

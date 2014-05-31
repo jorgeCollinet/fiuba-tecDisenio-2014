@@ -95,12 +95,27 @@ public class FormatoTest
     }
 	
 	@Test
+    public void formatoNombreLogger() 
+    {
+		Formato formato = new Formato("%g");
+        assertEquals("logger",formato.darFormato(null,null,"logger"));
+    }
+	
+	@Test
     public void formatoCompuesto() 
     {
 		Formato formato = new Formato("[%d{HH:mm:ss}] %n [%p] %n [%M] %n [%m]", "_");
 		assertEquals("["+new SimpleDateFormat("HH:mm:ss").format(new Date())+
-        		"] _ [fatal] _ [formatoCompuesto] _ [Fallo algo.]",
-        		formato.darFormato("Fallo algo.",Niveles.fatal));        
+        		"] _ [fatal] _ [formatoCompuesto] _ [Test.]",
+        		formato.darFormato("Test.",Niveles.fatal));        
     }
+	
+	@Test
+	public void formatoJSON()
+	{
+		Formato formato = new Formato("%p %M %m %g");
+		assertEquals("{'level': 'fatal', 'method': 'formatoJSON', 'message': 'Test.', 'logger': 'lnombre'}",
+        		formato.darFormatoJSON("Test.",Niveles.fatal,"lnombre"));   
+	}
 	   
 }

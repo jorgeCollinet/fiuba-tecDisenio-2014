@@ -20,4 +20,11 @@ public abstract class Subformato
 	 * @return				Un string con la información deseada
 	 */
 	public abstract String darFormato(ParametrosSubformato parametros);
+	
+	/**
+	 * Devuelve el un "tag" para poner al usar como formato JSON
+	 * Devuelve null en caso de que no tenga sentido un tag para el subformato
+	 * @return				Un string con la información deseada
+	 */
+	public abstract String getJSONTag();
 }

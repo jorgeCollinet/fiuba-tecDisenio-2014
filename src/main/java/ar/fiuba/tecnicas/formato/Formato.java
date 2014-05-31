@@ -35,6 +35,7 @@ public class Formato
 		lista.push(new TuplaMatchSubformato("%t",SubformatoNombreThread.class));
 		lista.push(new TuplaMatchSubformato("%L",SubformatoNumeroLinea.class));
 		lista.push(new TuplaMatchSubformato("%n",SubformatoSeparador.class));
+		lista.push(new TuplaMatchSubformato("%g",SubformatoNombreLogger.class));
 		return lista;
 	}
 	
@@ -125,6 +126,7 @@ public class Formato
 	}
 	
 	/**
+	 * @deprecated Retorna strings vacios para %g. Usar darFormato(String, Niveles, String)
 	 * Dado un mensaje y nivel, le aplica el formato previamente seteado
 	 * @param mensaje	Mensaje al cual se le desea aplicar el formato predefinido
 	 * @param nivel		Nivel del mensaje
@@ -132,14 +134,60 @@ public class Formato
 	 */
 	public String darFormato(String mensaje, Niveles nivel)
 	{
+		return darFormato(mensaje, nivel, null);
+	}
+	
+	/**
+	 * Dado un mensaje, nivel y nombre de logger, le aplica el formato previamente seteado
+	 * @param mensaje	Mensaje al cual se le desea aplicar el formato predefinido
+	 * @param nivel		Nivel del mensaje
+	 * @param logger	Nombre del logger
+	 * @return			El mensaje tras ser formateado
+	 */
+	public String darFormato(String mensaje, Niveles nivel, String logger)
+	{
 		ParametrosSubformato parametros = new ParametrosSubformato
-					(mensaje, nivel, separador, Thread.currentThread());
+					(mensaje, nivel, separador, Thread.currentThread(), logger);
 		String resultado = new String();
 		for (Subformato subformato : subformatos)
 		{
 			resultado += subformato.darFormato(parametros);
 		}
 		return resultado;
+	}
+	
+	/**
+	 * @deprecated Retorna strings vacios para %g. Usar darFormatoJSON(String, Niveles, String)
+	 * Dado un mensaje y nivel, le aplica el formato previamente seteado
+	 * @param mensaje	Mensaje al cual se le desea aplicar el formato predefinido
+	 * @param nivel		Nivel del mensaje
+	 * @return			El mensaje tras ser formateado, como linea de JSON
+	 */
+	public String darFormatoJSON(String mensaje, Niveles nivel)
+	{
+		return darFormatoJSON(mensaje, nivel, null);
+	}
+	
+	/**
+	 * Dado un mensaje, nivel y nombre de logger, le aplica el formato previamente seteado
+	 * @param mensaje	Mensaje al cual se le desea aplicar el formato predefinido
+	 * @param nivel		Nivel del mensaje
+	 * @param logger	Nombre del logger
+	 * @return			El mensaje tras ser formateado, como linea de JSON
+	 */
+	public String darFormatoJSON(String mensaje, Niveles nivel, String logger)
+	{
+		ParametrosSubformato parametros = new ParametrosSubformato
+					(mensaje, nivel, separador, Thread.currentThread(), logger);
+		String resultado = "{";
+		for (Subformato subformato : subformatos)
+		{
+			if (subformato.getJSONTag() == null) continue;
+			if (resultado.length() > 1) resultado += ", ";
+			resultado += "'"+subformato.getJSONTag()+"': ";
+			resultado += "'"+subformato.darFormato(parametros)+"'";
+		}
+		return resultado+"}";
 	}
 
 }

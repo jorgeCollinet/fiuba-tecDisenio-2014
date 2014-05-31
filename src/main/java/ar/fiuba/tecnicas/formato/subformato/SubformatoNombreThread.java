@@ -19,4 +19,10 @@ public class SubformatoNombreThread extends Subformato
 	{
 		return parametros.getNombreThread();
 	}
+	
+	@Override
+	public String getJSONTag() 
+	{
+		return "thread";
+	}
 }

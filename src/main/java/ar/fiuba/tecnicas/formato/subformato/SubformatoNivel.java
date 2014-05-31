@@ -19,4 +19,10 @@ public class SubformatoNivel extends Subformato
 	{
 		return parametros.getNivel();
 	}
+	
+	@Override
+	public String getJSONTag() 
+	{
+		return "level";
+	}
 }

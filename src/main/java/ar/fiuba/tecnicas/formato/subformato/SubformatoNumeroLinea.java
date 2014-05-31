@@ -20,4 +20,10 @@ public class SubformatoNumeroLinea extends Subformato
 	{
 		return parametros.getNumeroLinea();
 	}
+	
+	@Override
+	public String getJSONTag() 
+	{
+		return "linenumber";
+	}
 }

@@ -64,7 +64,7 @@ public class Logger {
 		}
 		
 		if(hasToLog){
-			message = formato.darFormato(message, this.nivel);
+			message = formato.darFormato(message, this.nivel, this.nombre);
 			out.out(message);
 		}
 	}

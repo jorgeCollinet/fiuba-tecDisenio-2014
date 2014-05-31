@@ -20,4 +20,10 @@ public class SubformatoNombreMetodo extends Subformato
 	{
 		return parametros.getNombreMetodo();
 	}
+	
+	@Override
+	public String getJSONTag() 
+	{
+		return "method";
+	}
 }

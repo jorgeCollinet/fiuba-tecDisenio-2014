@@ -19,5 +19,11 @@ public class SubformatoSeparador extends Subformato
 	{
 		return parametros.getSeparador();
 	}
+	
+	@Override
+	public String getJSONTag() 
+	{
+		return null;
+	}
 
 }

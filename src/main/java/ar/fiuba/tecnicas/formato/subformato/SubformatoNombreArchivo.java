@@ -20,4 +20,10 @@ public class SubformatoNombreArchivo extends Subformato
 	{
 		return parametros.getNombreArchivo();
 	}
+	
+	@Override
+	public String getJSONTag() 
+	{
+		return "filename";
+	}
 }

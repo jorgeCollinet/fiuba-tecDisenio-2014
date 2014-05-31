@@ -20,4 +20,10 @@ public class SubformatoEscape extends Subformato
 		return "%";
 	}
 
+	@Override
+	public String getJSONTag() 
+	{
+		return null;
+	}
+
 }
