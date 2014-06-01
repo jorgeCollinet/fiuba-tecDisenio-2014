@@ -53,16 +53,51 @@ public class Log {
 		Log.log(nivel, message, nombreLogger);
 
 	}
+
 	/**
-	 * 
-	 * @param nivel
-	 * @param message
+	 * Logea un mensaje
+	 * @param nivel			Nivel del mensaje
+	 * @param message		Mensaje
+	 * @param nombreLogger	Nombre del logger
 	 */
-	public static void log(Niveles nivel, String message,String nombreLogger) {
+	public static void log(Niveles nivel, String message, String nombreLogger) {
 		for (Logger logger : loggers) {
 			logger.logear(nivel, message, nombreLogger);
 		}
-
+	}
+	
+	/**
+	 * Logea una excepción
+	 * @param nivel			Nivel del mensaje
+	 * @param throwable		Excepción
+	 * @param nombreLogger	Nombre del logger
+	 */
+	public static void log(Niveles nivel, Throwable throwable, String nombreLogger) {
+		for (Logger logger : loggers) {
+			logger.logear(nivel, throwable.getMessage(), nombreLogger);
+		}
+	}
+	
+	/**
+	 * Logea un mensaje y una excepción 
+	 * @param nivel			Nivel del mensaje
+	 * @parame message		Mensaje
+	 * @param throwable		Excepción
+	 * @param nombreLogger	Nombre del logger
+	 */
+	public static void log(Niveles nivel, String message, Throwable throwable, String nombreLogger) {
+		for (Logger logger : loggers) {
+			logger.logear(nivel, message+":"+throwable.getMessage(), nombreLogger);
+		}
+	}
+	
+	public static Niveles getNivelLogger(String nombre)
+	{
+		for (Logger logger : loggers)
+		{
+			if (nombre == logger.nombre) return logger.nivel;
+		}
+		return null;
 	}
 	
 	public static ArrayList<Logger> getLoggers(){

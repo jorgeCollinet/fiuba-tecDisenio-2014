@@ -9,271 +9,286 @@ import ar.fiuba.tecnicas.logging.Niveles;
 public final class LoggerAdapter implements Logger
 {
 	String nombreLogger;
-	public LoggerAdapter(String arg0) {
+	
+	private String objArrayToString(Object...arg1)
+	{
+		String string = "";
+		for (int i = 0; i < arg1.length; ++i)
+		{
+			if (i > 0) string += "-";
+			string += arg1[i].toString();
+		}	
+		return string;
+	}
+	
+	public LoggerAdapter(String arg0) 
+	{
 		nombreLogger=arg0;
 	}
 
 	@Override
-	public void debug(String arg0) {
-		Log.log(Niveles.info, arg0, nombreLogger);
-		
+	public void debug(String arg0) 
+	{
+		Log.log(Niveles.debug, arg0, nombreLogger);
 	}
 
 	@Override
-	public void debug(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void debug(String arg0, Object arg1) 
+	{
+		Log.log(Niveles.debug, arg0+","+arg1.toString(), nombreLogger);	
 	}
 
 	@Override
-	public void debug(String arg0, Object... arg1) {
-		// TODO Auto-generated method stub
-		
+	public void debug(String arg0, Object... arg1) 
+	{
+		Log.log(Niveles.debug, objArrayToString(arg1), nombreLogger);	
 	}
 
 	@Override
-	public void debug(String arg0, Throwable arg1) {
-		// TODO Auto-generated method stub
-		
+	public void debug(String arg0, Throwable arg1)
+	{
+		Log.log(Niveles.debug, arg1,nombreLogger);
 	}
 
 	@Override
-	public void debug(Marker arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
+	public void debug(Marker arg0, String arg1) 
+	{
+		Log.log(Niveles.debug, arg0.getName()+":"+arg1, nombreLogger);		
 	}
 
 	@Override
-	public void debug(String arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+	public void debug(String arg0, Object arg1, Object arg2) 
+	{
+		debug(arg0, new Object[]{arg1,arg2});		
 	}
 
 	@Override
-	public void debug(Marker arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+	public void debug(Marker arg0, String arg1, Object arg2) 
+	{
+		Log.log(Niveles.debug, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);	
 	}
 
 	@Override
-	public void debug(Marker arg0, String arg1, Object... arg2) {
-		// TODO Auto-generated method stub
-		
+	public void debug(Marker arg0, String arg1, Object... arg2)
+	{
+		Log.log(Niveles.debug, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
+				, nombreLogger);			
 	}
 
 	@Override
-	public void debug(Marker arg0, String arg1, Throwable arg2) {
-		// TODO Auto-generated method stub
-		
+	public void debug(Marker arg0, String arg1, Throwable arg2) 
+	{
+		Log.log(Niveles.debug, arg0.getName()+":"+arg1, arg2, nombreLogger);		
 	}
 
 	@Override
-	public void debug(Marker arg0, String arg1, Object arg2, Object arg3) {
-		// TODO Auto-generated method stub
-		
+	public void debug(Marker arg0, String arg1, Object arg2, Object arg3)
+	{
+		debug(arg0, arg1, new Object[]{arg1,arg2});	
 	}
 
 	@Override
-	public void error(String arg0) {
-		// TODO Auto-generated method stub
-		
+	public void error(String arg0) 
+	{
+		Log.log(Niveles.error, arg0, nombreLogger);
 	}
 
 	@Override
-	public void error(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void error(String arg0, Object arg1) 
+	{
+		Log.log(Niveles.error, arg0+","+arg1.toString(), nombreLogger);	
 	}
 
 	@Override
-	public void error(String arg0, Object... arg1) {
-		// TODO Auto-generated method stub
-		
+	public void error(String arg0, Object... arg1)
+	{
+		Log.log(Niveles.error, objArrayToString(arg1), nombreLogger);		
 	}
 
 	@Override
-	public void error(String arg0, Throwable arg1) {
-		// TODO Auto-generated method stub
-		
+	public void error(String arg0, Throwable arg1) 
+	{
+		Log.log(Niveles.error, arg1,nombreLogger);		
 	}
 
 	@Override
-	public void error(Marker arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
+	public void error(Marker arg0, String arg1)
+	{
+		Log.log(Niveles.error, arg0.getName()+":"+arg1, nombreLogger);
 	}
 
 	@Override
-	public void error(String arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+	public void error(String arg0, Object arg1, Object arg2) 
+	{
+		error(arg0, new Object[]{arg1,arg2});		
 	}
 
 	@Override
-	public void error(Marker arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+	public void error(Marker arg0, String arg1, Object arg2)
+	{
+		Log.log(Niveles.error, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);	
 	}
 
 	@Override
-	public void error(Marker arg0, String arg1, Object... arg2) {
-		// TODO Auto-generated method stub
-		
+	public void error(Marker arg0, String arg1, Object... arg2) 
+	{
+		Log.log(Niveles.error, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
+				, nombreLogger);
 	}
 
 	@Override
 	public void error(Marker arg0, String arg1, Throwable arg2) {
-		// TODO Auto-generated method stub
-		
+		Log.log(Niveles.error, arg0.getName()+":"+arg1, arg2, nombreLogger);
 	}
 
 	@Override
-	public void error(Marker arg0, String arg1, Object arg2, Object arg3) {
-		// TODO Auto-generated method stub
-		
+	public void error(Marker arg0, String arg1, Object arg2, Object arg3) 
+	{
+		error(arg0, arg1, new Object[]{arg1,arg2});			
 	}
 
 	@Override
-	public String getName() {
+	public String getName() 
+	{
 		return nombreLogger;
 	}
 
 	@Override
-	public void info(String arg0) {
-		// TODO Auto-generated method stub
-		
+	public void info(String arg0) 
+	{
+		Log.log(Niveles.info, arg0, nombreLogger);
 	}
 
 	@Override
-	public void info(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void info(String arg0, Object arg1)
+	{
+		Log.log(Niveles.info, arg0+","+arg1.toString(), nombreLogger);	
 	}
 
 	@Override
-	public void info(String arg0, Object... arg1) {
-		// TODO Auto-generated method stub
-		
+	public void info(String arg0, Object... arg1) 
+	{
+		Log.log(Niveles.info, objArrayToString(arg1), nombreLogger);		
 	}
 
 	@Override
-	public void info(String arg0, Throwable arg1) {
-		// TODO Auto-generated method stub
-		
+	public void info(String arg0, Throwable arg1)
+	{
+		Log.log(Niveles.info, arg1,nombreLogger);		
 	}
 
 	@Override
-	public void info(Marker arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
+	public void info(Marker arg0, String arg1)
+	{
+		Log.log(Niveles.info, arg0.getName()+":"+arg1, nombreLogger);
 	}
 
 	@Override
-	public void info(String arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+	public void info(String arg0, Object arg1, Object arg2) 
+	{
+		info(arg0, new Object[]{arg1,arg2});
 	}
 
 	@Override
-	public void info(Marker arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+	public void info(Marker arg0, String arg1, Object arg2) 
+	{
+		Log.log(Niveles.info, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);			
 	}
 
 	@Override
-	public void info(Marker arg0, String arg1, Object... arg2) {
-		// TODO Auto-generated method stub
-		
+	public void info(Marker arg0, String arg1, Object... arg2) 
+	{
+		Log.log(Niveles.info, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
+				, nombreLogger);
 	}
 
 	@Override
 	public void info(Marker arg0, String arg1, Throwable arg2) {
-		// TODO Auto-generated method stub
-		
+		Log.log(Niveles.info, arg0.getName()+":"+arg1, arg2, nombreLogger);
 	}
 
 	@Override
-	public void info(Marker arg0, String arg1, Object arg2, Object arg3) {
-		// TODO Auto-generated method stub
-		
+	public void info(Marker arg0, String arg1, Object arg2, Object arg3)
+	{
+		info(arg0, arg1, new Object[]{arg1,arg2});			
 	}
 
 	@Override
-	public boolean isDebugEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isDebugEnabled() 
+	{
+		return (Log.getNivelLogger(nombreLogger).compareTo(Niveles.debug) <= 0);
 	}
 
 	@Override
-	public boolean isDebugEnabled(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isDebugEnabled(Marker arg0) 
+	{
+		return isDebugEnabled();
 	}
 
 	@Override
-	public boolean isErrorEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isErrorEnabled()
+	{
+		return (Log.getNivelLogger(nombreLogger).compareTo(Niveles.error) <= 0);
 	}
 
 	@Override
-	public boolean isErrorEnabled(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isErrorEnabled(Marker arg0) 
+	{
+		return isErrorEnabled();
 	}
 
 	@Override
-	public boolean isInfoEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isInfoEnabled() 
+	{
+		return (Log.getNivelLogger(nombreLogger).compareTo(Niveles.info) <= 0);
 	}
 
 	@Override
-	public boolean isInfoEnabled(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isInfoEnabled(Marker arg0) 
+	{
+		return isInfoEnabled();
 	}
 
 	@Override
-	public boolean isTraceEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isTraceEnabled() 
+	{
+		return (Log.getNivelLogger(nombreLogger).compareTo(Niveles.trace) <= 0);
 	}
 
 	@Override
-	public boolean isTraceEnabled(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isTraceEnabled(Marker arg0)
+	{
+		return isTraceEnabled();
 	}
 
 	@Override
-	public boolean isWarnEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isWarnEnabled()
+	{
+		return (Log.getNivelLogger(nombreLogger).compareTo(Niveles.warning) <= 0);
 	}
 
 	@Override
-	public boolean isWarnEnabled(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isWarnEnabled(Marker arg0) 
+	{
+		return isWarnEnabled();
 	}
 
 	@Override
-	public void trace(String arg0) {
-		// TODO Auto-generated method stub
-		
+	public void trace(String arg0)
+	{
+		Log.log(Niveles.trace, arg0, nombreLogger);
 	}
 
 	@Override
-	public void trace(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void trace(String arg0, Object arg1)
+	{
+		Log.log(Niveles.trace, arg0+","+arg1.toString(), nombreLogger);		
 	}
 
 	@Override
-	public void trace(String arg0, Object... arg1) {
-		// TODO Auto-generated method stub
-		
+	public void trace(String arg0, Object... arg1) 
+	{
+		Log.log(Niveles.trace, objArrayToString(arg1), nombreLogger);
 	}
 
 	@Override
@@ -283,99 +298,100 @@ public final class LoggerAdapter implements Logger
 	}
 
 	@Override
-	public void trace(Marker arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
+	public void trace(Marker arg0, String arg1)
+	{
+		Log.log(Niveles.trace, arg0.getName()+":"+arg1, nombreLogger);
 	}
 
 	@Override
-	public void trace(String arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+	public void trace(String arg0, Object arg1, Object arg2)
+	{
+		trace(arg0, new Object[]{arg1,arg2});		
 	}
 
 	@Override
 	public void trace(Marker arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+		Log.log(Niveles.trace, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);		
 	}
 
 	@Override
-	public void trace(Marker arg0, String arg1, Object... arg2) {
-		// TODO Auto-generated method stub
-		
+	public void trace(Marker arg0, String arg1, Object... arg2)
+	{
+		Log.log(Niveles.trace, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
+				, nombreLogger);
 	}
 
 	@Override
-	public void trace(Marker arg0, String arg1, Throwable arg2) {
-		// TODO Auto-generated method stub
-		
+	public void trace(Marker arg0, String arg1, Throwable arg2) 
+	{
+		Log.log(Niveles.trace, arg0.getName()+":"+arg1, arg2, nombreLogger);
 	}
 
 	@Override
-	public void trace(Marker arg0, String arg1, Object arg2, Object arg3) {
-		// TODO Auto-generated method stub
-		
+	public void trace(Marker arg0, String arg1, Object arg2, Object arg3)
+	{
+		trace(arg0, arg1, new Object[]{arg1,arg2});			
 	}
 
 	@Override
-	public void warn(String arg0) {
-		// TODO Auto-generated method stub
-		
+	public void warn(String arg0) 
+	{
+		Log.log(Niveles.warning, arg0, nombreLogger);
 	}
 
 	@Override
-	public void warn(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void warn(String arg0, Object arg1) 
+	{
+		Log.log(Niveles.warning, arg0+","+arg1.toString(), nombreLogger);	
 	}
 
 	@Override
-	public void warn(String arg0, Object... arg1) {
-		// TODO Auto-generated method stub
-		
+	public void warn(String arg0, Object... arg1)
+	{
+		Log.log(Niveles.warning, objArrayToString(arg1), nombreLogger);
 	}
 
 	@Override
-	public void warn(String arg0, Throwable arg1) {
-		// TODO Auto-generated method stub
-		
+	public void warn(String arg0, Throwable arg1)
+	{
+		Log.log(Niveles.warning, arg1,nombreLogger);		
 	}
 
 	@Override
-	public void warn(Marker arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
+	public void warn(Marker arg0, String arg1) 
+	{
+		Log.log(Niveles.warning, arg0.getName()+":"+arg1, nombreLogger);
 	}
 
 	@Override
-	public void warn(String arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+	public void warn(String arg0, Object arg1, Object arg2) 
+	{
+		warn(arg0, new Object[]{arg1,arg2});		
 	}
 
 	@Override
-	public void warn(Marker arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+	public void warn(Marker arg0, String arg1, Object arg2)
+	{
+		Log.log(Niveles.warning, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);	
 	}
 
 	@Override
-	public void warn(Marker arg0, String arg1, Object... arg2) {
-		// TODO Auto-generated method stub
-		
+	public void warn(Marker arg0, String arg1, Object... arg2)
+	{
+		Log.log(Niveles.warning, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
+				, nombreLogger);		
 	}
 
 	@Override
-	public void warn(Marker arg0, String arg1, Throwable arg2) {
-		// TODO Auto-generated method stub
-		
+	public void warn(Marker arg0, String arg1, Throwable arg2)
+	{
+		Log.log(Niveles.warning, arg0.getName()+":"+arg1, arg2, nombreLogger);
 	}
 
 	@Override
-	public void warn(Marker arg0, String arg1, Object arg2, Object arg3) {
-		// TODO Auto-generated method stub
-		
+	public void warn(Marker arg0, String arg1, Object arg2, Object arg3)
+	{
+		warn(arg0, arg1, new Object[]{arg1,arg2});	
 	}
 	
 }

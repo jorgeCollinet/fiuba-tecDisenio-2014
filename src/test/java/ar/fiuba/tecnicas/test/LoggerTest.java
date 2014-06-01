@@ -18,10 +18,10 @@ public class LoggerTest {
 	public void logearDebbug() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
-		Logger logger = new Logger(Niveles.debbug, outputMock, formato);
+		Logger logger = new Logger(Niveles.debug, outputMock, formato);
 		
 		FilterNombre filterNombre = new FilterNombre("logger1");
-		FilterNivel filterNivel = new FilterNivel(Niveles.debbug);
+		FilterNivel filterNivel = new FilterNivel(Niveles.debug);
 		FilterRegex filterRegex = new FilterRegex("TEXTO.*");
 		FilterCustom filterCustom = new FilterCustom("ar.fiuba.tecnicas.filter.FilterCustomHorario");
 		
@@ -30,7 +30,7 @@ public class LoggerTest {
 		logger.addFilter(filterRegex);
 		logger.addFilter(filterCustom);
 		
-		logger.logear(Niveles.debbug, message, "logger1");
+		logger.logear(Niveles.debug, message, "logger1");
 		assertEquals(message, outputMock.getMessage());
 	}
 	
@@ -47,7 +47,7 @@ public class LoggerTest {
 	public void logearNivelMensajeInfoNivelLoggerDebbug() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
-		Logger logger = new Logger(Niveles.debbug, outputMock, formato);
+		Logger logger = new Logger(Niveles.debug, outputMock, formato);
 		
 		logger.logear(Niveles.info, message);
 		assertEquals(message, outputMock.getMessage());
@@ -90,7 +90,7 @@ public class LoggerTest {
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.warning, outputMock, formato);
 		
-		logger.logear(Niveles.debbug, message);
+		logger.logear(Niveles.debug, message);
 		assertEquals("TEXTO PRUEBA", outputMock.getMessage());
 	}
 }

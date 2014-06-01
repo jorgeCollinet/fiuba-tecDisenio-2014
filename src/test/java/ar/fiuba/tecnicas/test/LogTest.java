@@ -42,7 +42,7 @@ public class LogTest {
 		assertEquals(2, loggers.size());
 
 		Logger loggerDebbug = loggers.get(0);
-		assertEquals(loggerDebbug.getNivel(), Niveles.debbug);
+		assertEquals(loggerDebbug.getNivel(), Niveles.debug);
 		OutputContainer outputContainerWarning = (OutputContainer) loggerDebbug.getOutput();
 		ArrayList<IOutput> outputsWarning = outputContainerWarning.getOutputs();
 		assertEquals(2, outputsWarning.size());
@@ -114,7 +114,7 @@ public class LogTest {
 		File file = new File("log1.txt");
 		file.createNewFile();
 		String messageDebbug = "mensaje debbug";
-		Log.log(Niveles.debbug, messageDebbug);
+		Log.log(Niveles.debug, messageDebbug);
 		
 		assertTrue(file.length() == 0);
 		file.delete();
