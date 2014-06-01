@@ -20,7 +20,7 @@ public class Logger {
 	protected Niveles nivel;
 	protected Formato formato;
 	protected String nombre;
-	protected static final String DEFAULT_NAME_LOGGER = "";
+	public static final String DEFAULT_NAME_LOGGER = "";
 	private ArrayList<IFilter> filters = new ArrayList<IFilter>();
 
 	/**
@@ -64,18 +64,21 @@ public class Logger {
 	}
 	
 	public void logear(Niveles nivel, String message, String nombreLogger) {
-		boolean hasToLog = true;
+		
 		FilterData filterData = new FilterData(nivel, nombreLogger, message);
 		for (IFilter filter : this.filters) {
 			if(!filter.hasToLog(filterData)){
-				hasToLog = false;
+				
+				System.out.print("\nnegativo: \n");
+				System.out.print("datos de logger: "+this.nivel.toString()+" nombre: "+this.nombre+"\n");
+				System.out.print("datos de entrada: "+nivel.toString()+" nombre: "+nombreLogger+" mensaje: "+message+"\n");
+				System.out.print("calse de filtro: "+filter.getClass()+"\n");
+				return;
 			}
 		}
+		message = formato.darFormato(message, this.nivel, this.nombre);
+		out.out(message);
 		
-		if(hasToLog){
-			message = formato.darFormato(message, this.nivel, this.nombre);
-			out.out(message);
-		}
 	}
 	
 	public Niveles getNivel() {

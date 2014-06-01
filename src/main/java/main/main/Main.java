@@ -3,6 +3,7 @@ package main.main;
 import ar.fiuba.tecnicas.logging.Log;
 import ar.fiuba.tecnicas.logging.Niveles;
 
+@SuppressWarnings("unused")
 public class Main {
 
 	public static void main(String[] args) throws Exception {

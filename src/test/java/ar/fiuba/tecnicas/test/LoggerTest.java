@@ -1,5 +1,7 @@
 package ar.fiuba.tecnicas.test;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.filter.*;
@@ -8,7 +10,6 @@ import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.Niveles;
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 
 public class LoggerTest {
 	private OutputMock outputMock = new OutputMock();
@@ -16,19 +17,21 @@ public class LoggerTest {
 
 	@Test
 	public void logearDebbug() {
-		String message = "TEXTO PRUEBA";
+		String message = "public void logearDebbug(): TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
-		Logger logger = new Logger(Niveles.debug, outputMock, formato);
 		
+		ArrayList <IFilter> filters = new ArrayList<IFilter>();
 		FilterNombre filterNombre = new FilterNombre("logger1");
 		FilterNivel filterNivel = new FilterNivel(Niveles.debug);
-		FilterRegex filterRegex = new FilterRegex("TEXTO.*");
+		FilterRegex filterRegex = new FilterRegex(".*TEXTO.*");
 		FilterCustom filterCustom = new FilterCustom("ar.fiuba.tecnicas.filter.FilterCustomHorario");
 		
-		logger.addFilter(filterNombre);
-		logger.addFilter(filterNivel);
-		logger.addFilter(filterRegex);
-		logger.addFilter(filterCustom);
+		filters.add(filterNombre);
+		filters.add(filterNivel);
+		filters.add(filterRegex);
+		filters.add(filterCustom);
+		
+		Logger logger = new Logger(Niveles.debug,filters, outputMock, formato);
 		
 		logger.logear(Niveles.debug, message, "logger1");
 		assertEquals(message, outputMock.getMessage());
@@ -36,7 +39,7 @@ public class LoggerTest {
 	
 	@Test
 	public void logearNivelMensajeInfoNivelLoggerTrace() {
-		String message = "TEXTO PRUEBA";
+		String message = "public void logearNivelMensajeInfoNivelLoggerTrace(): TEXTO PRUEBA\n";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.trace, outputMock, formato);
 		
@@ -45,7 +48,7 @@ public class LoggerTest {
 	}
 	@Test
 	public void logearNivelMensajeInfoNivelLoggerDebbug() {
-		String message = "TEXTO PRUEBA";
+		String message = "public void logearNivelMensajeInfoNivelLoggerDebbug(): TEXTO PRUEBA\n";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.debug, outputMock, formato);
 		
@@ -55,7 +58,7 @@ public class LoggerTest {
 	
 	@Test
 	public void logearNivelMensajeFatalNivelLoggerWarning() {
-		String message = "TEXTO PRUEBA";
+		String message = "public void logearNivelMensajeFatalNivelLoggerWarning(): TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.warning, outputMock, formato);
 		

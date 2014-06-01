@@ -1,7 +1,6 @@
 package ar.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Properties;
 
 import ar.fiuba.tecnicas.filter.*;

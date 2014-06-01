@@ -14,6 +14,6 @@ public class FilterNombre implements IFilter{
 	
 	@Override
 	public boolean hasToLog(FilterData filterData) {
-		return (this.nombre == filterData.getNombre());
+		return this.nombre.equalsIgnoreCase(filterData.getNombre());
 	}
 }

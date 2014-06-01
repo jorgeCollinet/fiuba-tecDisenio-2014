@@ -4,8 +4,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import ar.fiuba.tecnicas.logging.Niveles;
-
 /**
  * Clase encargada de filtrar por nivel
  * @author Grupo3

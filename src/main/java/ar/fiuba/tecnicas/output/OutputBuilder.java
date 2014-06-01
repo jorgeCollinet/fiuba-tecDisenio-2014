@@ -37,8 +37,7 @@ public class OutputBuilder {
 					container.addOutput(consola);
 				} else if (item.contains(OutputType.file.toString())) {
 					String[] tuplaFileNombreDeArchivo = subItemsList[1].split(":");
-					container.addOutput(new OutputFile(
-							tuplaFileNombreDeArchivo[1]));
+					container.addOutput(new OutputFile(tuplaFileNombreDeArchivo[1]));
 				} else if (item.contains(OutputType.Class.toString())) {
 					// TODO implementar las clases Output personalizadas
 					
