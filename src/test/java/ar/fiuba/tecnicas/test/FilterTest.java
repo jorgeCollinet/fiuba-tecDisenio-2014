@@ -18,7 +18,7 @@ public class FilterTest {
 
 	@Test
 	public void BuilderFilterBuildFromString() {
-		String LoggerData = "sapoPepe,Output>console,BehaveRegex>esto_es_una_expresion_regular,BehaveClass>ar.fiuba.tecnicas.filter.FilterCustomHorario,BehaveClass>ar.fiuba.tecnicas.filter.";
+		String LoggerData = "sapoPepe,Output>console,BehaveRegex>esto_es_una_expresion_regular,BehaveClass>ar.fiuba.tecnicas.filter.FilterCustomHorario";
 		ArrayList<IFilter> filters = FilterBuilder.generateFilters(Niveles.info, LoggerData);
 		
 		IFilter filterNombre = filters.get(0);
