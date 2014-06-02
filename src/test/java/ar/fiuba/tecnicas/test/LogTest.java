@@ -24,24 +24,24 @@ import ar.fiuba.tecnicas.output.OutputContainer;
 import ar.fiuba.tecnicas.output.OutputFile;
 
 public class LogTest {
-	
+	static String NOMBRE_ARCHIVO1_PRUEBA = "propertiesLog.xml";
 	@Before
     public void setUp() throws Exception{
-		// TODO generar aca el "propertiesLog.txt"
+		//generar aca el "propertiesLog.txt"
 		// se ejecuta antes de cada uno de los tests asegurando asi independencia
 		Properties properties = new Properties();
 		properties.setProperty("separador", "-");
 		properties.setProperty("formato", "%m");
 		properties.setProperty(Niveles.debug.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console");
 		properties.setProperty(Niveles.fatal.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console,Output>file:log1.txt");
-		File file = new File("propertiesLog.txt");
+		File file = new File(NOMBRE_ARCHIVO1_PRUEBA);
 		file.createNewFile();
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, false)));
-		properties.store(out, "properties de prueba");
+		properties.store(out, NOMBRE_ARCHIVO1_PRUEBA);
 	}
 	@After
 	 public void atEnd() {
-		File file = new File("propertiesLog.txt");
+		File file = new File(NOMBRE_ARCHIVO1_PRUEBA);
 		if(file.exists()){
 			file.delete();
 		}
@@ -85,7 +85,7 @@ public class LogTest {
 	@Test
 	public void logear() throws Exception {
 		Properties prop = new Properties();
-		prop.load(new FileInputStream(new File("propertiesLog.txt")));
+		prop.load(new FileInputStream(new File(NOMBRE_ARCHIVO1_PRUEBA)));
 		Log.loadConfiguration(prop);
 		
 		String messageFatal = "public void logear(): mensaje fatal";
@@ -101,7 +101,7 @@ public class LogTest {
 	public void noLogear() throws Exception {
 		
 		Properties prop = new Properties();
-		prop.load(new FileInputStream(new File("propertiesLog.txt")));
+		prop.load(new FileInputStream(new File(NOMBRE_ARCHIVO1_PRUEBA)));
 		Log.loadConfiguration(prop);
 		
 		String messageDebbug = "mensaje debbug";

@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import ar.fiuba.tecnicas.filter.FilterBuilder;
 import ar.fiuba.tecnicas.filter.FilterCustom;
-import ar.fiuba.tecnicas.filter.FilterData;
 import ar.fiuba.tecnicas.filter.FilterNivel;
 import ar.fiuba.tecnicas.filter.FilterNombre;
 import ar.fiuba.tecnicas.filter.FilterRegex;
@@ -19,7 +18,7 @@ public class FilterTest {
 
 	@Test
 	public void BuilderFilterBuildFromString() {
-		String LoggerData = "sapoPepe,Output>console,BehaveRegex>esto_es_una_expresion_regular,BehaveClass>FilterTest";
+		String LoggerData = "sapoPepe,Output>console,BehaveRegex>esto_es_una_expresion_regular,BehaveClass>ar.fiuba.tecnicas.filter.FilterCustomHorario,BehaveClass>ar.fiuba.tecnicas.filter.";
 		ArrayList<IFilter> filters = FilterBuilder.generateFilters(Niveles.info, LoggerData);
 		
 		IFilter filterNombre = filters.get(0);
@@ -31,6 +30,7 @@ public class FilterTest {
 		assertEquals(FilterNivel.class,filterNivel.getClass());
 		assertEquals(FilterRegex.class,filterRegex.getClass());
 		assertEquals(FilterCustom.class,filterCustomClass.getClass());
+		
 	}
 
 }

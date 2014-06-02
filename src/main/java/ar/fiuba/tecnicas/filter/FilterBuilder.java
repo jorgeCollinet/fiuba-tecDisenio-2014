@@ -43,8 +43,14 @@ public class FilterBuilder {
 				filters.add(filterRegex);
 			} else if (item.contains("BehaveClass")) {
 				String nombreClaseCustom = item.split(">")[1];
-				FilterCustom filterCustom = new FilterCustom(nombreClaseCustom);
-				filters.add(filterCustom);
+				try {
+					FilterCustom filterCustom = FilterCustom.generateFilterCustom(nombreClaseCustom);
+					filters.add(filterCustom);
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.print("error en FilterBuilder!!!!!!!!!!!!\n");
+				}
+				
 			}
 		}
 		return filters;
