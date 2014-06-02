@@ -37,13 +37,13 @@ public class Log {
 	 * @param fileName
 	 * @throws Exception 
 	 */
-	public static void loadConfigurationFromFile(String fileName) throws Exception {
+	public static void loadConfigurationFromFile(String fileName)
+			throws Exception {
 		Properties prop = new Properties();
 		FileInputStream file = new FileInputStream(new File(fileName));
-		if(fileName.endsWith("xml")){
-			System.out.print("es .xml\n");
+		if (fileName.endsWith("xml")) {
 			prop.loadFromXML(file);
-		}else{
+		} else {
 			prop.load(file);
 		}
 		Log.loadConfiguration(prop);
