@@ -5,13 +5,14 @@ package ar.fiuba.tecnicas.filter;
  * @author Grupo3
  * 
  */
-public class FilterCustomHorario{
+public class FilterCustomHorario implements IFilter{
 
 	public FilterCustomHorario() {
 		
 	}
+
 	
-	public boolean hasToLog() {
+	public boolean hasToLog(FilterData filterData) {
 		return true;
 	}
 }

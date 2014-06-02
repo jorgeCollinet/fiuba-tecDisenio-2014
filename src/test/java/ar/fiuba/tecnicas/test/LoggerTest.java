@@ -16,7 +16,7 @@ public class LoggerTest {
 	
 
 	@Test
-	public void logearDebbug() {
+	public void logearDebbug() throws Exception {
 		String message = "public void logearDebbug(): TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		
@@ -24,7 +24,7 @@ public class LoggerTest {
 		FilterNombre filterNombre = new FilterNombre("logger1");
 		FilterNivel filterNivel = new FilterNivel(Niveles.debug);
 		FilterRegex filterRegex = new FilterRegex(".*TEXTO.*");
-		FilterCustom filterCustom = new FilterCustom("ar.fiuba.tecnicas.filter.FilterCustomHorario");
+		FilterCustom filterCustom = FilterCustom.generateFilterCustom("ar.fiuba.tecnicas.filter.FilterCustomHorario");
 		
 		filters.add(filterNombre);
 		filters.add(filterNivel);

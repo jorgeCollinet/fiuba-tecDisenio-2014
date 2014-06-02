@@ -3,6 +3,7 @@ package ar.fiuba.tecnicas.filter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
 /**
  * Clase encargada de filtrar por nivel
@@ -12,7 +13,17 @@ import java.lang.reflect.Method;
 public class FilterCustom implements IFilter{
 	protected String className;
 	
-	public FilterCustom(String className) {
+	public static FilterCustom generateFilterCustom (String className) throws Exception{
+		for(Class<?> interfaces: Class.forName(className).getInterfaces()){
+			if(interfaces.getClass().isInstance(IFilter.class)){
+				System.out.print(className+" implementa interfaz de IFilter\n");
+				return new FilterCustom(className);
+			}
+		}
+		throw new Exception("nombre de clase: "+className+" no implementa interfaz IFilter\n");
+	}
+	
+	protected FilterCustom(String className) {
 		this.className = className;
 	}
 	
@@ -22,12 +33,8 @@ public class FilterCustom implements IFilter{
 			try {
 				Constructor<?> constructor = Class.forName(this.className).getConstructor();
 				try {
-					Object filterCustom = constructor.newInstance();
-					Method method = filterCustom.getClass().getMethod("hasToLog");
-					boolean hasToLog = (boolean) method.invoke(filterCustom); 
-					if(hasToLog){
-						return true;
-					}
+					IFilter filterCustom = (IFilter) constructor.newInstance();
+					return filterCustom.hasToLog(filterData);					
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

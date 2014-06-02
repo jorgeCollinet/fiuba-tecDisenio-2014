@@ -69,10 +69,11 @@ public class Logger {
 		for (IFilter filter : this.filters) {
 			if(!filter.hasToLog(filterData)){
 				
-				System.out.print("\nnegativo: \n");
+				/*System.out.print("\nnegativo: \n");
 				System.out.print("datos de logger: "+this.nivel.toString()+" nombre: "+this.nombre+"\n");
 				System.out.print("datos de entrada: "+nivel.toString()+" nombre: "+nombreLogger+" mensaje: "+message+"\n");
 				System.out.print("calse de filtro: "+filter.getClass()+"\n");
+				*/
 				return;
 			}
 		}

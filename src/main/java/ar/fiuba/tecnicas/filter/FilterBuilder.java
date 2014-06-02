@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import ar.fiuba.tecnicas.logging.Niveles;
 
 /**
- * Clase encargada de construir los distintos Filters que implementan la interfaz IFilter
+ * Clase encargada de construir los distintos Filters que implementan la
+ * interfaz IFilter
+ * 
  * @author Grupo3
- *
+ * 
  */
 public class FilterBuilder {
 
@@ -23,27 +25,28 @@ public class FilterBuilder {
 	 * @return IOutput
 	 * @throws Exception
 	 */
-	public static ArrayList<IFilter> generateFilters(Niveles nivel, String filterStringValues){
+	public static ArrayList<IFilter> generateFilters(Niveles nivel,
+			String filterStringValues) {
 		ArrayList<IFilter> filters = new ArrayList<IFilter>();
 		String[] list = filterStringValues.split(",");
 		String nombreLogger = list[0];
-		
+
 		FilterNivel filterNivel = new FilterNivel(nivel);
 		FilterNombre filterNombre = new FilterNombre(nombreLogger);
-		
-		/*
-		ACA FALTA EL PARSEO DE filterStringValues
-		me deberian llegar el nombreLogger,nivel,regex,nombreClaseCustom y genero los filtros 
-		FilterRegex filterRegex = new FilterRegex(regex);
-		FilterCustom filterCustom = new FilterCustom(nombreClaseCustom);
-		filters.add(filterRegex);
-		filters.add(filterCustom);*/
-		
 		filters.add(filterNombre);
 		filters.add(filterNivel);
-		
-		return filters;
-		
-	}
 
+		for (String item : list) {
+			if (item.contains("BehaveRegex")) {
+				String regulaExpresion = item.split(">")[1];
+				FilterRegex filterRegex = new FilterRegex(regulaExpresion);
+				filters.add(filterRegex);
+			} else if (item.contains("BehaveClass")) {
+				String nombreClaseCustom = item.split(">")[1];
+				FilterCustom filterCustom = new FilterCustom(nombreClaseCustom);
+				filters.add(filterCustom);
+			}
+		}
+		return filters;
+	}
 }
