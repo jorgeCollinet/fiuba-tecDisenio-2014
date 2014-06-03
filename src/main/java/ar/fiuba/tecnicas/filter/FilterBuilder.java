@@ -25,8 +25,7 @@ public class FilterBuilder {
 	 * @return IOutput
 	 * @throws Exception
 	 */
-	public static ArrayList<IFilter> generateFilters(Niveles nivel,
-			String filterStringValues) {
+	public static ArrayList<IFilter> generateFilters(Niveles nivel, String filterStringValues) {
 		ArrayList<IFilter> filters = new ArrayList<IFilter>();
 		String[] list = filterStringValues.split(",");
 		String nombreLogger = list[0];

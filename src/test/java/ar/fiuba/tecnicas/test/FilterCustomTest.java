@@ -1,13 +1,16 @@
-package ar.fiuba.tecnicas.filter;
+package ar.fiuba.tecnicas.test;
+
+import ar.fiuba.tecnicas.filter.FilterData;
+import ar.fiuba.tecnicas.filter.IFilter;
 
 /**
  * Clase de ejemplo (el usuario deberia crear su propia clase con la logica para ver si debe logear)
  * @author Grupo3
  * 
  */
-public class FilterCustomHorario implements IFilter{
+public class FilterCustomTest implements IFilter{
 
-	public FilterCustomHorario() {
+	public FilterCustomTest() {
 		
 	}
 

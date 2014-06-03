@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import ar.fiuba.tecnicas.filter.FilterBuilder;
 import ar.fiuba.tecnicas.filter.FilterCustom;
+import ar.fiuba.tecnicas.filter.FilterData;
 import ar.fiuba.tecnicas.filter.FilterNivel;
 import ar.fiuba.tecnicas.filter.FilterNombre;
 import ar.fiuba.tecnicas.filter.FilterRegex;
@@ -18,7 +19,7 @@ public class FilterTest {
 
 	@Test
 	public void BuilderFilterBuildFromString() {
-		String LoggerData = "sapoPepe,Output>console,BehaveRegex>esto_es_una_expresion_regular,BehaveClass>ar.fiuba.tecnicas.filter.FilterCustomHorario";
+		String LoggerData = "sapoPepe,Output>console,BehaveRegex>esto_es_una_expresion_regular,BehaveClass>ar.fiuba.tecnicas.test.FilterCustomTest";
 		ArrayList<IFilter> filters = FilterBuilder.generateFilters(Niveles.info, LoggerData);
 		
 		IFilter filterNombre = filters.get(0);
@@ -30,7 +31,33 @@ public class FilterTest {
 		assertEquals(FilterNivel.class,filterNivel.getClass());
 		assertEquals(FilterRegex.class,filterRegex.getClass());
 		assertEquals(FilterCustom.class,filterCustomClass.getClass());
-		
 	}
-
+	
+	@Test
+	public void filterNombre() {
+		FilterNombre filterNombre = new FilterNombre("logger1");
+		FilterData filterData = new FilterData(Niveles.trace, "logger1", "mensaje prueba");
+		assertTrue(filterNombre.hasToLog(filterData));
+	}
+	
+	@Test
+	public void filterNivel() {
+		FilterNivel filterNivel = new FilterNivel(Niveles.trace);
+		FilterData filterData = new FilterData(Niveles.trace, "logger1", "mensaje prueba");
+		assertTrue(filterNivel.hasToLog(filterData));
+	}
+	
+	@Test
+	public void filterRegex() {
+		FilterRegex filterRegex = new FilterRegex("mensaje.*");
+		FilterData filterData = new FilterData(Niveles.trace, "logger1", "mensaje prueba");
+		assertTrue(filterRegex.hasToLog(filterData));
+	}
+	
+	@Test
+	public void filterCustom() throws Exception {
+		FilterCustom filterCustom = FilterCustom.generateFilterCustom("ar.fiuba.tecnicas.test.FilterCustomTest");
+		FilterData filterData = new FilterData(Niveles.trace, "logger1", "mensaje prueba");
+		assertTrue(filterCustom.hasToLog(filterData));
+	}
 }

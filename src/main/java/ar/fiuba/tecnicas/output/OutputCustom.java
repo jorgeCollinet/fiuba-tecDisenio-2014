@@ -1,37 +1,37 @@
-package ar.fiuba.tecnicas.filter;
+package ar.fiuba.tecnicas.output;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Clase encargada de filtrar por nivel
+ * Clase encargada de levantar destinos custom
  * @author Grupo3
  * 
  */
-public class FilterCustom implements IFilter {
+public class OutputCustom implements IOutput {
 	protected String className;
 	
-	public static FilterCustom generateFilterCustom (String className) throws Exception{
+	public static OutputCustom generateOutputCustom (String className) throws Exception{
 		for(Class<?> interfaces: Class.forName(className).getInterfaces()){
-			if(interfaces.getClass().isInstance(IFilter.class)){
-				return new FilterCustom(className);
+			if(interfaces.getClass().isInstance(IOutput.class)){
+				return new OutputCustom(className);
 			}
 		}
-		throw new Exception("nombre de clase: "+className+" no implementa interfaz IFilter\n");
+		throw new Exception("nombre de clase: "+className+" no implementa interfaz IOutput\n");
 	}
 	
-	protected FilterCustom(String className) {
+	protected OutputCustom(String className) {
 		this.className = className;
 	}
 	
 	@Override
-	public boolean hasToLog(FilterData filterData) {
+	public void out(String message) {
 		try {
 			try {
 				Constructor<?> constructor = Class.forName(this.className).getConstructor();
 				try {
-					IFilter filterCustom = (IFilter) constructor.newInstance();
-					return filterCustom.hasToLog(filterData);					
+					IOutput outputCustom = (IOutput) constructor.newInstance();
+					outputCustom.out(message);					
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					e.printStackTrace();
 				}
@@ -41,6 +41,5 @@ public class FilterCustom implements IFilter {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		return false;
 	}
 }

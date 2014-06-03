@@ -16,15 +16,15 @@ public class LoggerTest {
 	
 
 	@Test
-	public void logearDebbug() throws Exception {
-		String message = "public void logearDebbug(): TEXTO PRUEBA";
+	public void logearAplicandoFiltros() throws Exception {
+		String message = "public void logearAplicandoFiltros(): TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
 		
 		ArrayList <IFilter> filters = new ArrayList<IFilter>();
 		FilterNombre filterNombre = new FilterNombre("logger1");
 		FilterNivel filterNivel = new FilterNivel(Niveles.debug);
 		FilterRegex filterRegex = new FilterRegex(".*TEXTO.*");
-		FilterCustom filterCustom = FilterCustom.generateFilterCustom("ar.fiuba.tecnicas.filter.FilterCustomHorario");
+		FilterCustom filterCustom = FilterCustom.generateFilterCustom("ar.fiuba.tecnicas.test.FilterCustomTest");
 		
 		filters.add(filterNombre);
 		filters.add(filterNivel);
