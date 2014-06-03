@@ -47,7 +47,6 @@ public class FilterBuilder {
 					filters.add(filterCustom);
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.out.print("error en FilterBuilder!!!!!!!!!!!!\n");
 				}
 				
 			}

@@ -5,19 +5,19 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import ar.fiuba.tecnicas.formato.Formato;
 import ar.fiuba.tecnicas.logging.Log;
 import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.Niveles;
@@ -30,8 +30,8 @@ public class LogTest {
 	static String NOMBRE_ARCHIVO1_PRUEBA = "propertiesLog.txt";
 	protected Properties generateDefaultTestPropertie(){
 		Properties properties = new Properties();
-		properties.setProperty("separador", "-");
-		properties.setProperty("formato", "%m");
+		properties.setProperty("Separador", Formato.separadorDefault);
+		properties.setProperty("FormatoDefault", Formato.patronDefault);
 		properties.setProperty(Niveles.debug.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console");
 		properties.setProperty(Niveles.fatal.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console,Output>file:log1.txt");
 		return properties;
@@ -68,31 +68,27 @@ public class LogTest {
 	}
 	@Test
 	public void loadConfiguration() throws Exception {
-		Properties properties = new Properties();
-		properties.setProperty("separador", "-");
-		properties.setProperty("formato", "%m");
-		properties.setProperty(Niveles.fatal.toString(), "LoggerManolo,Output>console");
-		properties.setProperty(Niveles.debug.toString(), "LoggerPepe,Output>console,Output>file:log12.txt");
+		Properties properties = generateDefaultTestPropertie();
 
 		Log.loadConfiguration(properties);
 
 		ArrayList<Logger> loggers = Log.getLoggers();
 		assertEquals(2, loggers.size());
 
-		Logger loggerDebbug = loggers.get(0);
-		assertEquals(loggerDebbug.getNivel(), Niveles.debug);
-		OutputContainer outputContainerDebbug = (OutputContainer) loggerDebbug.getOutput();
-		ArrayList<IOutput> outputsWarning = outputContainerDebbug.getOutputs();
-		assertEquals(2, outputsWarning.size());
-		IOutput outputConsoleWarning = outputsWarning.get(0);
-		assertTrue(outputConsoleWarning instanceof OutputConsole);
-		IOutput outputFileWarning = outputsWarning.get(1);
-		assertTrue(outputFileWarning instanceof OutputFile);
-		
 		Logger loggerFatal = loggers.get(1);
 		assertEquals(loggerFatal.getNivel(), Niveles.fatal);
 		OutputContainer outputContainerFatal = (OutputContainer) loggerFatal.getOutput();
-		ArrayList<IOutput> outputsInfo = outputContainerFatal.getOutputs();
+		ArrayList<IOutput> outputsDebbug = outputContainerFatal.getOutputs();
+		assertEquals(2, outputsDebbug.size());
+		IOutput outputConsoleWarning = outputsDebbug.get(0);
+		assertTrue(outputConsoleWarning instanceof OutputConsole);
+		IOutput outputFileWarning = outputsDebbug.get(1);
+		assertTrue(outputFileWarning instanceof OutputFile);
+		
+		Logger loggerDebug = loggers.get(0);
+		assertEquals(loggerDebug.getNivel(), Niveles.debug);
+		OutputContainer outputContainerDebug = (OutputContainer) loggerDebug.getOutput();
+		ArrayList<IOutput> outputsInfo = outputContainerDebug.getOutputs();
 		assertEquals(1, outputsInfo.size());
 		IOutput outputConsoleInfo = outputsInfo.get(0);
 		assertTrue(outputConsoleInfo instanceof OutputConsole);

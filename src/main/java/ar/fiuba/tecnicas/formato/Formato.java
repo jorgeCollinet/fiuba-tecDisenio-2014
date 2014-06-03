@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.regex.*;
 
 import ar.fiuba.tecnicas.formato.subformato.*;
+import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.Niveles;
 
 /**
@@ -12,7 +13,7 @@ import ar.fiuba.tecnicas.logging.Niveles;
  */
 public class Formato
 {
-	public static final String petronDefault = "%m";
+	public static final String patronDefault = "%m";
 	public static final String separadorDefault = "-";
 	
 	protected String separador = separadorDefault;
@@ -85,7 +86,7 @@ public class Formato
 		if (separador != null)
 			this.separador = separador;
 		if (patron == null)
-			patron = petronDefault;
+			patron = patronDefault;
 		subformatos = new LinkedList<Subformato>();
 		// Parseo
 		while (patron.length() > 0)
@@ -120,7 +121,7 @@ public class Formato
 	}
 	
 	/**
-	 * @deprecated Retorna strings vacios para %g. Usar darFormato(String, Niveles, String)
+	 * Retorna Logger.DEFAULT_NAME_LOGGER para %g. Usar darFormato(String, Niveles, String)
 	 * Dado un mensaje y nivel, le aplica el formato previamente seteado
 	 * @param mensaje	Mensaje al cual se le desea aplicar el formato predefinido
 	 * @param nivel		Nivel del mensaje
@@ -128,7 +129,7 @@ public class Formato
 	 */
 	public String darFormato(String mensaje, Niveles nivel)
 	{
-		return darFormato(mensaje, nivel, null);
+		return darFormato(mensaje, nivel, Logger.DEFAULT_NAME_LOGGER);
 	}
 	
 	/**

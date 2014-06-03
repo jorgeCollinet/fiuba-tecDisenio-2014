@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import ar.fiuba.tecnicas.filter.*;
+import ar.fiuba.tecnicas.formato.FormatBuilder;
 import ar.fiuba.tecnicas.formato.Formato;
 import ar.fiuba.tecnicas.output.IOutput;
 import ar.fiuba.tecnicas.output.OutputBuilder;
@@ -19,8 +20,8 @@ public class LoggerBuilder {
 
 	public static ArrayList<Logger> generateLoggers(Properties prop) throws Exception {
 		ArrayList<Logger> loggers = new ArrayList<>();
-		String patron = prop.getProperty("formato",null);
-		String separador = prop.getProperty("separador",null);
+		String patronDefault = prop.getProperty("FormatoDefault",null);
+		String separador = prop.getProperty("Separador",null);
 				
 		/*for (Niveles nivel : Niveles.values()) {
 			if (prop.containsKey(nivel.name())) {
@@ -31,7 +32,7 @@ public class LoggerBuilder {
 				loggers.add(logger);
 			}
 		}*/
-		// TODO implementar nuevo parceamiento de cada clase
+		
 		for (Niveles nivel : Niveles.values()) {
 			if (prop.containsKey(nivel.name())) {
 				String datosDeNivel = prop.getProperty(nivel.toString());
@@ -39,8 +40,7 @@ public class LoggerBuilder {
 				for(String loggerData : listOfDataLoggers) {					
 					IOutput out = OutputBuilder.generateOutput(loggerData);
 					ArrayList<IFilter> filters = FilterBuilder.generateFilters(nivel, loggerData);
-					// posible formatBuilder ??
-					Formato format = new Formato(patron, separador);
+					Formato format = FormatBuilder.generateFormats(loggerData,patronDefault, separador);
 					Logger logger = new Logger(nivel, filters, out, format);
 					loggers.add(logger);
 				}

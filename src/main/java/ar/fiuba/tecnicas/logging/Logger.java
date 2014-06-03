@@ -43,13 +43,11 @@ public class Logger {
 		this.filters = filters;
 	}
 	
-	
 	public Logger(String nombre,Niveles nivel, IOutput salida, Formato format){
 		this(nivel, salida, format);
 		this.setNombre(nombre);
 	}
 	
-	// TODO utilizarlo en LoggerBuilder
 	public void setNombre (String nombre){
 		this.nombre = nombre;
 	}
@@ -85,7 +83,7 @@ public class Logger {
 	public Niveles getNivel() {
 		return this.nivel;
 	}
-
+	
 	public IOutput getOutput() {
 		return this.out;
 	}
