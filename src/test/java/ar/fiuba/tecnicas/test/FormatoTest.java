@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.junit.Test;
 import ar.fiuba.tecnicas.formato.Formato;
+import ar.fiuba.tecnicas.formato.FormatoJSON;
 import ar.fiuba.tecnicas.logging.Niveles;
 
 public class FormatoTest 
@@ -14,7 +15,6 @@ public class FormatoTest
     public void formatoNumeroLinea() 
     {
 		// Nota: Test peculiar, su correcta ejecucion depende del numero de linea
-		// Por favor no mover a otro lugar en este archivo, o inventar algo mejor
 		Formato formato = new Formato("%L");
         assertEquals("19",formato.darFormato(null,null));
     }
@@ -22,8 +22,8 @@ public class FormatoTest
 	@Test
     public void formatoArchivo() 
     {
-		// Nota: Test peculiar, su correcta ejecucion depende del numero de linea
-		// Por favor no mover a otro lugar en este archivo, o inventar algo mejor
+		// Nota: Test peculiar, su correcta ejecucion depende del nombre
+		// de este archivo de test.
 		Formato formato = new Formato("%F");
         assertEquals("FormatoTest.java",formato.darFormato(null,null));
     }
@@ -31,8 +31,7 @@ public class FormatoTest
 	@Test
     public void formatoMetodo() 
     {
-		// Nota: Test peculiar, su correcta ejecucion depende del numero de linea
-		// Por favor no mover a otro lugar en este archivo, o inventar algo mejor
+		// Nota: Test peculiar, su correcta ejecucion depende del nombre de este metodo
 		Formato formato = new Formato("%M");
         assertEquals("formatoMetodo",formato.darFormato(null,null));
     }
@@ -113,9 +112,9 @@ public class FormatoTest
 	@Test
 	public void formatoJSON()
 	{
-		Formato formato = new Formato("%p %M %m %g");
+		Formato formato = new FormatoJSON("%p %M %m %g");
 		assertEquals("{'level': 'fatal', 'method': 'formatoJSON', 'message': 'Test.', 'logger': 'lnombre'}",
-        		formato.darFormatoJSON("Test.",Niveles.fatal,"lnombre"));   
+        		formato.darFormato("Test.",Niveles.fatal,"lnombre"));   
 	}
 	   
 }

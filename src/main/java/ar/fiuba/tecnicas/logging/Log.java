@@ -97,13 +97,28 @@ public class Log {
 		}
 	}
 	
+	/**
+	 * Verifica si un un logger con un determinado nombre existe
+	 * @param nombre	Nombre del logger
+	 * @return			True si existe, false si no existe.
+	 */
+	public static boolean loggerExists(String nombre)
+	{
+		for (Logger logger : loggers)
+			if (nombre == logger.nombre) return true;
+		return false;
+	}
+	
+	/**
+	 * Dado un nombre de logger, devuelve su nivel
+	 * @param nombre	Nombre del logger
+	 * @return			El nivel, o una excepción si no existe el logger
+	 */
 	public static Niveles getNivelLogger(String nombre)
 	{
 		for (Logger logger : loggers)
-		{
 			if (nombre == logger.nombre) return logger.nivel;
-		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 	
 	public static ArrayList<Logger> getLoggers(){

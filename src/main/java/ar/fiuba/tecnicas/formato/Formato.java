@@ -8,37 +8,31 @@ import ar.fiuba.tecnicas.formato.subformato.*;
 import ar.fiuba.tecnicas.logging.Niveles;
 
 /**
- * Clase encargada de dar formato a un texto tras asignarsele un patrón
+ * Clase base para las clases encagadas de dar formato a un texto tras asignarsele un patrón
  */
 public class Formato
 {
 	public static final String petronDefault = "%m";
 	public static final String separadorDefault = "-";
 	
-	private static final LinkedList<TuplaMatchSubformato> subFormatos = getSubformatos();
-	private String separador = separadorDefault;
-	private LinkedList<Subformato> subformatos;
+	protected String separador = separadorDefault;
+	protected LinkedList<Subformato> subformatos;
 	
-	/**
-	 * Crea las tuplas de Patron-Subformato para reemplazar
-	 * @return		Una lista con las tuplas
-	 */
-	private static LinkedList<TuplaMatchSubformato> getSubformatos()
+	// Tuplas de Patron-Subformato para reemplazar
+	private static TuplaMatchSubformato[] subFormatos =
 	{	
-		LinkedList<TuplaMatchSubformato> lista = new LinkedList<TuplaMatchSubformato>();
-		lista.push(new TuplaMatchSubformato("%%",SubformatoEscape.class));
-		lista.push(new TuplaMatchSubformato("%d\\{[^\\}]*\\}",SubformatoFecha.class));
-		lista.push(new TuplaMatchSubformato("%m",SubformatoMensaje.class));
-		lista.push(new TuplaMatchSubformato("%p",SubformatoNivel.class));
-		lista.push(new TuplaMatchSubformato("%F",SubformatoNombreArchivo.class));
-		lista.push(new TuplaMatchSubformato("%M",SubformatoNombreMetodo.class));
-		lista.push(new TuplaMatchSubformato("%t",SubformatoNombreThread.class));
-		lista.push(new TuplaMatchSubformato("%L",SubformatoNumeroLinea.class));
-		lista.push(new TuplaMatchSubformato("%n",SubformatoSeparador.class));
-		lista.push(new TuplaMatchSubformato("%g",SubformatoNombreLogger.class));
-		return lista;
-	}
-	
+		new TuplaMatchSubformato("%%",SubformatoEscape.class),
+		new TuplaMatchSubformato("%d\\{[^\\}]*\\}",SubformatoFecha.class),
+		new TuplaMatchSubformato("%m",SubformatoMensaje.class),
+		new TuplaMatchSubformato("%p",SubformatoNivel.class),
+		new TuplaMatchSubformato("%F",SubformatoNombreArchivo.class),
+		new TuplaMatchSubformato("%M",SubformatoNombreMetodo.class),
+		new TuplaMatchSubformato("%t",SubformatoNombreThread.class),
+		new TuplaMatchSubformato("%L",SubformatoNumeroLinea.class),
+		new TuplaMatchSubformato("%n",SubformatoSeparador.class),
+		new TuplaMatchSubformato("%g",SubformatoNombreLogger.class)
+	};
+		
 	/**
 	 * Crea un nuevo formato con el patrón y separador asignados
 	 * Ver setFormato(String, String) para la sintaxis soportada
@@ -146,48 +140,22 @@ public class Formato
 	 */
 	public String darFormato(String mensaje, Niveles nivel, String logger)
 	{
+		return _darFormato(mensaje, nivel, logger);
+	}
+	
+	/**
+	 * Metodo que realiza el comportamiento descripto por darFormato
+	 * Reimplementar en clases heredadas para obtener distintos estilos
+	 */
+	protected String _darFormato(String mensaje, Niveles nivel, String logger)
+	{
 		ParametrosSubformato parametros = new ParametrosSubformato
-					(mensaje, nivel, separador, Thread.currentThread(), logger);
+				(mensaje, nivel, separador, Thread.currentThread(), logger);
 		String resultado = new String();
 		for (Subformato subformato : subformatos)
 		{
 			resultado += subformato.darFormato(parametros);
 		}
 		return resultado;
-	}
-	
-	/**
-	 * @deprecated Retorna strings vacios para %g. Usar darFormatoJSON(String, Niveles, String)
-	 * Dado un mensaje y nivel, le aplica el formato previamente seteado
-	 * @param mensaje	Mensaje al cual se le desea aplicar el formato predefinido
-	 * @param nivel		Nivel del mensaje
-	 * @return			El mensaje tras ser formateado, como linea de JSON
-	 */
-	public String darFormatoJSON(String mensaje, Niveles nivel)
-	{
-		return darFormatoJSON(mensaje, nivel, null);
-	}
-	
-	/**
-	 * Dado un mensaje, nivel y nombre de logger, le aplica el formato previamente seteado
-	 * @param mensaje	Mensaje al cual se le desea aplicar el formato predefinido
-	 * @param nivel		Nivel del mensaje
-	 * @param logger	Nombre del logger
-	 * @return			El mensaje tras ser formateado, como linea de JSON
-	 */
-	public String darFormatoJSON(String mensaje, Niveles nivel, String logger)
-	{
-		ParametrosSubformato parametros = new ParametrosSubformato
-					(mensaje, nivel, separador, Thread.currentThread(), logger);
-		String resultado = "{";
-		for (Subformato subformato : subformatos)
-		{
-			if (subformato.getJSONTag() == null) continue;
-			if (resultado.length() > 1) resultado += ", ";
-			resultado += "'"+subformato.getJSONTag()+"': ";
-			resultado += "'"+subformato.darFormato(parametros)+"'";
-		}
-		return resultado+"}";
-	}
-
+	}	
 }
