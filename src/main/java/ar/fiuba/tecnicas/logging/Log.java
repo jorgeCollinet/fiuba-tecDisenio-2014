@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.lang.StackTraceElement;
 
 /**
  * Clase encargada de recibir todos los mensajes de log y redistribuirlo a los distintos loggers
@@ -80,7 +81,7 @@ public class Log {
 	 */
 	public static void log(Niveles nivel, Throwable throwable, String nombreLogger) {
 		for (Logger logger : loggers) {
-			logger.logear(nivel, throwable.getMessage(), nombreLogger);
+			logger.logear(nivel, throwableToString(throwable), nombreLogger);
 		}
 	}
 	
@@ -93,8 +94,21 @@ public class Log {
 	 */
 	public static void log(Niveles nivel, String message, Throwable throwable, String nombreLogger) {
 		for (Logger logger : loggers) {
-			logger.logear(nivel, message+":"+throwable.getMessage(), nombreLogger);
+			logger.logear(nivel, message+":"+throwableToString(throwable), nombreLogger);
 		}
+	}
+	
+	private static String throwableToString(Throwable throwable)
+	{
+		String result = "";
+		if (throwable.getMessage() != null) result += throwable.getMessage()+":\n";
+		result += "Stacktrace:\n";
+		for (StackTraceElement e : throwable.getStackTrace())
+		{
+			result += "At line "+e.getLineNumber()+" in "+e.getMethodName()
+					+" in file " + e.getFileName() +"\n";
+		}
+		return result;
 	}
 	
 	/**
