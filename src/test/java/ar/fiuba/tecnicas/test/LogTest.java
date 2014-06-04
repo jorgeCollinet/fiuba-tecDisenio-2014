@@ -30,6 +30,8 @@ import ar.fiuba.tecnicas.output.OutputFile;
 public class LogTest {
 	static String NOMBRE_ARCHIVO1_PRUEBA = "propertiesLog.txt";
 	protected ByteArrayOutputStream outputConsola;
+	protected PrintStream viejaConsola;
+	
 
 	protected Properties generateDefaultTestPropertie() {
 		Properties properties = new Properties();
@@ -60,6 +62,7 @@ public class LogTest {
 		properties.store(out, NOMBRE_ARCHIVO1_PRUEBA);
 
 		outputConsola = new ByteArrayOutputStream();
+		viejaConsola = System.out;
 	    PrintStream printStream = new PrintStream(outputConsola, true);
 	    System.setOut(printStream);
 	}
@@ -78,7 +81,7 @@ public class LogTest {
 		if (file2.exists()) {
 			file2.delete();
 		}
-		System.setOut(System.out);
+		System.setOut(viejaConsola);
 	}
 	@Test
 	public void loadConfiguration() throws Exception {

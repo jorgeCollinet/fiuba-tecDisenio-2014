@@ -38,10 +38,9 @@ public class OutputBuilder {
 				} else if (item.contains(OutputType.file.toString())) {
 					String nombreDeArchivo = subItemsList[1].split(":")[1];
 					container.addOutput(new OutputFile(nombreDeArchivo));
-				} else if (item.contains(OutputType.Class.toString())) {
-					// TODO implementar las clases Output personalizadas
-					
-					
+				} else if (item.contains(OutputType.OutputClass.toString())) {
+					String className = item.split(">")[1];
+					container.addOutput(OutputCustom.generateOutputCustom(className));
 				} else {
 					throw new Exception(
 							"Output que intenta generar no pertenece a ningun tipo conocido, string ingresado: "
