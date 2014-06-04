@@ -35,7 +35,7 @@ public class Logger {
 		this.nombre = DEFAULT_NAME_LOGGER;
 	}
 
-	public Logger(Niveles nivel, ArrayList<IFilter> filters, IOutput salida, Formato format) {
+	public Logger(String nombre, Niveles nivel, ArrayList<IFilter> filters, IOutput salida, Formato format) {
 		this.nivel = nivel;
 		this.formato = format;
 		out = salida;
@@ -66,12 +66,13 @@ public class Logger {
 		FilterData filterData = new FilterData(nivel, nombreLogger, message);
 		for (IFilter filter : this.filters) {
 			if(!filter.hasToLog(filterData)){
-				
-				/*System.out.print("\nnegativo: \n");
-				System.out.print("datos de logger: "+this.nivel.toString()+" nombre: "+this.nombre+"\n");
-				System.out.print("datos de entrada: "+nivel.toString()+" nombre: "+nombreLogger+" mensaje: "+message+"\n");
-				System.out.print("calse de filtro: "+filter.getClass()+"\n");
-				*/
+				// TODO sacar estos prints al final
+				/*
+					System.out.print("\nnegativo: \n");
+					System.out.print("datos de logger: "+this.nivel.toString()+" nombre:\""+this.nombre+"\"\n");
+					System.out.print("datos de entrada: "+nivel.toString()+" nombre:\""+nombreLogger+"\"mensaje: "+message+"\n");
+					System.out.print("calse de filtro: "+filter.getClass()+"\n");
+				}*/
 				return;
 			}
 		}

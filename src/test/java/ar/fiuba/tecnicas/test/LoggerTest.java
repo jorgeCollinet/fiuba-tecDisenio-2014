@@ -31,7 +31,7 @@ public class LoggerTest {
 		filters.add(filterRegex);
 		filters.add(filterCustom);
 		
-		Logger logger = new Logger(Niveles.debug,filters, outputMock, formato);
+		Logger logger = new Logger(Logger.DEFAULT_NAME_LOGGER, Niveles.debug,filters, outputMock, formato);
 		
 		logger.logear(Niveles.debug, message, "logger1");
 		assertEquals(message, outputMock.getMessage());
@@ -78,13 +78,12 @@ public class LoggerTest {
 	
 	@Test
 	public void noLogearNivelMensajeErrorNivelLoggerFatal() {
-		String message = "TEXTO PRUEBA";
+		String message = "noLogearNivelMensajeErrorNivelLoggerFatal()";
 		Formato formato = new Formato("%m", null);
 		Logger logger = new Logger(Niveles.fatal, outputMock, formato);
 		
 		logger.logear(Niveles.error, message);
-		System.out.print(outputMock.getMessage());
-		assertEquals("TEXTO PRUEBA", outputMock.getMessage());
+		assertEquals(message, outputMock.getMessage());
 	}
 	
 	@Test

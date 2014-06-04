@@ -25,7 +25,6 @@ public class FormatBuilder {
 
 			}
 		}
-		System.out.print("generando Formato con patron: "+defaultPattern);
 		return new Formato(defaultPattern,separator);
 	}
 

@@ -37,11 +37,12 @@ public class LoggerBuilder {
 			if (prop.containsKey(nivel.name())) {
 				String datosDeNivel = prop.getProperty(nivel.toString());
 				String[] listOfDataLoggers = datosDeNivel.split("\n");
-				for(String loggerData : listOfDataLoggers) {					
+				for(String loggerData : listOfDataLoggers) {
+					String nombreLogger = loggerData.split(",")[0];
 					IOutput out = OutputBuilder.generateOutput(loggerData);
 					ArrayList<IFilter> filters = FilterBuilder.generateFilters(nivel, loggerData);
 					Formato format = FormatBuilder.generateFormats(loggerData,patronDefault, separador);
-					Logger logger = new Logger(nivel, filters, out, format);
+					Logger logger = new Logger(nombreLogger, nivel, filters, out, format);
 					loggers.add(logger);
 				}
 			}
