@@ -19,7 +19,7 @@ public class FilterTest {
 
 	@Test
 	public void BuilderFilterBuildFromString() {
-		String LoggerData = "sapoPepe,Output>console,BehaveRegex>esto_es_una_expresion_regular,BehaveClass>ar.fiuba.tecnicas.test.FilterCustomTest";
+		String LoggerData = "sapoPepe,Output>console,BehaveRegex>esto_es_una_expresion_regular,BehaveClass>ar.fiuba.tecnicas.test.FilterCustomMock";
 		ArrayList<IFilter> filters = FilterBuilder.generateFilters(Niveles.info, LoggerData);
 		
 		IFilter filterNombre = filters.get(0);
@@ -56,7 +56,7 @@ public class FilterTest {
 	
 	@Test
 	public void filterCustom() throws Exception {
-		FilterCustom filterCustom = FilterCustom.generateFilterCustom("ar.fiuba.tecnicas.test.FilterCustomTest");
+		FilterCustom filterCustom = FilterCustom.generateFilterCustom("ar.fiuba.tecnicas.test.FilterCustomMock");
 		FilterData filterData = new FilterData(Niveles.trace, "logger1", "mensaje prueba");
 		assertTrue(filterCustom.hasToLog(filterData));
 	}

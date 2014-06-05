@@ -3,7 +3,7 @@ package ar.fiuba.tecnicas.filter;
 import ar.fiuba.tecnicas.logging.Niveles;
 
 /**
- * Clase encargada de filtrar por nivel
+ * 	Clase utilizada para agrupar la información de un mensaje a filtrar (nombre de logger, nivel, mensaje).
  * @author Grupo3
  * 
  */

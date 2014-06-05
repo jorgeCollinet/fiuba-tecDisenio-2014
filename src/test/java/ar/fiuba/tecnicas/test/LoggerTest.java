@@ -24,7 +24,7 @@ public class LoggerTest {
 		FilterNombre filterNombre = new FilterNombre("logger1");
 		FilterNivel filterNivel = new FilterNivel(Niveles.debug);
 		FilterRegex filterRegex = new FilterRegex(".*TEXTO.*");
-		FilterCustom filterCustom = FilterCustom.generateFilterCustom("ar.fiuba.tecnicas.test.FilterCustomTest");
+		FilterCustom filterCustom = FilterCustom.generateFilterCustom("ar.fiuba.tecnicas.test.FilterCustomMock");
 		
 		filters.add(filterNombre);
 		filters.add(filterNivel);
