@@ -8,9 +8,9 @@ import ar.fiuba.tecnicas.filter.IFilter;
  * @author Grupo3
  * 
  */
-public class FilterCustomTest implements IFilter{
+public class FilterCustomMock implements IFilter{
 
-	public FilterCustomTest() {
+	public FilterCustomMock() {
 		
 	}
 
