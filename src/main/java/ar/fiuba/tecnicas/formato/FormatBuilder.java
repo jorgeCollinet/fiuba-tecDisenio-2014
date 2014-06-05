@@ -9,7 +9,7 @@ public class FormatBuilder {
 	 * 
 	 * @param dataFormats String por el cual se generarán los formatos
 	 * @param defaultPattern si no se encuentra un formato dentro de dataformats se utilizará este formato
-	 * @param separator
+	 * @param separator separador del formato
 	 * @return
 	 */
 	public static Formato generateFormats(String dataFormats, String defaultPattern, String separator) {

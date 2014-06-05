@@ -41,7 +41,7 @@ public class LoggerTest {
 	public void logearNivelMensajeInfoNivelLoggerTrace() {
 		String message = "public void logearNivelMensajeInfoNivelLoggerTrace(): TEXTO PRUEBA\n";
 		Formato formato = new Formato("%m", null);
-		Logger logger = new Logger(Niveles.trace, outputMock, formato);
+		Logger logger = new Logger(Niveles.trace, new ArrayList<IFilter>(), outputMock, formato);
 		
 		logger.logear(Niveles.trace, message);
 		assertEquals(message, outputMock.getMessage());
@@ -50,7 +50,7 @@ public class LoggerTest {
 	public void logearNivelMensajeInfoNivelLoggerDebbug() {
 		String message = "public void logearNivelMensajeInfoNivelLoggerDebbug(): TEXTO PRUEBA\n";
 		Formato formato = new Formato("%m", null);
-		Logger logger = new Logger(Niveles.debug, outputMock, formato);
+		Logger logger = new Logger(Niveles.debug, new ArrayList<IFilter>(), outputMock, formato);
 		
 		logger.logear(Niveles.info, message);
 		assertEquals(message, outputMock.getMessage());
@@ -60,7 +60,7 @@ public class LoggerTest {
 	public void logearNivelMensajeFatalNivelLoggerWarning() {
 		String message = "public void logearNivelMensajeFatalNivelLoggerWarning(): TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
-		Logger logger = new Logger(Niveles.warning, outputMock, formato);
+		Logger logger = new Logger(Niveles.warning, new ArrayList<IFilter>(), outputMock, formato);
 		
 		logger.logear(Niveles.fatal, message);
 		assertEquals(message, outputMock.getMessage());
@@ -70,7 +70,7 @@ public class LoggerTest {
 	public void logearNivelMensajeWarningNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
-		Logger logger = new Logger(Niveles.warning, outputMock, formato);
+		Logger logger = new Logger(Niveles.warning, new ArrayList<IFilter>(),outputMock, formato);
 		
 		logger.logear(Niveles.warning, message);
 		assertEquals(message, outputMock.getMessage());
@@ -80,7 +80,7 @@ public class LoggerTest {
 	public void noLogearNivelMensajeErrorNivelLoggerFatal() {
 		String message = "noLogearNivelMensajeErrorNivelLoggerFatal()";
 		Formato formato = new Formato("%m", null);
-		Logger logger = new Logger(Niveles.fatal, outputMock, formato);
+		Logger logger = new Logger(Niveles.fatal,new ArrayList<IFilter>(), outputMock, formato);
 		
 		logger.logear(Niveles.error, message);
 		assertEquals(message, outputMock.getMessage());
@@ -90,7 +90,7 @@ public class LoggerTest {
 	public void noLogearNivelMensajeDebugNivelLoggerWarning() {
 		String message = "TEXTO PRUEBA";
 		Formato formato = new Formato("%m", null);
-		Logger logger = new Logger(Niveles.warning, outputMock, formato);
+		Logger logger = new Logger(Niveles.warning,new ArrayList<IFilter>() ,outputMock, formato);
 		
 		logger.logear(Niveles.debug, message);
 		assertEquals("TEXTO PRUEBA", outputMock.getMessage());

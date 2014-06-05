@@ -33,7 +33,8 @@ public class Log {
 	}
 	
 	/**
-	 * Metodo encargado de cargar la configuracion del log desde un archivo
+	 * Metodo encargado de cargar la configuracion del log desde un archivo que puede
+	 * tener formato Properties o formato XML
 	 * 
 	 * @param fileName
 	 * @throws Exception 
@@ -58,7 +59,6 @@ public class Log {
 	public static void log(Niveles nivel, String message) {
 		String nombreLogger = Logger.DEFAULT_NAME_LOGGER;
 		Log.log(nivel, message, nombreLogger);
-
 	}
 
 	/**
