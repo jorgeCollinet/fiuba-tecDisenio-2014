@@ -119,7 +119,7 @@ public class Log {
 	public static boolean loggerExists(String nombre)
 	{
 		for (Logger logger : loggers)
-			if (nombre == logger.nombre) return true;
+			if (nombre.equals(logger.nombre)) return true;
 		return false;
 	}
 	
@@ -131,7 +131,7 @@ public class Log {
 	public static Niveles getNivelLogger(String nombre)
 	{
 		for (Logger logger : loggers)
-			if (nombre == logger.nombre) return logger.nivel;
+			if (nombre.equals(logger.nombre)) return logger.nivel;
 		throw new IllegalArgumentException();
 	}
 	

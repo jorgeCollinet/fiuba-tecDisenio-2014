@@ -39,7 +39,7 @@ public class Logger {
 		this.nivel = nivel;
 		this.formato = format;
 		out = salida;
-		this.nombre = DEFAULT_NAME_LOGGER;
+		this.setNombre(nombre);
 		this.filters = filters;
 	}
 	

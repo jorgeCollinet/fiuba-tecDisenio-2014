@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 
 public class slf4jTest 
 {
-	private String nombreLogger = "";
+	private String nombreLogger = "testLogger";
 	private ILoggerFactory factory;
 	private ByteArrayOutputStream outputConsola;
 	private PrintStream viejaConsola = System.out;
