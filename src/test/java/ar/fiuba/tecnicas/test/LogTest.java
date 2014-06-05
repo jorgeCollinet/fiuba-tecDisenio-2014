@@ -38,7 +38,7 @@ public class LogTest {
 		properties.setProperty("Separador", Formato.separadorDefault);
 		properties.setProperty("FormatoDefault", Formato.patronDefault);
 		properties.setProperty(Niveles.debug.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console");
-		properties.setProperty(Niveles.fatal.toString(),"pepe"+",Output>console,Output>file:log1.txt,Formato>%g%m");
+		properties.setProperty(Niveles.fatal.toString(),"pepe"+",Output>console,Output>file:log1.txt,Formato>%m");
 		return properties;
 	}
 

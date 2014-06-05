@@ -77,6 +77,7 @@ public class Formato
 	 *	%m muestra el contenido del mensaje logueado por el usuario.
 	 *	%% muestra un % (es el escape de %).
 	 * 	%n muestra el separador
+	 *  %g muestra el nombre del logger
 	 *	%L muestra el numero de linea desde donde se llamo a darFormato, ignorando paquetes internos
 	 *	%F muestra el nombre de archivo desde donde se llamo a darFormato, ignorando paquetes internos
 	 *	%M muestra el nombre del metodo desde donde se llamo a darFormato, ignorando paquetes internos

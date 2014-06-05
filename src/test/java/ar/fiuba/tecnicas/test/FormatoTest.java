@@ -63,6 +63,8 @@ public class FormatoTest
     {
     	Formato formato = new Formato("%m");
         assertEquals("Un mensaje.",formato.darFormato("Un mensaje.",null));
+        formato = new Formato("%m");
+        assertEquals("Un mensaje.",formato.darFormato("Un mensaje.",Niveles.trace,"nombreLogger"));
     }
 	
 	@Test
