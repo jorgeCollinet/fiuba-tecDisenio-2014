@@ -44,7 +44,7 @@ public class slf4jTest
 	
 	
 	@Test
-	public void testLog() 
+	public void log() 
 	{
 		Logger logger = factory.getLogger(nombreLogger);
 		logger.error("Test");
@@ -52,7 +52,7 @@ public class slf4jTest
 	}
 	
 	@Test
-	public void testNoLog() 
+	public void noLog() 
 	{
 		Logger logger = factory.getLogger(nombreLogger);
 		logger.trace("Test");
@@ -60,7 +60,7 @@ public class slf4jTest
 	}
 	
 	@Test
-	public void testCheckNivel()
+	public void checkNivel()
 	{
 		Logger logger = factory.getLogger(nombreLogger);
 		assertTrue(logger.isDebugEnabled());
