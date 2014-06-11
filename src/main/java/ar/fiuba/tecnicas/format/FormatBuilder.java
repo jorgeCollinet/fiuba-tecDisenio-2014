@@ -1,4 +1,4 @@
-package ar.fiuba.tecnicas.formato;
+package ar.fiuba.tecnicas.format;
 /**
  * 
  * @author grupo3
@@ -12,20 +12,20 @@ public class FormatBuilder {
 	 * @param separator separador del formato
 	 * @return
 	 */
-	public static Formato generateFormats(String dataFormats, String defaultPattern, String separator) {
+	public static Format generateFormats(String dataFormats, String defaultPattern, String separator) {
 		String[] list = dataFormats.split(",");
 		for (String item : list) {
 			if (item.contains("FormatoJson")) {
 				String patron = item.split(">")[1];
-				return new FormatoJSON(patron, separator);
+				return new JSONFormat(patron, separator);
 			}
 			if (item.contains("Formato")) {
 				String patron = item.split(">")[1];
-				return new Formato(patron, separator);
+				return new Format(patron, separator);
 
 			}
 		}
-		return new Formato(defaultPattern,separator);
+		return new Format(defaultPattern,separator);
 	}
 
 }

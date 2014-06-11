@@ -1,29 +1,29 @@
-package ar.fiuba.tecnicas.formato;
+package ar.fiuba.tecnicas.format;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import java.lang.invoke.*;
+import java.lang.reflect.Constructor;
 
 /**
  * Una tupla que contiene un patrón (expresion regular)aparejado con una
  * referencia a función que devuelve un subformato (constructor)
  */
-public class TuplaMatchSubformato 
+public class MatchSubformatTuple 
 {
-	private MethodHandle refConstructor;
 	private Pattern patron;
+	private Constructor<? extends Subformat> refConstructor;
 
-	public TuplaMatchSubformato(String patron, Class<? extends Subformato> clase) 
+	public MatchSubformatTuple(String pattern, Class<? extends Subformat> aClass) 
 	{
-		this.patron = Pattern.compile(patron);
+		this.patron = Pattern.compile(pattern);
 		try 
 		{
-			refConstructor = MethodHandles.lookup().findConstructor(clase, MethodType.methodType(void.class, String.class));
+			refConstructor = aClass.getConstructor(String.class);
 		}
-		// No deberia entrar nunca a este catch porque el tipo esta chequeado
-		catch (IllegalAccessException | NoSuchMethodException e)  
+		// No deberia entrar nunca a este catch porque la herencia esta chequeada
+		catch (Throwable e)  
 		{
-			System.out.println("Error de programación al crear TuplaMatchSubformato.");
+			System.out.println("Error de programación al crear MatchSubformatTuple.");
 			e.printStackTrace();
 		}
 	}
@@ -43,13 +43,13 @@ public class TuplaMatchSubformato
 	 * @param match		String que se matcheo
 	 * @return			Nueva instancia de subformato
 	 */
-	public Subformato getNewSubformato(String match)
+	public Subformat getNewSubformat(String match)
 	{
 		try 
 		{
-			return (Subformato) refConstructor.invoke(match);
+			return refConstructor.newInstance(match);
 		} 
-		// No deberia entrar nunca a este catch porque el tipo estaba chequeado
+		// No deberia entrar nunca a este catch porque la herencia esta chequeada
 		catch (Throwable e)
 		{
 			System.out.println("Error de programación al ejecutar TuplaMatchSubformato.");

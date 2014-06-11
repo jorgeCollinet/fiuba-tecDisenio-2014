@@ -1,6 +1,6 @@
 package ar.fiuba.tecnicas.filter;
 
-import ar.fiuba.tecnicas.logging.Niveles;
+import ar.fiuba.tecnicas.logging.Level;
 
 /**
  * 	Clase utilizada para agrupar la información de un mensaje a filtrar (nombre de logger, nivel, mensaje).
@@ -8,22 +8,22 @@ import ar.fiuba.tecnicas.logging.Niveles;
  * 
  */
 public class FilterData {
-	protected Niveles nivel;
+	protected Level nivel;
 	protected String nombre;
 	protected String message;
 	protected String custom;
 	
-	public FilterData(Niveles nivel, String nombreLogger, String message) {
+	public FilterData(Level nivel, String nombreLogger, String message) {
 		this.nivel = nivel;
 		this.nombre = nombreLogger;
 		this.message = message;
 	}
 	
-	public Niveles getNivel(){
+	public Level getNivel(){
 		return this.nivel;
 	}
 	
-	public void setNivel(Niveles nivel){
+	public void setNivel(Level nivel){
 		this.nivel = nivel;
 	}
 	

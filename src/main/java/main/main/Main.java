@@ -1,7 +1,7 @@
 package main.main;
 
 import ar.fiuba.tecnicas.logging.Log;
-import ar.fiuba.tecnicas.logging.Niveles;
+import ar.fiuba.tecnicas.logging.Level;
 
 @SuppressWarnings("unused")
 public class Main {

@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.Marker;
 
 import ar.fiuba.tecnicas.logging.Log;
-import ar.fiuba.tecnicas.logging.Niveles;
+import ar.fiuba.tecnicas.logging.Level;
 
 public final class LoggerAdapter implements Logger
 {
@@ -29,31 +29,31 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public void debug(String arg0) 
 	{
-		Log.log(Niveles.debug, arg0, nombreLogger);
+		Log.log(Level.debug, arg0, nombreLogger);
 	}
 
 	@Override
 	public void debug(String arg0, Object arg1) 
 	{
-		Log.log(Niveles.debug, arg0+","+arg1.toString(), nombreLogger);	
+		Log.log(Level.debug, arg0+","+arg1.toString(), nombreLogger);	
 	}
 
 	@Override
 	public void debug(String arg0, Object... arg1) 
 	{
-		Log.log(Niveles.debug, objArrayToString(arg1), nombreLogger);	
+		Log.log(Level.debug, objArrayToString(arg1), nombreLogger);	
 	}
 
 	@Override
 	public void debug(String arg0, Throwable arg1)
 	{
-		Log.log(Niveles.debug, arg1,nombreLogger);
+		Log.log(Level.debug, arg1,nombreLogger);
 	}
 
 	@Override
 	public void debug(Marker arg0, String arg1) 
 	{
-		Log.log(Niveles.debug, arg0.getName()+":"+arg1, nombreLogger);		
+		Log.log(Level.debug, arg0.getName()+":"+arg1, nombreLogger);		
 	}
 
 	@Override
@@ -65,20 +65,20 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public void debug(Marker arg0, String arg1, Object arg2) 
 	{
-		Log.log(Niveles.debug, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);	
+		Log.log(Level.debug, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);	
 	}
 
 	@Override
 	public void debug(Marker arg0, String arg1, Object... arg2)
 	{
-		Log.log(Niveles.debug, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
+		Log.log(Level.debug, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
 				, nombreLogger);			
 	}
 
 	@Override
 	public void debug(Marker arg0, String arg1, Throwable arg2) 
 	{
-		Log.log(Niveles.debug, arg0.getName()+":"+arg1, arg2, nombreLogger);		
+		Log.log(Level.debug, arg0.getName()+":"+arg1, arg2, nombreLogger);		
 	}
 
 	@Override
@@ -90,31 +90,31 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public void error(String arg0) 
 	{
-		Log.log(Niveles.error, arg0, nombreLogger);
+		Log.log(Level.error, arg0, nombreLogger);
 	}
 
 	@Override
 	public void error(String arg0, Object arg1) 
 	{
-		Log.log(Niveles.error, arg0+","+arg1.toString(), nombreLogger);	
+		Log.log(Level.error, arg0+","+arg1.toString(), nombreLogger);	
 	}
 
 	@Override
 	public void error(String arg0, Object... arg1)
 	{
-		Log.log(Niveles.error, objArrayToString(arg1), nombreLogger);		
+		Log.log(Level.error, objArrayToString(arg1), nombreLogger);		
 	}
 
 	@Override
 	public void error(String arg0, Throwable arg1) 
 	{
-		Log.log(Niveles.error, arg1,nombreLogger);		
+		Log.log(Level.error, arg1,nombreLogger);		
 	}
 
 	@Override
 	public void error(Marker arg0, String arg1)
 	{
-		Log.log(Niveles.error, arg0.getName()+":"+arg1, nombreLogger);
+		Log.log(Level.error, arg0.getName()+":"+arg1, nombreLogger);
 	}
 
 	@Override
@@ -126,19 +126,19 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public void error(Marker arg0, String arg1, Object arg2)
 	{
-		Log.log(Niveles.error, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);	
+		Log.log(Level.error, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);	
 	}
 
 	@Override
 	public void error(Marker arg0, String arg1, Object... arg2) 
 	{
-		Log.log(Niveles.error, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
+		Log.log(Level.error, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
 				, nombreLogger);
 	}
 
 	@Override
 	public void error(Marker arg0, String arg1, Throwable arg2) {
-		Log.log(Niveles.error, arg0.getName()+":"+arg1, arg2, nombreLogger);
+		Log.log(Level.error, arg0.getName()+":"+arg1, arg2, nombreLogger);
 	}
 
 	@Override
@@ -156,31 +156,31 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public void info(String arg0) 
 	{
-		Log.log(Niveles.info, arg0, nombreLogger);
+		Log.log(Level.info, arg0, nombreLogger);
 	}
 
 	@Override
 	public void info(String arg0, Object arg1)
 	{
-		Log.log(Niveles.info, arg0+","+arg1.toString(), nombreLogger);	
+		Log.log(Level.info, arg0+","+arg1.toString(), nombreLogger);	
 	}
 
 	@Override
 	public void info(String arg0, Object... arg1) 
 	{
-		Log.log(Niveles.info, objArrayToString(arg1), nombreLogger);		
+		Log.log(Level.info, objArrayToString(arg1), nombreLogger);		
 	}
 
 	@Override
 	public void info(String arg0, Throwable arg1)
 	{
-		Log.log(Niveles.info, arg1,nombreLogger);		
+		Log.log(Level.info, arg1,nombreLogger);		
 	}
 
 	@Override
 	public void info(Marker arg0, String arg1)
 	{
-		Log.log(Niveles.info, arg0.getName()+":"+arg1, nombreLogger);
+		Log.log(Level.info, arg0.getName()+":"+arg1, nombreLogger);
 	}
 
 	@Override
@@ -192,19 +192,19 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public void info(Marker arg0, String arg1, Object arg2) 
 	{
-		Log.log(Niveles.info, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);			
+		Log.log(Level.info, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);			
 	}
 
 	@Override
 	public void info(Marker arg0, String arg1, Object... arg2) 
 	{
-		Log.log(Niveles.info, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
+		Log.log(Level.info, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
 				, nombreLogger);
 	}
 
 	@Override
 	public void info(Marker arg0, String arg1, Throwable arg2) {
-		Log.log(Niveles.info, arg0.getName()+":"+arg1, arg2, nombreLogger);
+		Log.log(Level.info, arg0.getName()+":"+arg1, arg2, nombreLogger);
 	}
 
 	@Override
@@ -216,7 +216,7 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public boolean isDebugEnabled() 
 	{
-		return (Log.getNivelLogger(nombreLogger).compareTo(Niveles.debug) <= 0);
+		return (Log.getNivelLogger(nombreLogger).compareTo(Level.debug) <= 0);
 	}
 
 	@Override
@@ -228,7 +228,7 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public boolean isErrorEnabled()
 	{
-		return (Log.getNivelLogger(nombreLogger).compareTo(Niveles.error) <= 0);
+		return (Log.getNivelLogger(nombreLogger).compareTo(Level.error) <= 0);
 	}
 
 	@Override
@@ -240,7 +240,7 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public boolean isInfoEnabled() 
 	{
-		return (Log.getNivelLogger(nombreLogger).compareTo(Niveles.info) <= 0);
+		return (Log.getNivelLogger(nombreLogger).compareTo(Level.info) <= 0);
 	}
 
 	@Override
@@ -252,7 +252,7 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public boolean isTraceEnabled() 
 	{
-		return (Log.getNivelLogger(nombreLogger).compareTo(Niveles.trace) <= 0);
+		return (Log.getNivelLogger(nombreLogger).compareTo(Level.trace) <= 0);
 	}
 
 	@Override
@@ -264,7 +264,7 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public boolean isWarnEnabled()
 	{
-		return (Log.getNivelLogger(nombreLogger).compareTo(Niveles.warning) <= 0);
+		return (Log.getNivelLogger(nombreLogger).compareTo(Level.warning) <= 0);
 	}
 
 	@Override
@@ -276,19 +276,19 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public void trace(String arg0)
 	{
-		Log.log(Niveles.trace, arg0, nombreLogger);
+		Log.log(Level.trace, arg0, nombreLogger);
 	}
 
 	@Override
 	public void trace(String arg0, Object arg1)
 	{
-		Log.log(Niveles.trace, arg0+","+arg1.toString(), nombreLogger);		
+		Log.log(Level.trace, arg0+","+arg1.toString(), nombreLogger);		
 	}
 
 	@Override
 	public void trace(String arg0, Object... arg1) 
 	{
-		Log.log(Niveles.trace, objArrayToString(arg1), nombreLogger);
+		Log.log(Level.trace, objArrayToString(arg1), nombreLogger);
 	}
 
 	@Override
@@ -300,7 +300,7 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public void trace(Marker arg0, String arg1)
 	{
-		Log.log(Niveles.trace, arg0.getName()+":"+arg1, nombreLogger);
+		Log.log(Level.trace, arg0.getName()+":"+arg1, nombreLogger);
 	}
 
 	@Override
@@ -311,20 +311,20 @@ public final class LoggerAdapter implements Logger
 
 	@Override
 	public void trace(Marker arg0, String arg1, Object arg2) {
-		Log.log(Niveles.trace, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);		
+		Log.log(Level.trace, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);		
 	}
 
 	@Override
 	public void trace(Marker arg0, String arg1, Object... arg2)
 	{
-		Log.log(Niveles.trace, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
+		Log.log(Level.trace, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
 				, nombreLogger);
 	}
 
 	@Override
 	public void trace(Marker arg0, String arg1, Throwable arg2) 
 	{
-		Log.log(Niveles.trace, arg0.getName()+":"+arg1, arg2, nombreLogger);
+		Log.log(Level.trace, arg0.getName()+":"+arg1, arg2, nombreLogger);
 	}
 
 	@Override
@@ -336,31 +336,31 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public void warn(String arg0) 
 	{
-		Log.log(Niveles.warning, arg0, nombreLogger);
+		Log.log(Level.warning, arg0, nombreLogger);
 	}
 
 	@Override
 	public void warn(String arg0, Object arg1) 
 	{
-		Log.log(Niveles.warning, arg0+","+arg1.toString(), nombreLogger);	
+		Log.log(Level.warning, arg0+","+arg1.toString(), nombreLogger);	
 	}
 
 	@Override
 	public void warn(String arg0, Object... arg1)
 	{
-		Log.log(Niveles.warning, objArrayToString(arg1), nombreLogger);
+		Log.log(Level.warning, objArrayToString(arg1), nombreLogger);
 	}
 
 	@Override
 	public void warn(String arg0, Throwable arg1)
 	{
-		Log.log(Niveles.warning, arg1,nombreLogger);		
+		Log.log(Level.warning, arg1,nombreLogger);		
 	}
 
 	@Override
 	public void warn(Marker arg0, String arg1) 
 	{
-		Log.log(Niveles.warning, arg0.getName()+":"+arg1, nombreLogger);
+		Log.log(Level.warning, arg0.getName()+":"+arg1, nombreLogger);
 	}
 
 	@Override
@@ -372,20 +372,20 @@ public final class LoggerAdapter implements Logger
 	@Override
 	public void warn(Marker arg0, String arg1, Object arg2)
 	{
-		Log.log(Niveles.warning, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);	
+		Log.log(Level.warning, arg0.getName()+":"+arg1+":"+arg2, nombreLogger);	
 	}
 
 	@Override
 	public void warn(Marker arg0, String arg1, Object... arg2)
 	{
-		Log.log(Niveles.warning, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
+		Log.log(Level.warning, arg0.getName()+":"+arg1+":"+objArrayToString(arg2)
 				, nombreLogger);		
 	}
 
 	@Override
 	public void warn(Marker arg0, String arg1, Throwable arg2)
 	{
-		Log.log(Niveles.warning, arg0.getName()+":"+arg1, arg2, nombreLogger);
+		Log.log(Level.warning, arg0.getName()+":"+arg1, arg2, nombreLogger);
 	}
 
 	@Override

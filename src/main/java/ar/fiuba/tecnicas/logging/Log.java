@@ -56,7 +56,7 @@ public class Log {
 	 * @param nivel
 	 * @param message
 	 */
-	public static void log(Niveles nivel, String message) {
+	public static void log(Level nivel, String message) {
 		String nombreLogger = Logger.DEFAULT_NAME_LOGGER;
 		Log.log(nivel, message, nombreLogger);
 	}
@@ -67,7 +67,7 @@ public class Log {
 	 * @param message		Mensaje
 	 * @param nombreLogger	Nombre del logger
 	 */
-	public static void log(Niveles nivel, String message, String nombreLogger) {
+	public static void log(Level nivel, String message, String nombreLogger) {
 		for (Logger logger : loggers) {
 			logger.logear(nivel, message, nombreLogger);
 		}
@@ -79,7 +79,7 @@ public class Log {
 	 * @param throwable		Excepción
 	 * @param nombreLogger	Nombre del logger
 	 */
-	public static void log(Niveles nivel, Throwable throwable, String nombreLogger) {
+	public static void log(Level nivel, Throwable throwable, String nombreLogger) {
 		for (Logger logger : loggers) {
 			logger.logear(nivel, throwableToString(throwable), nombreLogger);
 		}
@@ -92,7 +92,7 @@ public class Log {
 	 * @param throwable		Excepción
 	 * @param nombreLogger	Nombre del logger
 	 */
-	public static void log(Niveles nivel, String message, Throwable throwable, String nombreLogger) {
+	public static void log(Level nivel, String message, Throwable throwable, String nombreLogger) {
 		for (Logger logger : loggers) {
 			logger.logear(nivel, message+":"+throwableToString(throwable), nombreLogger);
 		}
@@ -128,7 +128,7 @@ public class Log {
 	 * @param nombre	Nombre del logger
 	 * @return			El nivel, o una excepción si no existe el logger
 	 */
-	public static Niveles getNivelLogger(String nombre)
+	public static Level getNivelLogger(String nombre)
 	{
 		for (Logger logger : loggers)
 			if (nombre.equals(logger.nombre)) return logger.nivel;

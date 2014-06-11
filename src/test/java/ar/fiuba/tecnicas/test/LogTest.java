@@ -3,14 +3,11 @@ package ar.fiuba.tecnicas.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -18,10 +15,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.formato.Formato;
+import ar.fiuba.tecnicas.format.Format;
 import ar.fiuba.tecnicas.logging.Log;
 import ar.fiuba.tecnicas.logging.Logger;
-import ar.fiuba.tecnicas.logging.Niveles;
+import ar.fiuba.tecnicas.logging.Level;
 import ar.fiuba.tecnicas.output.IOutput;
 import ar.fiuba.tecnicas.output.OutputConsole;
 import ar.fiuba.tecnicas.output.OutputContainer;
@@ -35,10 +32,10 @@ public class LogTest {
 
 	protected Properties generateDefaultTestPropertie() {
 		Properties properties = new Properties();
-		properties.setProperty("Separador", Formato.separadorDefault);
-		properties.setProperty("FormatoDefault", Formato.patronDefault);
-		properties.setProperty(Niveles.debug.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console");
-		properties.setProperty(Niveles.fatal.toString(),"pepe"+",Output>console,Output>file:log1.txt,Formato>%m");
+		properties.setProperty("Separador", Format.separadorDefault);
+		properties.setProperty("FormatoDefault", Format.patronDefault);
+		properties.setProperty(Level.debug.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console");
+		properties.setProperty(Level.fatal.toString(),"pepe"+",Output>console,Output>file:log1.txt,Formato>%m");
 		return properties;
 	}
 
@@ -56,10 +53,12 @@ public class LogTest {
 		fileXml.createNewFile();
 
 		OutputStream outXml = new FileOutputStream(fileXml);
-		properties.storeToXML(outXml, "comentario");
+		properties.storeToXML(outXml, "");
+		outXml.close();
 
-		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, false)));
-		properties.store(out, NOMBRE_ARCHIVO1_PRUEBA);
+		OutputStream out = new FileOutputStream(file);
+		properties.store(out, "");
+		out.close();
 
 		outputConsola = new ByteArrayOutputStream();
 		viejaConsola = System.out;
@@ -73,7 +72,7 @@ public class LogTest {
 		if (file.exists()) {
 			file.delete();
 		}
-		File fileXml = new File(NOMBRE_ARCHIVO1_PRUEBA + ".xml");
+		File fileXml = new File((NOMBRE_ARCHIVO1_PRUEBA + ".xml"));
 		if (fileXml.exists()) {
 			fileXml.delete();
 		}
@@ -93,7 +92,7 @@ public class LogTest {
 		assertEquals(2, loggers.size());
 
 		Logger loggerFatal = loggers.get(1);
-		assertEquals(loggerFatal.getNivel(), Niveles.fatal);
+		assertEquals(loggerFatal.getNivel(), Level.fatal);
 		OutputContainer outputContainerFatal = (OutputContainer) loggerFatal.getOutput();
 		ArrayList<IOutput> outputsDebbug = outputContainerFatal.getOutputs();
 		assertEquals(2, outputsDebbug.size());
@@ -103,7 +102,7 @@ public class LogTest {
 		assertTrue(outputFileWarning instanceof OutputFile);
 		
 		Logger loggerDebug = loggers.get(0);
-		assertEquals(loggerDebug.getNivel(), Niveles.debug);
+		assertEquals(loggerDebug.getNivel(), Level.debug);
 		OutputContainer outputContainerDebug = (OutputContainer) loggerDebug.getOutput();
 		ArrayList<IOutput> outputsInfo = outputContainerDebug.getOutputs();
 		assertEquals(1, outputsInfo.size());
@@ -113,16 +112,16 @@ public class LogTest {
 	@Test
 	public void logearConfInXml() throws Exception {
 		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA+".xml");
-		auxLogear("logearConfInXml(): mensaje", Niveles.fatal, "pepe", true);
+		auxLogear("logearConfInXml(): mensaje", Level.fatal, "pepe", true);
 	}
 
 	@Test
 	public void logearConfInProperties() throws Exception {
 		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA);
-		auxLogear("logearConfInProperties(): mensaje", Niveles.fatal, "pepe", true);
+		auxLogear("logearConfInProperties(): mensaje", Level.fatal, "pepe", true);
 	}
 	
-	public void auxLogear(String mensaje, Niveles nivel, String nombreLogger, boolean assertConsole) throws Exception {
+	public void auxLogear(String mensaje, Level nivel, String nombreLogger, boolean assertConsole) throws Exception {
 		Log.log(nivel, mensaje,nombreLogger);
 
 		File file = new File("log1.txt");
@@ -137,20 +136,20 @@ public class LogTest {
 	@Test
 	public void noLogearConfFromXmlConDistintoNivelMismoNombre() throws Exception {
 		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA+".xml");
-		noLogearArchivoAux(Niveles.debug,"pepe");
+		noLogearArchivoAux(Level.debug,"pepe");
 	}
 
 	@Test
 	public void noLogearConfFromPropertiesConDistintoNivelMismoNombre() throws Exception {
 		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA);
-		noLogearArchivoAux(Niveles.debug,"pepe");
+		noLogearArchivoAux(Level.debug,"pepe");
 	}
 	@Test
 	public void noLogearConfFromPropertiesConMismoNivelDistintoNombre() throws Exception {
 		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA);
-		noLogearArchivoAux(Niveles.fatal,"juan el pastor");
+		noLogearArchivoAux(Level.fatal,"juan el pastor");
 	}
-	public void noLogearArchivoAux(Niveles nivel, String nombreLogger) throws Exception {
+	public void noLogearArchivoAux(Level nivel, String nombreLogger) throws Exception {
 		Log.log(nivel, "public void noLogearArchivoAux: mensaje "+nombreLogger+"|"+nivel.toString(), nombreLogger);
 		
 		File file = new File("log1.txt");

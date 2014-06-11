@@ -35,6 +35,7 @@ public class OutputFile implements IOutput {
 			createEmptyFileIfNecesary(fileName);
 			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
 			out.println(message);
+			out.flush();
 			out.close();
 		} catch (IOException e) {
 			System.err.println("Problem writing to the file" + fileName + "\n");

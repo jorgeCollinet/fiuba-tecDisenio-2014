@@ -3,7 +3,7 @@ package ar.fiuba.tecnicas.logging;
 import java.util.ArrayList;
 
 import ar.fiuba.tecnicas.filter.*;
-import ar.fiuba.tecnicas.formato.Formato;
+import ar.fiuba.tecnicas.format.Format;
 import ar.fiuba.tecnicas.output.IOutput;
 
 /**
@@ -18,8 +18,8 @@ import ar.fiuba.tecnicas.output.IOutput;
 
 public class Logger {
 	protected IOutput out;
-	protected Niveles nivel;
-	protected Formato formato;
+	protected Level nivel;
+	protected Format formato;
 	protected String nombre;
 	public static final String DEFAULT_NAME_LOGGER = "";
 	private ArrayList<IFilter> filters = new ArrayList<IFilter>();
@@ -33,8 +33,8 @@ public class Logger {
 	 * @param salida salida que utilizará el logger para loggear
 	 * @param format formato que utilizara el logger para logear
 	 */
-	public Logger(String nombre, Niveles nivel, ArrayList<IFilter> filters,
-			IOutput salida, Formato format) {
+	public Logger(String nombre, Level nivel, ArrayList<IFilter> filters,
+			IOutput salida, Format format) {
 		this.nombre = nombre;
 		this.nivel = nivel;
 		this.filters = filters;
@@ -48,7 +48,7 @@ public class Logger {
 	 * @param salida
 	 * @param format
 	 */
-	public Logger(Niveles nivel, ArrayList<IFilter> filters, IOutput salida, Formato format) {
+	public Logger(Level nivel, ArrayList<IFilter> filters, IOutput salida, Format format) {
 		this(Logger.DEFAULT_NAME_LOGGER.toString(), nivel, filters, salida,format);
 	}
 	/**
@@ -56,7 +56,7 @@ public class Logger {
 	 * @param nivel
 	 * @param message
 	 */
-	public void logear(Niveles nivel, String message) {
+	public void logear(Level nivel, String message) {
 		logear(nivel, message, DEFAULT_NAME_LOGGER);
 	}
 	/**
@@ -65,7 +65,7 @@ public class Logger {
 	 * @param message
 	 * @param nombreLogger
 	 */
-	public void logear(Niveles nivel, String message, String nombreLogger) {
+	public void logear(Level nivel, String message, String nombreLogger) {
 
 		FilterData filterData = new FilterData(nivel, nombreLogger, message);
 		for (IFilter filter : this.filters) {
@@ -73,12 +73,12 @@ public class Logger {
 				return;
 			}
 		}
-		message = formato.darFormato(message, this.nivel, this.nombre);
+		message = formato.giveFormat(message, this.nivel, this.nombre);
 		out.out(message);
 
 	}
 
-	public Niveles getNivel() {
+	public Level getNivel() {
 		return this.nivel;
 	}
 

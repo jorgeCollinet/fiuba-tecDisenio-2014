@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Properties;
-import ar.fiuba.tecnicas.logging.Niveles;
+import ar.fiuba.tecnicas.logging.Level;
 import ar.fiuba.tecnicas.logging.Log;
 import ar.fiuba.tecnicas.slf4jadapter.StaticLoggerBinder;
 import org.slf4j.ILoggerFactory;
@@ -27,7 +27,7 @@ public class slf4jTest
 		Properties properties = new Properties();
 		properties.setProperty("Separador", "-");
 		properties.setProperty("FormatoDefault", "%m");
-		properties.setProperty(Niveles.debug.toString(),nombreLogger+",Output>console");
+		properties.setProperty(Level.debug.toString(),nombreLogger+",Output>console");
 		Log.loadConfiguration(properties);
 		factory = new StaticLoggerBinder().getLoggerFactory();
 		

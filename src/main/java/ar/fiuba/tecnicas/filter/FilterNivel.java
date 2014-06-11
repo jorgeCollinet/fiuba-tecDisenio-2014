@@ -1,6 +1,6 @@
 package ar.fiuba.tecnicas.filter;
 
-import ar.fiuba.tecnicas.logging.Niveles;
+import ar.fiuba.tecnicas.logging.Level;
 
 /**
  * Clase encargada de filtrar por nivel
@@ -8,9 +8,9 @@ import ar.fiuba.tecnicas.logging.Niveles;
  * 
  */
 public class FilterNivel implements IFilter{
-	protected Niveles nivel;
+	protected Level nivel;
 
-	public FilterNivel(Niveles nivel) {
+	public FilterNivel(Level nivel) {
 		this.nivel = nivel;
 	}
 	

@@ -1,26 +1,26 @@
-package ar.fiuba.tecnicas.formato.subformato;
+package ar.fiuba.tecnicas.format.subformat;
 
-import ar.fiuba.tecnicas.formato.Subformato;
-import ar.fiuba.tecnicas.formato.ParametrosSubformato;
+import ar.fiuba.tecnicas.format.SubformatParameters;
+import ar.fiuba.tecnicas.format.Subformat;
 
 /**
  * Subformato que devuelve un texto estático cualquiera
  */
-public class SubformatoTexto extends Subformato 
+public class SubformatText extends Subformat 
 {
 	private String texto;
 	
 	/**
 	 * @param match		Texto estático que devuelve este subformato
 	 */
-	public SubformatoTexto(String match) 
+	public SubformatText(String match) 
 	{
 		super(match);
 		this.texto = match;
 	}
 
 	@Override
-	public String darFormato(ParametrosSubformato parametros)
+	public String giveFormat(SubformatParameters parameters)
 	{
 		return texto;
 	}
