@@ -1,42 +1,27 @@
 package ar.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
-import java.util.Properties;
-
 import ar.fiuba.tecnicas.filter.*;
 import ar.fiuba.tecnicas.format.FormatBuilder;
 import ar.fiuba.tecnicas.format.Format;
 import ar.fiuba.tecnicas.output.IOutput;
 import ar.fiuba.tecnicas.output.OutputBuilder;
 /**
- * Clase encargada de la construccion de los loggers a partir de una instancia de la clase Properties
+ * Clase encargada de la construccion de los loggers
  * @author Grupo3
  *
  */
 public class LoggerBuilder {
 
-	protected LoggerBuilder() {
-	}
-
-	public static ArrayList<Logger> generateLoggers(Properties prop) throws Exception {
+	public static ArrayList<Logger> generateLoggers(ArrayList<LoggerConfig> loggerConfigs) throws Exception {
 		ArrayList<Logger> loggers = new ArrayList<>();
-		String patronDefault = prop.getProperty("FormatoDefault",null);
-		String separador = prop.getProperty("Separador",null);
-		
-		for (Level nivel : Level.values()) {
-			if (prop.containsKey(nivel.name())) {
-				String datosDeNivel = prop.getProperty(nivel.toString());
-				String[] listOfDataLoggers = datosDeNivel.split("\n");
-				for(String loggerData : listOfDataLoggers) {
-					String nombreLogger = loggerData.split(",")[0];
-					IOutput out = OutputBuilder.generateOutput(loggerData);
-					ArrayList<IFilter> filters = FilterBuilder.generateFilters(nivel, loggerData);
-					Format format = FormatBuilder.generateFormats(loggerData,patronDefault, separador);
-					Logger logger = new Logger(nombreLogger, nivel, filters, out, format);
-					loggers.add(logger);
-				}
-			}
+		for(LoggerConfig loggerConf : loggerConfigs){
+			IOutput out = OutputBuilder.generateOutput(loggerConf.getOutputs());
+			ArrayList<IFilter> filters = FilterBuilder.generateFilters(loggerConf.getName(), loggerConf.getLevel(), loggerConf.getFilters());
+			Format format = FormatBuilder.generateFormats(loggerConf.getFormats(),loggerConf.getDefaultFormat(), loggerConf.getSeparator());
+			Logger logger = new Logger(loggerConf.getName(), loggerConf.getLevel(), filters, out, format);
+			loggers.add(logger);
 		}
-		return loggers;
+		return loggers;		
 	}
 }

@@ -12,6 +12,7 @@ import ar.fiuba.tecnicas.filter.FilterData;
 import ar.fiuba.tecnicas.filter.FilterNivel;
 import ar.fiuba.tecnicas.filter.FilterNombre;
 import ar.fiuba.tecnicas.filter.FilterRegex;
+import ar.fiuba.tecnicas.filter.FilterType;
 import ar.fiuba.tecnicas.filter.IFilter;
 import ar.fiuba.tecnicas.logging.Level;
 
@@ -19,8 +20,11 @@ public class FilterTest {
 
 	@Test
 	public void BuilderFilterBuildFromString() {
-		String LoggerData = "sapoPepe,Output>console,BehaveRegex>esto_es_una_expresion_regular,BehaveClass>ar.fiuba.tecnicas.test.FilterCustomMock";
-		ArrayList<IFilter> filters = FilterBuilder.generateFilters(Level.info, LoggerData);
+		ArrayList<String> fitersList = new ArrayList<>();
+		fitersList.add(FilterType.BehaveRegex.toString() + ">esto_es_una_expresion_regular");
+		fitersList.add(FilterType.BehaveClass.toString() + ">ar.fiuba.tecnicas.test.FilterCustomMock");
+		
+		ArrayList<IFilter> filters = FilterBuilder.generateFilters("sapoPepe",Level.info, fitersList);
 		
 		IFilter filterNombre = filters.get(0);
 		IFilter filterNivel = filters.get(1);

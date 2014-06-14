@@ -25,22 +25,20 @@ public class FilterBuilder {
 	 * @return IOutput
 	 * @throws Exception
 	 */
-	public static ArrayList<IFilter> generateFilters(Level nivel, String filterStringValues) {
+	public static ArrayList<IFilter> generateFilters(String loggerName, Level level, ArrayList<String> filterList) {
 		ArrayList<IFilter> filters = new ArrayList<IFilter>();
-		String[] list = filterStringValues.split(",");
-		String nombreLogger = list[0];
 
-		FilterNivel filterNivel = new FilterNivel(nivel);
-		FilterNombre filterNombre = new FilterNombre(nombreLogger);
+		FilterNivel filterNivel = new FilterNivel(level);
+		FilterNombre filterNombre = new FilterNombre(loggerName);
 		filters.add(filterNombre);
 		filters.add(filterNivel);
 
-		for (String item : list) {
-			if (item.contains("BehaveRegex")) {
+		for (String item : filterList) {
+			if (item.contains(FilterType.BehaveRegex.toString())) {
 				String regulaExpresion = item.split(">")[1];
 				FilterRegex filterRegex = new FilterRegex(regulaExpresion);
 				filters.add(filterRegex);
-			} else if (item.contains("BehaveClass")) {
+			} else if (item.contains(FilterType.BehaveClass.toString())) {
 				String nombreClaseCustom = item.split(">")[1];
 				try {
 					FilterCustom filterCustom = FilterCustom.generateFilterCustom(nombreClaseCustom);

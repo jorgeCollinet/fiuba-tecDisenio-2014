@@ -1,10 +1,7 @@
 package ar.fiuba.tecnicas.logging;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.lang.StackTraceElement;
 
 /**
@@ -15,7 +12,6 @@ public class Log {
 	
 	protected static ArrayList<Logger> loggers = new ArrayList<Logger>();
 	protected static InputStream inStream;
-	protected static Properties configuration;
 	protected static String logFileName;
 	protected static String propertiesLoggersFileName;
 	
@@ -27,9 +23,8 @@ public class Log {
 	 * @param configuration
 	 * @throws Exception 
 	 */
-	public static void loadConfiguration(Properties configuration) throws Exception {
-		Log.configuration = configuration;
-		loggers = LoggerBuilder.generateLoggers(configuration);
+	public static void loadConfiguration(ArrayList<LoggerConfig> loggerConfigs) throws Exception {
+		loggers = LoggerBuilder.generateLoggers(loggerConfigs);
 	}
 	
 	/**
@@ -39,16 +34,15 @@ public class Log {
 	 * @param fileName
 	 * @throws Exception 
 	 */
-	public static void loadConfigurationFromFile(String fileName)
-			throws Exception {
-		Properties prop = new Properties();
-		FileInputStream file = new FileInputStream(new File(fileName));
+	public static void loadConfigurationFromFile(String fileName) throws Exception {
+		ArrayList<LoggerConfig> loggersConf = new ArrayList<>();
 		if (fileName.endsWith("xml")) {
-			prop.loadFromXML(file);
+			loggersConf = XmlLoader.loadConfiguration(fileName);
+			throw new Exception("not yet implemented");
 		} else {
-			prop.load(file);
+			loggersConf = PropertiesLoader.loadConfiguration(fileName);
 		}
-		Log.loadConfiguration(prop);
+		Log.loadConfiguration(loggersConf);
 	}
 	
 	/**

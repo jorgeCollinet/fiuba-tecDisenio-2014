@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Properties;
 
 import org.junit.After;
@@ -16,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.format.Format;
+import ar.fiuba.tecnicas.format.FormatType;
 import ar.fiuba.tecnicas.logging.Log;
 import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.Level;
@@ -23,6 +23,7 @@ import ar.fiuba.tecnicas.output.IOutput;
 import ar.fiuba.tecnicas.output.OutputConsole;
 import ar.fiuba.tecnicas.output.OutputContainer;
 import ar.fiuba.tecnicas.output.OutputFile;
+import ar.fiuba.tecnicas.output.OutputType;
 
 public class LogTest {
 	static String NOMBRE_ARCHIVO1_PRUEBA = "propertiesLog.txt";
@@ -32,10 +33,20 @@ public class LogTest {
 
 	protected Properties generateDefaultTestPropertie() {
 		Properties properties = new Properties();
-		properties.setProperty("Separador", Format.separadorDefault);
-		properties.setProperty("FormatoDefault", Format.patronDefault);
-		properties.setProperty(Level.debug.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console");
-		properties.setProperty(Level.fatal.toString(),"pepe"+",Output>console,Output>file:log1.txt,Formato>%m");
+		properties.setProperty("rootLoggers",Logger.DEFAULT_NAME_LOGGER.toString()+",pepe");
+		properties.setProperty("defaultFormat", Format.patronDefault);
+		properties.setProperty("defaultSeparator", Format.separadorDefault);
+		
+		//properties.setProperty(Level.debug.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console");
+		properties.setProperty("Logger." + Logger.DEFAULT_NAME_LOGGER + ".level", Level.debug.toString());
+		properties.setProperty("Logger." + Logger.DEFAULT_NAME_LOGGER+".output." + OutputType.console.toString()+"0", "lalal");
+		
+		//properties.setProperty(Level.fatal.toString(),"pepe"+",Output>console,Output>file:log1.txt,Formato>%m");
+		
+		properties.setProperty("Logger.pepe.level", Level.fatal.toString());
+		properties.setProperty("Logger.pepe.output." + OutputType.console.toString()+"0", "lilili");
+		properties.setProperty("Logger.pepe.output." + OutputType.file.toString()+"0", "log1.txt");
+		properties.setProperty("Logger.pepe.format." + FormatType.Formato.toString()+"0", "%m");
 		return properties;
 	}
 
@@ -82,7 +93,7 @@ public class LogTest {
 		}
 		System.setOut(viejaConsola);
 	}
-	@Test
+	/*@Test
 	public void loadConfiguration() throws Exception {
 		Properties properties = generateDefaultTestPropertie();
 
@@ -108,7 +119,7 @@ public class LogTest {
 		assertEquals(1, outputsInfo.size());
 		IOutput outputConsoleInfo = outputsInfo.get(0);
 		assertTrue(outputConsoleInfo instanceof OutputConsole);
-	}
+	}*/
 	@Test
 	public void logearConfInXml() throws Exception {
 		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA+".xml");
@@ -121,15 +132,16 @@ public class LogTest {
 		auxLogear("logearConfInProperties(): mensaje", Level.fatal, "pepe", true);
 	}
 	
-	public void auxLogear(String mensaje, Level nivel, String nombreLogger, boolean assertConsole) throws Exception {
-		Log.log(nivel, mensaje,nombreLogger);
+	public void auxLogear(String mensaje, Level nivel, String nombreLogger, boolean assertConsole) 
+			throws Exception {
+		Log.log(nivel, mensaje, nombreLogger);
 
 		File file = new File("log1.txt");
 		assertTrue(file.exists());
 		assertEquals(mensaje, FileHelper.getLastMessageLogged("log1.txt"));
-		file.delete();
-		if(assertConsole){
-			assertEquals(mensaje, outputConsola.toString().trim());	
+
+		if (assertConsole) {
+			assertEquals(mensaje, outputConsola.toString().trim());
 		}
 	}
 
