@@ -12,10 +12,15 @@ import ar.fiuba.tecnicas.output.OutputType;
 public class PropertiesLoader {
 
 	public static ArrayList<LoggerConfig> loadConfiguration(String path) throws Exception {
+		return loadConfiguration(new File(path));
+	}
+		
+	
+	public static ArrayList<LoggerConfig> loadConfiguration(File file) throws Exception {
 		ArrayList<LoggerConfig> loggersConf = new ArrayList<>();
 		Properties prop = new Properties();
-		FileInputStream file = new FileInputStream(new File(path));
-		prop.load(file);
+		FileInputStream input = new FileInputStream(file);
+		prop.load(input);
 
 		String[] loggerNames = prop.getProperty("rootLoggers").split(",");
 		for (String loggerName : loggerNames) {

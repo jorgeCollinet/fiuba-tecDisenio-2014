@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -16,18 +15,20 @@ import org.xml.sax.SAXException;
 public class XmlLoader {
 
 	public static ArrayList<LoggerConfig> loadConfiguration(String path) {
+		File file = new File(path);
+		return loadConfiguration(file);
+	}
+	
+	public static ArrayList<LoggerConfig> loadConfiguration(File file) {
 		ArrayList<LoggerConfig> loggersConf = new ArrayList<>();
 		try 
 		{
-			File file = new File(path);
 			Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
 			NodeList loggers = doc.getElementsByTagName("logger");
 			for (int i = 0; i < loggers.getLength(); ++i)
 			{
 				LoggerConfig config = new LoggerConfig();
-				Node loggerNode = loggers.item(i);
-				//loggerNode.get
-				
+				parseLoggerNode(loggers.item(i), config);
 				loggersConf.add(config);
 			}
 		} 
@@ -36,8 +37,69 @@ public class XmlLoader {
 			System.out.println("Error al parsear XML: "+e.getMessage());
 			e.printStackTrace();
 		}
-
 		return loggersConf;
 	}
-
+	
+	private static void parseLoggerNode(Node node, LoggerConfig config)
+	{
+		if (!node.hasChildNodes()) return;
+		NodeList children = node.getChildNodes();
+		for (int i = 0; i < children.getLength(); ++i)
+		{
+			Node child = children.item(i);
+			switch(node.getNodeName())
+			{
+				case "name":
+					config.setName(child.getTextContent());
+					break;
+				case "level":
+					config.setLevel(child.getTextContent());
+					break;
+				case "separator":
+					config.setSeparator(child.getTextContent());
+					break;
+				case "outputs":
+					parseOutputNode(child, config);
+					break;
+				case "filters":
+					parseFilterNode(child, config);
+					break;
+				case "format":
+					parseFormatNode(child, config);
+					break;
+			}
+		}
+	}
+	
+	private static void parseOutputNode(Node node, LoggerConfig config)
+	{
+		if (!node.hasChildNodes()) return;
+		NodeList children = node.getChildNodes();
+		for (int i = 0; i < children.getLength(); ++i)
+		{
+			Node child = children.item(i);
+			config.addOutputType(node.getNodeName());
+			config.addOutputType(child.getTextContent());
+		}
+	}
+	
+	private static void parseFilterNode(Node node, LoggerConfig config)
+	{
+		if (!node.hasChildNodes()) return;
+		NodeList children = node.getChildNodes();
+		for (int i = 0; i < children.getLength(); ++i)
+		{
+			Node child = children.item(i);
+			config.addFilterType(node.getNodeName());
+			config.addFilter(child.getTextContent());
+		}
+	}
+	
+	private static void parseFormatNode(Node node, LoggerConfig config)
+	{
+		if (!node.hasChildNodes()) return;
+		Node child = node.getFirstChild();
+		config.setFormatType(node.getNodeName());
+		config.setFormat(child.getTextContent());
+	}
 }

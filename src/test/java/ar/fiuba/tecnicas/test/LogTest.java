@@ -31,7 +31,7 @@ public class LogTest {
 	protected PrintStream viejaConsola;
 	
 
-	protected Properties generateDefaultTestPropertie() {
+	protected Properties generateDefaultTestProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("rootLoggers",Logger.DEFAULT_NAME_LOGGER.toString()+",pepe");
 		properties.setProperty("defaultFormat", Format.patronDefault);
@@ -55,7 +55,7 @@ public class LogTest {
 		// generar aca el "propertiesLog.txt"
 		// se ejecuta antes de cada uno de los tests asegurando asi
 		// independencia
-		Properties properties = generateDefaultTestPropertie();
+		Properties properties = generateDefaultTestProperties();
 
 		File file = new File(NOMBRE_ARCHIVO1_PRUEBA);
 		file.createNewFile();

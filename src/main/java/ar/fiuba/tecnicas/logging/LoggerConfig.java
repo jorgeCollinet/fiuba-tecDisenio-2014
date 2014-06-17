@@ -38,6 +38,10 @@ public class LoggerConfig {
 		this.level = level;
 	}
 	
+	public void setLevel(String level) {
+		this.level = Level.valueOf(level);
+	}
+	
 	public void setSeparator(String separator) {
 		this.separator = separator;
 	}
