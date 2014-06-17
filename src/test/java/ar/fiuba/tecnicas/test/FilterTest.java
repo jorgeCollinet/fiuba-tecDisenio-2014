@@ -3,6 +3,7 @@ package ar.fiuba.tecnicas.test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -21,10 +22,18 @@ public class FilterTest {
 	@Test
 	public void BuilderFilterBuildFromString() {
 		ArrayList<String> fitersList = new ArrayList<>();
-		fitersList.add(FilterType.BehaveRegex.toString() + ">esto_es_una_expresion_regular");
-		fitersList.add(FilterType.BehaveClass.toString() + ">ar.fiuba.tecnicas.test.FilterCustomMock");
+		fitersList.add("esto_es_una_expresion_regular");
+		fitersList.add("ar.fiuba.tecnicas.test.FilterCustomMock");
+		ArrayList<FilterType> typeList = new ArrayList<>();
+		typeList.add(FilterType.BehaveRegex);
+		typeList.add(FilterType.BehaveClass);
 		
-		ArrayList<IFilter> filters = FilterBuilder.generateFilters("sapoPepe",Level.info, fitersList);
+		List<IFilter> filters = null;
+		try {
+			filters = FilterBuilder.generateFilters("sapoPepe",Level.info, fitersList, typeList);
+		} catch (Exception e) {
+			fail();
+		}
 		
 		IFilter filterNombre = filters.get(0);
 		IFilter filterNivel = filters.get(1);

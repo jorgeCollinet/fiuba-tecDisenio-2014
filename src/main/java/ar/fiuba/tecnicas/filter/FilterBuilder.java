@@ -1,6 +1,7 @@
 package ar.fiuba.tecnicas.filter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ar.fiuba.tecnicas.logging.Level;
 
@@ -25,21 +26,26 @@ public class FilterBuilder {
 	 * @return IOutput
 	 * @throws Exception
 	 */
-	public static ArrayList<IFilter> generateFilters(String loggerName, Level level, ArrayList<String> filterList) {
-		ArrayList<IFilter> filters = new ArrayList<IFilter>();
+	public static List<IFilter> generateFilters(String loggerName, Level level, List<String> filterList, List<FilterType> typeList) throws Exception {
+		if (typeList.size() < filterList.size())
+		{
+			throw new Exception("Desacuerdo entre numero de filtros y sus tipos.");
+		}
+		
+		ArrayList<IFilter> filters = new ArrayList<>();
 
 		FilterNivel filterNivel = new FilterNivel(level);
 		FilterNombre filterNombre = new FilterNombre(loggerName);
 		filters.add(filterNombre);
 		filters.add(filterNivel);
 
-		for (String item : filterList) {
-			if (item.contains(FilterType.BehaveRegex.toString())) {
-				String regulaExpresion = item.split(">")[1];
-				FilterRegex filterRegex = new FilterRegex(regulaExpresion);
+		for (int i = 0; i < filterList.size(); ++i)
+		{
+			if (typeList.get(i) == FilterType.BehaveRegex) {
+				FilterRegex filterRegex = new FilterRegex(filterList.get(i));
 				filters.add(filterRegex);
-			} else if (item.contains(FilterType.BehaveClass.toString())) {
-				String nombreClaseCustom = item.split(">")[1];
+			} else if (typeList.get(i) == FilterType.BehaveClass) {
+				String nombreClaseCustom = filterList.get(i);
 				try {
 					FilterCustom filterCustom = FilterCustom.generateFilterCustom(nombreClaseCustom);
 					filters.add(filterCustom);

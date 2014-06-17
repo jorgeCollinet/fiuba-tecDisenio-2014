@@ -35,7 +35,7 @@ public class PropertiesLoaderTest {
 		properties.setProperty("Logger.pepe.level", Level.fatal.toString());
 		properties.setProperty("Logger.pepe.output." + OutputType.console.toString()+"0", "lilili");
 		properties.setProperty("Logger.pepe.output." + OutputType.file.toString()+"0", "log1.txt");
-		properties.setProperty("Logger.pepe.format." + FormatType.Formato.toString()+"0", "%m");
+		properties.setProperty("Logger.pepe.format." + FormatType.Format.toString()+"0", "%m");
 		
 	}
 
@@ -56,11 +56,11 @@ public class PropertiesLoaderTest {
 		assertEquals(Format.patronDefault, loggerConf.getDefaultFormat());
 		assertEquals(Format.separadorDefault, loggerConf.getSeparator());
 		assertEquals(Level.debug,loggerConf.getLevel());
-		assertTrue(loggerConf.getOutputs().get(0).contains(OutputType.console.toString()));
+		assertTrue(loggerConf.getOutputTypes().get(0) == OutputType.console);
 		
 		LoggerConfig loggerConf2 = loggersConf.get(1);
-		assertTrue(loggerConf2.getOutputs().get(0).contains(OutputType.console.toString()));
-		assertTrue(loggerConf2.getOutputs().get(1).contains(OutputType.file.toString()));
+		assertTrue(loggerConf2.getOutputTypes().get(0) == OutputType.console);
+		assertTrue(loggerConf2.getOutputTypes().get(1) == OutputType.file);
 		assertEquals("pepe",loggerConf2.getName());
 		assertEquals(Format.patronDefault, loggerConf2.getDefaultFormat());
 		assertEquals(Format.separadorDefault, loggerConf2.getSeparator());

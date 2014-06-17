@@ -34,9 +34,10 @@ public class slf4jTest
 		LoggerConfig loggerConfig = new LoggerConfig();
 		loggerConfig.setName(nombreLogger);
 		loggerConfig.setLevel(Level.debug);
-		loggerConfig.setDefaultFormat(Format.patronDefault);
+		loggerConfig.setFormat("%m");
 		loggerConfig.setSeparator(Format.separadorDefault);
-		loggerConfig.addOutput(OutputType.console.toString()+">basura");
+		loggerConfig.addOutputType(OutputType.console);
+		loggerConfig.addOutput(null);
 		
 		ArrayList<LoggerConfig> loggerConfigList = new ArrayList<>();
 		loggerConfigList.add(loggerConfig);

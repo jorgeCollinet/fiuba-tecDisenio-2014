@@ -1,6 +1,6 @@
 package ar.fiuba.tecnicas.output;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase encargada de construir los distintos OutPuts que implementan la
@@ -26,29 +26,29 @@ public class OutputBuilder {
 	 * @return IOutput
 	 * @throws Exception
 	 */
-	public static IOutput generateOutput(ArrayList<String> outputList) throws Exception {
+	public static IOutput generateOutput(List<OutputType> typeList, List<String> outputList) throws Exception {
+		if (typeList.size() < outputList.size())
+		{
+			throw new Exception("Desacuerdo entre numero de outputs y sus tipos.");
+		}
 		OutputContainer container = new OutputContainer();
 		OutputConsole consola = new OutputConsole();
-		
-		for (String item : outputList) {
-			String[] subItemsList = item.split(">");
-			if (item.contains(OutputType.console.toString())) {
+		for (int i = 0; i < outputList.size(); ++i)
+		{
+			if (typeList.get(i) == OutputType.console) {
 				container.addOutput(consola);
-				
-			} else if (item.contains(OutputType.file.toString())) {
-				String nombreDeArchivo = subItemsList[1];
+			} else if (typeList.get(i) == OutputType.file) {
+				String nombreDeArchivo = outputList.get(i);
 				container.addOutput(new OutputFile(nombreDeArchivo));
-				
-			} else if (item.contains(OutputType.OutputClass.toString())) {
-				String className = subItemsList[1];
+			} else if (typeList.get(i) == OutputType.OutputClass) {
+				String className = outputList.get(i);
 				container.addOutput(OutputCustom.generateOutputCustom(className));
-				
 			} else {
 				throw new Exception(
 						"Output que intenta generar no pertenece a ningun tipo conocido, string ingresado: "
-								+ outputList
-								+ "\nelemento que no pertenece a ningún tipo: "
-								+ item + "\n");
+						+ outputList.get(i)
+						+ "\nelemento que no pertenece a ningún tipo: "
+						+ typeList.get(i) + "\n");
 			}
 
 		}

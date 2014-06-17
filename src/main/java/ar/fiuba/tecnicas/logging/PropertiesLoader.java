@@ -65,7 +65,8 @@ public class PropertiesLoader {
 		//System.out.println("chequea: "+initialKey + diferentialKey + count);
 		//System.out.println("elemento: "+element);
 		while (element != null) {
-			loggerConf.addOutput(diferentialKey + ">" + element);
+			loggerConf.addOutputType(diferentialKey);
+			loggerConf.addOutput(element);
 			//System.out.println("entro: "+loggerConf.getOutputs());
 			count++;
 			element = prop.getProperty(initialKey + diferentialKey + count);
@@ -76,7 +77,8 @@ public class PropertiesLoader {
 		int count = 0;
 		String element = prop.getProperty(initialKey + diferentialKey + count);
 		while (element != null) {
-			loggerConf.addFormat(diferentialKey + ">" + element);
+			loggerConf.setFormatType(diferentialKey);
+			loggerConf.setFormat(element);
 			count++;
 			element = prop.getProperty(initialKey + diferentialKey + count);
 		}
@@ -86,7 +88,8 @@ public class PropertiesLoader {
 		int count = 0;
 		String element = prop.getProperty(initialKey + diferentialKey + count);
 		while (element != null) {
-			loggerConf.addFilter(diferentialKey + ">" + element);
+			loggerConf.addFilterType(diferentialKey);
+			loggerConf.addFilter(element);
 			count++;
 			element = prop.getProperty(initialKey + diferentialKey + count);
 		}

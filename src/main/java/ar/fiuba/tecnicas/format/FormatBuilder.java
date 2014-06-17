@@ -14,13 +14,11 @@ public class FormatBuilder {
 	 * @param separator separador del formato
 	 * @return
 	 */
-	public static Format generateFormat(String item, String defaultPattern, String separator) {
-		if (item.contains(FormatType.FormatoJson.toString())) {
-			String patron = item.split(">")[1];
+	public static Format generateFormat(FormatType tipo, String patron, String defaultPattern, String separator) {
+		if (tipo == FormatType.JSONFormat) {
 			return new JSONFormat(patron, separator);
 		}
-		else if (item.contains(FormatType.Formato.toString())) {
-			String patron = item.split(">")[1];
+		else if (tipo == FormatType.Format) {
 			return new Format(patron, separator);
 
 		}

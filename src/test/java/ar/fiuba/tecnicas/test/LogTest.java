@@ -46,7 +46,7 @@ public class LogTest {
 		properties.setProperty("Logger.pepe.level", Level.fatal.toString());
 		properties.setProperty("Logger.pepe.output." + OutputType.console.toString()+"0", "lilili");
 		properties.setProperty("Logger.pepe.output." + OutputType.file.toString()+"0", "log1.txt");
-		properties.setProperty("Logger.pepe.format." + FormatType.Formato.toString()+"0", "%m");
+		properties.setProperty("Logger.pepe.format." + FormatType.Format.toString()+"0", "%m");
 		return properties;
 	}
 

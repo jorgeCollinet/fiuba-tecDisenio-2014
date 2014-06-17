@@ -1,6 +1,7 @@
 package ar.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ar.fiuba.tecnicas.filter.*;
 import ar.fiuba.tecnicas.format.Format;
@@ -22,7 +23,7 @@ public class Logger {
 	protected Format formato;
 	protected String nombre;
 	public static final String DEFAULT_NAME_LOGGER = "";
-	private ArrayList<IFilter> filters = new ArrayList<IFilter>();
+	private List<IFilter> filters = new ArrayList<IFilter>();
 
 	
 	/**
@@ -33,7 +34,7 @@ public class Logger {
 	 * @param salida salida que utilizará el logger para loggear
 	 * @param format formato que utilizara el logger para logear
 	 */
-	public Logger(String nombre, Level nivel, ArrayList<IFilter> filters,
+	public Logger(String nombre, Level nivel, List<IFilter> filters,
 			IOutput salida, Format format) {
 		this.nombre = nombre;
 		this.nivel = nivel;
