@@ -6,16 +6,16 @@ public class LoggerConfig {
 
 	private String name;
 	private Level level;
+	private String format;
 	private String defaultFormat;
 	private String separator;
 	private ArrayList<String> outputs;
-	private ArrayList<String> formats;
 	private ArrayList<String> filters;
 	
 	public LoggerConfig() {
 		name = "";
+		format = "";
 		outputs = new ArrayList<>();
-		formats = new ArrayList<>();
 		filters = new ArrayList<>();
 
 	}
@@ -41,7 +41,7 @@ public class LoggerConfig {
 	}
 
 	public void addFormat(String format) {
-		this.formats.add(format);
+		this.format = format;
 	}
 
 	public void addFilter(String filter) {
@@ -60,8 +60,8 @@ public class LoggerConfig {
 		return outputs;
 	}
 
-	public ArrayList<String> getFormats() {
-		return formats;
+	public String getFormat() {
+		return format;
 	}
 
 	public ArrayList<String> getFilters() {

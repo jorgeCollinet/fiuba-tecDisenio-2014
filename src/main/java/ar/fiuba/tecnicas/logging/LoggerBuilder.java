@@ -18,7 +18,7 @@ public class LoggerBuilder {
 		for(LoggerConfig loggerConf : loggerConfigs){
 			IOutput out = OutputBuilder.generateOutput(loggerConf.getOutputs());
 			ArrayList<IFilter> filters = FilterBuilder.generateFilters(loggerConf.getName(), loggerConf.getLevel(), loggerConf.getFilters());
-			Format format = FormatBuilder.generateFormats(loggerConf.getFormats(),loggerConf.getDefaultFormat(), loggerConf.getSeparator());
+			Format format = FormatBuilder.generateFormat(loggerConf.getFormat(),loggerConf.getDefaultFormat(), loggerConf.getSeparator());
 			Logger logger = new Logger(loggerConf.getName(), loggerConf.getLevel(), filters, out, format);
 			loggers.add(logger);
 		}

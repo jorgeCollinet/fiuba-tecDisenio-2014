@@ -1,6 +1,5 @@
 package ar.fiuba.tecnicas.format;
 
-import java.util.ArrayList;
 
 /**
  * 
@@ -15,19 +14,17 @@ public class FormatBuilder {
 	 * @param separator separador del formato
 	 * @return
 	 */
-	public static Format generateFormats(ArrayList<String> formatList, String defaultPattern, String separator) {
-		for (String item : formatList) {
-			if (item.contains(FormatType.FormatoJson.toString())) {
-				String patron = item.split(">")[1];
-				return new JSONFormat(patron, separator);
-			}
-			if (item.contains(FormatType.Formato.toString())) {
-				String patron = item.split(">")[1];
-				return new Format(patron, separator);
-
-			}
+	public static Format generateFormat(String item, String defaultPattern, String separator) {
+		if (item.contains(FormatType.FormatoJson.toString())) {
+			String patron = item.split(">")[1];
+			return new JSONFormat(patron, separator);
 		}
-		return new Format(defaultPattern,separator);
+		else if (item.contains(FormatType.Formato.toString())) {
+			String patron = item.split(">")[1];
+			return new Format(patron, separator);
+
+		}
+		else return new Format(defaultPattern,separator);
 	}
 
 }
