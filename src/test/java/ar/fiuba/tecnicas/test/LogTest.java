@@ -5,12 +5,15 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.io.StringBufferInputStream;
 import java.util.Properties;
 
 import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,13 +28,53 @@ import ar.fiuba.tecnicas.output.OutputContainer;
 import ar.fiuba.tecnicas.output.OutputFile;
 import ar.fiuba.tecnicas.output.OutputType;
 
-public class LogTest {
-	static String NOMBRE_ARCHIVO1_PRUEBA = "propertiesLog.txt";
-	protected ByteArrayOutputStream outputConsola;
-	protected PrintStream viejaConsola;
+public class LogTest 
+{
+	private static ByteArrayOutputStream outputConsola;
+	private static PrintStream viejaConsola;
+	private static InputStream inputProperties;
+	private static InputStream inputXML;
 	
-
-	protected Properties generateDefaultTestProperties() {
+	public static String generateTestXML()
+	{
+		String texto = "<?xml version=\"1.0\"?>"
+		+ "<root>"
+		+ "<logger>"
+		+ "	<name>logger1</name>"
+		+ "	<level>debug</level>"
+		+ "	<outputs>"
+		+ "		<console></console>"
+		+ "	</outputs>"
+		+ "	<filters>"
+		+ "		<BehaveRegex>.*</BehaveRegex>"
+		+ "	</filters>"
+		+ "	<format>"
+		+ "		<JSONFormat>%t</JSONFormat>"
+		+ "	</format>"
+		+ "</logger>"
+		+ "<logger>"
+		+ "	<name>logger2</name>"
+		+ "	<level>fatal</level>"
+		+ "	<outputs>"
+		+ "		<console></console>"
+		+ "	</outputs>"
+		+ "	<separator>_</separator>"
+		+ "<format>"
+		+ "		<Format>%m</Format>"
+		+ "	</format>"
+		+ "</logger>"
+		+ "<logger>"
+		+ "	<name>logger3</name>"
+		+ "	<level>trace</level>"
+		+ "	<outputs>"
+		+ "		<console></console>"
+		+ "</outputs>"
+		+ "</logger>"
+		+ "</root>";
+		return texto;
+	}
+	
+	public static Properties generateTestProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("rootLoggers",Logger.DEFAULT_NAME_LOGGER.toString()+",pepe");
 		properties.setProperty("defaultFormat", Format.patronDefault);
@@ -50,49 +93,46 @@ public class LogTest {
 		return properties;
 	}
 
-	@Before
-	public void setUp() throws Exception {
-		// generar aca el "propertiesLog.txt"
-		// se ejecuta antes de cada uno de los tests asegurando asi
-		// independencia
-		Properties properties = generateDefaultTestProperties();
-
-		File file = new File(NOMBRE_ARCHIVO1_PRUEBA);
-		file.createNewFile();
-
-		File fileXml = new File(NOMBRE_ARCHIVO1_PRUEBA + ".xml");
-		fileXml.createNewFile();
-
-		OutputStream outXml = new FileOutputStream(fileXml);
-		properties.storeToXML(outXml, "");
-		outXml.close();
-
-		OutputStream out = new FileOutputStream(file);
-		properties.store(out, "");
-		out.close();
-
-		outputConsola = new ByteArrayOutputStream();
+	@SuppressWarnings("deprecation")
+	@BeforeClass
+	public static void setUp() throws Exception {
+		// Genera los archivos properties y xml en ram al iniciar los tests
+		// Como son inputs de solo lectura esto se hace una sola vez
+		Properties properties = generateTestProperties();
+		ByteArrayOutputStream propMockFile = new ByteArrayOutputStream();
+		properties.store(propMockFile, "");
+		inputProperties = new StringBufferInputStream(propMockFile.toString());
+		inputXML = new StringBufferInputStream(generateTestXML());
 		viejaConsola = System.out;
+		outputConsola = new ByteArrayOutputStream();
 	    PrintStream printStream = new PrintStream(outputConsola, true);
 	    System.setOut(printStream);
 	}
+	
+	@Before
+	public void reset() throws IOException 
+	{
+		outputConsola.reset();
+		inputProperties.reset();
+		inputXML.reset();
+	}
 
-	@After
-	public void tearDown() {
-		File file = new File(NOMBRE_ARCHIVO1_PRUEBA);
-		if (file.exists()) {
-			file.delete();
-		}
-		File fileXml = new File((NOMBRE_ARCHIVO1_PRUEBA + ".xml"));
-		if (fileXml.exists()) {
-			fileXml.delete();
-		}
-		File file2 = new File("log1.txt");
-		if (file2.exists()) {
-			file2.delete();
-		}
+	@AfterClass
+	public static void tearDown() throws IOException
+	{
+		inputProperties.close();
+		inputXML.close();
 		System.setOut(viejaConsola);
 	}
+	
+	@Before
+	@After
+	public void deleteFiles()
+	{
+		File file = new File("log1.txt");
+		if (file.exists()) file.delete();
+	}
+	
 	/*@Test
 	public void loadConfiguration() throws Exception {
 		Properties properties = generateDefaultTestPropertie();
@@ -120,15 +160,24 @@ public class LogTest {
 		IOutput outputConsoleInfo = outputsInfo.get(0);
 		assertTrue(outputConsoleInfo instanceof OutputConsole);
 	}*/
+	
 	@Test
 	public void logearConfInXml() throws Exception {
-		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA+".xml");
-		auxLogear("logearConfInXml(): mensaje", Level.fatal, "pepe", true);
+		Log.loadConfigurationFromXML(inputXML);
+		Log.log(Level.trace, "Test", "logger1");
+		assertEquals("", outputConsola.toString().trim());	
+		Log.log(Level.debug, "Test", "logger1");
+		assertEquals("{'thread': 'main'}", outputConsola.toString().trim());	
+		outputConsola.reset();
+		Log.log(Level.fatal, "Test", "logger2");
+		assertEquals("Test", outputConsola.toString().trim());	
+		Log.log(Level.warning, "Test", "logger3");
+		assertEquals("Test", outputConsola.toString().trim());	
 	}
 
 	@Test
 	public void logearConfInProperties() throws Exception {
-		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA);
+		Log.loadConfigurationFromProperties(inputProperties);
 		auxLogear("logearConfInProperties(): mensaje", Level.fatal, "pepe", true);
 	}
 	
@@ -147,20 +196,21 @@ public class LogTest {
 
 	@Test
 	public void noLogearConfFromXmlConDistintoNivelMismoNombre() throws Exception {
-		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA+".xml");
+		Log.loadConfigurationFromXML(inputXML);
 		noLogearArchivoAux(Level.debug,"pepe");
 	}
 
 	@Test
 	public void noLogearConfFromPropertiesConDistintoNivelMismoNombre() throws Exception {
-		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA);
+		Log.loadConfigurationFromProperties(inputProperties);
 		noLogearArchivoAux(Level.debug,"pepe");
 	}
 	@Test
 	public void noLogearConfFromPropertiesConMismoNivelDistintoNombre() throws Exception {
-		Log.loadConfigurationFromFile(NOMBRE_ARCHIVO1_PRUEBA);
+		Log.loadConfigurationFromProperties(inputProperties);
 		noLogearArchivoAux(Level.fatal,"juan el pastor");
 	}
+	
 	public void noLogearArchivoAux(Level nivel, String nombreLogger) throws Exception {
 		Log.log(nivel, "public void noLogearArchivoAux: mensaje "+nombreLogger+"|"+nivel.toString(), nombreLogger);
 		

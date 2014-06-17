@@ -2,6 +2,7 @@ package ar.fiuba.tecnicas.logging;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -12,14 +13,13 @@ import ar.fiuba.tecnicas.output.OutputType;
 public class PropertiesLoader {
 
 	public static ArrayList<LoggerConfig> loadConfiguration(String path) throws Exception {
-		return loadConfiguration(new File(path));
+		return loadConfiguration(new FileInputStream(new File(path)));
 	}
 		
 	
-	public static ArrayList<LoggerConfig> loadConfiguration(File file) throws Exception {
+	public static ArrayList<LoggerConfig> loadConfiguration(InputStream input) throws Exception {
 		ArrayList<LoggerConfig> loggersConf = new ArrayList<>();
 		Properties prop = new Properties();
-		FileInputStream input = new FileInputStream(file);
 		prop.load(input);
 
 		String[] loggerNames = prop.getProperty("rootLoggers").split(",");

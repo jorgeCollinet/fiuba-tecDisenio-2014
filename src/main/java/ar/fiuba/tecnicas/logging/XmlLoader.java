@@ -1,7 +1,9 @@
 package ar.fiuba.tecnicas.logging;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,17 +15,17 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XmlLoader {
-
-	public static ArrayList<LoggerConfig> loadConfiguration(String path) {
-		File file = new File(path);
-		return loadConfiguration(file);
-	}
 	
-	public static ArrayList<LoggerConfig> loadConfiguration(File file) {
+	public static ArrayList<LoggerConfig> loadConfiguration(String path) throws Exception {
+		return loadConfiguration(new FileInputStream(new File(path)));
+	}
+
+	public static ArrayList<LoggerConfig> loadConfiguration(InputStream input) {
 		ArrayList<LoggerConfig> loggersConf = new ArrayList<>();
 		try 
 		{
-			Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
+			Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
+			doc.getDocumentElement().normalize();
 			NodeList loggers = doc.getElementsByTagName("logger");
 			for (int i = 0; i < loggers.getLength(); ++i)
 			{
@@ -47,7 +49,7 @@ public class XmlLoader {
 		for (int i = 0; i < children.getLength(); ++i)
 		{
 			Node child = children.item(i);
-			switch(node.getNodeName())
+			switch(child.getNodeName())
 			{
 				case "name":
 					config.setName(child.getTextContent());
@@ -78,8 +80,9 @@ public class XmlLoader {
 		for (int i = 0; i < children.getLength(); ++i)
 		{
 			Node child = children.item(i);
-			config.addOutputType(node.getNodeName());
-			config.addOutputType(child.getTextContent());
+			if (child.getNodeType() != Node.ELEMENT_NODE) continue;
+			config.addOutputType(child.getNodeName());
+			config.addOutput(child.getTextContent());
 		}
 	}
 	
@@ -90,7 +93,8 @@ public class XmlLoader {
 		for (int i = 0; i < children.getLength(); ++i)
 		{
 			Node child = children.item(i);
-			config.addFilterType(node.getNodeName());
+			if (child.getNodeType() != Node.ELEMENT_NODE) continue;
+			config.addFilterType(child.getNodeName());
 			config.addFilter(child.getTextContent());
 		}
 	}
@@ -98,8 +102,13 @@ public class XmlLoader {
 	private static void parseFormatNode(Node node, LoggerConfig config)
 	{
 		if (!node.hasChildNodes()) return;
-		Node child = node.getFirstChild();
-		config.setFormatType(node.getNodeName());
-		config.setFormat(child.getTextContent());
+		NodeList children = node.getChildNodes();
+		for (int i = 0; i < children.getLength(); ++i)
+		{
+			Node child = children.item(i);
+			if (child.getNodeType() != Node.ELEMENT_NODE) continue;
+			config.setFormatType(child.getNodeName());
+			config.setFormat(child.getTextContent());
+		}
 	}
 }

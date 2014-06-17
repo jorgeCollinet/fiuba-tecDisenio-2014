@@ -38,10 +38,25 @@ public class Log {
 		ArrayList<LoggerConfig> loggersConf = new ArrayList<>();
 		if (fileName.endsWith("xml")) {
 			loggersConf = XmlLoader.loadConfiguration(fileName);
-			throw new Exception("not yet implemented");
 		} else {
 			loggersConf = PropertiesLoader.loadConfiguration(fileName);
 		}
+		Log.loadConfiguration(loggersConf);
+	}
+	
+	/**
+	 * Carga la configuración de un XML
+	 */
+	public static void loadConfigurationFromXML(InputStream input) throws Exception {
+		ArrayList<LoggerConfig> loggersConf = XmlLoader.loadConfiguration(input);
+		Log.loadConfiguration(loggersConf);
+	}
+	
+	/**
+	 * Carga la configuración de un properties
+	 */
+	public static void loadConfigurationFromProperties(InputStream input) throws Exception {
+		ArrayList<LoggerConfig> loggersConf = PropertiesLoader.loadConfiguration(input);
 		Log.loadConfiguration(loggersConf);
 	}
 	
