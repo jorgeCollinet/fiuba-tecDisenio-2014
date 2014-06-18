@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.fiuba.tecnicas.filter.FilterType;
+import ar.fiuba.tecnicas.format.Format;
 import ar.fiuba.tecnicas.format.FormatType;
 import ar.fiuba.tecnicas.output.OutputType;
 
@@ -22,7 +23,7 @@ public class LoggerConfig {
 	
 	public LoggerConfig() {
 		name = "";
-		format = "";
+		format = Format.defaultPattern;
 		formatType = FormatType.Format;
 		outputs = new ArrayList<>();
 		filters = new ArrayList<>();
@@ -50,16 +51,34 @@ public class LoggerConfig {
 		this.defaultFormat = defaultFormat;
 	}
 
-	public void addOutput(String output) {
+	public void addOutput(String output, OutputType type) {
 		this.outputs.add(output);
+		this.outputTypes.add(type);
+	}
+	
+	public void addOutput(String output, String type) {
+		this.outputs.add(output);
+		this.outputTypes.add(OutputType.valueOf(type));
 	}
 
-	public void setFormat(String format) {
+	public void setFormat(String format, FormatType type) {
 		this.format = format;
+		this.formatType = type;
+	}
+	
+	public void setFormat(String format, String type) {
+		this.format = format;
+		this.formatType = FormatType.valueOf(type);
 	}
 
-	public void addFilter(String filter) {
+	public void addFilter(String filter, FilterType type) {
 		this.filters.add(filter);
+		this.filterTypes.add(type);
+	}
+	
+	public void addFilter(String filter, String type) {
+		this.filters.add(filter);
+		this.filterTypes.add(FilterType.valueOf(type));
 	}
 
 	public String getName() {
@@ -89,45 +108,15 @@ public class LoggerConfig {
 	public String getDefaultFormat() {
 		return defaultFormat;
 	}
-	
-	public void setFormatType(String formatType)
-	{
-		this.formatType = FormatType.valueOf(formatType);
-	}
-	
-	public void setFormatType(FormatType formatType)
-	{
-		this.formatType = formatType;
-	}
-	
+		
 	public FormatType getFormatType()
 	{
 		return this.formatType;
 	}
-	
-	public void addOutputType(String outputType)
-	{
-		this.outputTypes.add(OutputType.valueOf(outputType));
-	}
-	
-	public void addOutputType(OutputType outputType)
-	{
-		this.outputTypes.add(outputType);
-	}
-	
+		
 	public List<OutputType> getOutputTypes()
 	{
 		return this.outputTypes;
-	}
-	
-	public void addFilterType(String filterType)
-	{
-		this.filterTypes.add(FilterType.valueOf(filterType));
-	}
-	
-	public void addFilterType(FilterType filterType)
-	{
-		this.filterTypes.add(filterType);
 	}
 	
 	public List<FilterType> getFilterTypes()

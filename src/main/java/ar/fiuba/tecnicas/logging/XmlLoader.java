@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,11 +17,11 @@ import org.xml.sax.SAXException;
 
 public class XmlLoader {
 	
-	public static ArrayList<LoggerConfig> loadConfiguration(String path) throws Exception {
+	public static List<LoggerConfig> loadConfiguration(String path) throws Exception {
 		return loadConfiguration(new FileInputStream(new File(path)));
 	}
 
-	public static ArrayList<LoggerConfig> loadConfiguration(InputStream input) {
+	public static List<LoggerConfig> loadConfiguration(InputStream input) {
 		ArrayList<LoggerConfig> loggersConf = new ArrayList<>();
 		try 
 		{
@@ -81,8 +82,7 @@ public class XmlLoader {
 		{
 			Node child = children.item(i);
 			if (child.getNodeType() != Node.ELEMENT_NODE) continue;
-			config.addOutputType(child.getNodeName());
-			config.addOutput(child.getTextContent());
+			config.addOutput(child.getTextContent(), child.getNodeName());
 		}
 	}
 	
@@ -94,8 +94,7 @@ public class XmlLoader {
 		{
 			Node child = children.item(i);
 			if (child.getNodeType() != Node.ELEMENT_NODE) continue;
-			config.addFilterType(child.getNodeName());
-			config.addFilter(child.getTextContent());
+			config.addFilter(child.getTextContent(), child.getNodeName());
 		}
 	}
 	
@@ -107,8 +106,7 @@ public class XmlLoader {
 		{
 			Node child = children.item(i);
 			if (child.getNodeType() != Node.ELEMENT_NODE) continue;
-			config.setFormatType(child.getNodeName());
-			config.setFormat(child.getTextContent());
+			config.setFormat(child.getTextContent(), child.getNodeName());
 		}
 	}
 }

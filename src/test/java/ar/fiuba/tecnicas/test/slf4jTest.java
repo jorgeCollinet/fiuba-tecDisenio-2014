@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import ar.fiuba.tecnicas.format.Format;
+import ar.fiuba.tecnicas.format.FormatType;
 import ar.fiuba.tecnicas.logging.Level;
 import ar.fiuba.tecnicas.logging.Log;
 import ar.fiuba.tecnicas.logging.LoggerConfig;
@@ -34,10 +35,9 @@ public class slf4jTest
 		LoggerConfig loggerConfig = new LoggerConfig();
 		loggerConfig.setName(nombreLogger);
 		loggerConfig.setLevel(Level.debug);
-		loggerConfig.setFormat("%m");
-		loggerConfig.setSeparator(Format.separadorDefault);
-		loggerConfig.addOutputType(OutputType.console);
-		loggerConfig.addOutput(null);
+		loggerConfig.setFormat("%m", FormatType.Format);
+		loggerConfig.setSeparator(Format.defaultSeparator);
+		loggerConfig.addOutput(null, OutputType.console);
 		
 		ArrayList<LoggerConfig> loggerConfigList = new ArrayList<>();
 		loggerConfigList.add(loggerConfig);

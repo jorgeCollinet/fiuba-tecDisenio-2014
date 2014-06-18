@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import ar.fiuba.tecnicas.filter.FilterType;
@@ -12,12 +13,12 @@ import ar.fiuba.tecnicas.output.OutputType;
 
 public class PropertiesLoader {
 
-	public static ArrayList<LoggerConfig> loadConfiguration(String path) throws Exception {
+	public static List<LoggerConfig> loadConfiguration(String path) throws Exception {
 		return loadConfiguration(new FileInputStream(new File(path)));
 	}
 		
 	
-	public static ArrayList<LoggerConfig> loadConfiguration(InputStream input) throws Exception {
+	public static List<LoggerConfig> loadConfiguration(InputStream input) throws Exception {
 		ArrayList<LoggerConfig> loggersConf = new ArrayList<>();
 		Properties prop = new Properties();
 		prop.load(input);
@@ -70,8 +71,7 @@ public class PropertiesLoader {
 		//System.out.println("chequea: "+initialKey + diferentialKey + count);
 		//System.out.println("elemento: "+element);
 		while (element != null) {
-			loggerConf.addOutputType(diferentialKey);
-			loggerConf.addOutput(element);
+			loggerConf.addOutput(element, diferentialKey);
 			//System.out.println("entro: "+loggerConf.getOutputs());
 			count++;
 			element = prop.getProperty(initialKey + diferentialKey + count);
@@ -82,8 +82,7 @@ public class PropertiesLoader {
 		int count = 0;
 		String element = prop.getProperty(initialKey + diferentialKey + count);
 		while (element != null) {
-			loggerConf.setFormatType(diferentialKey);
-			loggerConf.setFormat(element);
+			loggerConf.setFormat(element, diferentialKey);
 			count++;
 			element = prop.getProperty(initialKey + diferentialKey + count);
 		}
@@ -93,8 +92,7 @@ public class PropertiesLoader {
 		int count = 0;
 		String element = prop.getProperty(initialKey + diferentialKey + count);
 		while (element != null) {
-			loggerConf.addFilterType(diferentialKey);
-			loggerConf.addFilter(element);
+			loggerConf.addFilter(element, diferentialKey);
 			count++;
 			element = prop.getProperty(initialKey + diferentialKey + count);
 		}

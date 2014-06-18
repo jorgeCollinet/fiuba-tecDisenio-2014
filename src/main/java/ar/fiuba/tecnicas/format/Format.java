@@ -14,10 +14,10 @@ import ar.fiuba.tecnicas.logging.Level;
  */
 public class Format
 {
-	public static final String patronDefault = "%m";
-	public static final String separadorDefault = "-";
+	public static final String defaultPattern = "%m";
+	public static final String defaultSeparator = "-";
 	
-	protected String separator = separadorDefault;
+	protected String separator = defaultSeparator;
 	protected LinkedList<Subformat> subformats;
 	
 	// Tuplas de Patron-Subformato para reemplazar
@@ -77,7 +77,7 @@ public class Format
 		if (separator != null)
 			this.separator = separator;
 		if (pattern == null)
-			pattern = patronDefault;
+			pattern = defaultPattern;
 		subformats = new LinkedList<Subformat>();
 		// Parseo
 		while (pattern.length() > 0)

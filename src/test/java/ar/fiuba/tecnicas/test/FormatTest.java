@@ -83,7 +83,7 @@ public class FormatTest
     public void formatSeparator() 
     {
 		Format format = new Format("%n");
-        assertEquals(Format.separadorDefault,format.giveFormat(null,null));
+        assertEquals(Format.defaultSeparator,format.giveFormat(null,null));
         format.setFormat("%n", "@");
         assertEquals("@",format.giveFormat(null,null));
     }

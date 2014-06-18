@@ -5,13 +5,12 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.filter.FilterType;
 import ar.fiuba.tecnicas.format.FormatType;
 import ar.fiuba.tecnicas.logging.Level;
 import ar.fiuba.tecnicas.logging.Logger;
@@ -26,8 +25,8 @@ public class PropertiesLoaderTest {
 	public void setUp() {
 		properties = new Properties();
 		properties.setProperty("rootLoggers",Logger.DEFAULT_NAME_LOGGER.toString()+",pepe");
-		properties.setProperty("defaultFormat", Format.patronDefault);
-		properties.setProperty("defaultSeparator", Format.separadorDefault);
+		properties.setProperty("defaultFormat", Format.defaultPattern);
+		properties.setProperty("defaultSeparator", Format.defaultSeparator);
 		
 		properties.setProperty("Logger." + Logger.DEFAULT_NAME_LOGGER + ".level", Level.debug.toString());
 		properties.setProperty("Logger." + Logger.DEFAULT_NAME_LOGGER+".output." + OutputType.console.toString()+"0", "lalal");
@@ -49,12 +48,12 @@ public class PropertiesLoaderTest {
 		
 		out.close();
 		
-		ArrayList<LoggerConfig> loggersConf = PropertiesLoader.loadConfiguration(NOMBRE_PRUEBA);
+		List<LoggerConfig> loggersConf = PropertiesLoader.loadConfiguration(NOMBRE_PRUEBA);
 		
 		LoggerConfig loggerConf = loggersConf.get(0);
 		assertEquals(Logger.DEFAULT_NAME_LOGGER.toString(), loggerConf.getName());
-		assertEquals(Format.patronDefault, loggerConf.getDefaultFormat());
-		assertEquals(Format.separadorDefault, loggerConf.getSeparator());
+		assertEquals(Format.defaultPattern, loggerConf.getDefaultFormat());
+		assertEquals(Format.defaultSeparator, loggerConf.getSeparator());
 		assertEquals(Level.debug,loggerConf.getLevel());
 		assertTrue(loggerConf.getOutputTypes().get(0) == OutputType.console);
 		
@@ -62,8 +61,8 @@ public class PropertiesLoaderTest {
 		assertTrue(loggerConf2.getOutputTypes().get(0) == OutputType.console);
 		assertTrue(loggerConf2.getOutputTypes().get(1) == OutputType.file);
 		assertEquals("pepe",loggerConf2.getName());
-		assertEquals(Format.patronDefault, loggerConf2.getDefaultFormat());
-		assertEquals(Format.separadorDefault, loggerConf2.getSeparator());
+		assertEquals(Format.defaultPattern, loggerConf2.getDefaultFormat());
+		assertEquals(Format.defaultSeparator, loggerConf2.getSeparator());
 		assertEquals(Level.fatal, loggerConf2.getLevel());
 		
 		file.delete();

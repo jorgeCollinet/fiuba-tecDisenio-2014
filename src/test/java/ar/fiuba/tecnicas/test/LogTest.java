@@ -77,8 +77,8 @@ public class LogTest
 	public static Properties generateTestProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("rootLoggers",Logger.DEFAULT_NAME_LOGGER.toString()+",pepe");
-		properties.setProperty("defaultFormat", Format.patronDefault);
-		properties.setProperty("defaultSeparator", Format.separadorDefault);
+		properties.setProperty("defaultFormat", Format.defaultPattern);
+		properties.setProperty("defaultSeparator", Format.defaultSeparator);
 		
 		//properties.setProperty(Level.debug.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console");
 		properties.setProperty("Logger." + Logger.DEFAULT_NAME_LOGGER + ".level", Level.debug.toString());
@@ -170,8 +170,18 @@ public class LogTest
 		assertEquals("{'thread': 'main'}", outputConsola.toString().trim());	
 		outputConsola.reset();
 		Log.log(Level.fatal, "Test", "logger2");
-		assertEquals("Test", outputConsola.toString().trim());	
+		assertEquals("Test", outputConsola.toString().trim());
+		outputConsola.reset();
 		Log.log(Level.warning, "Test", "logger3");
+		assertEquals("Test", outputConsola.toString().trim());	
+	}
+	
+	@Test
+	public void logearConfDefault() throws Exception {
+		Log.loadConfigurationDefault();
+		Log.log(Level.trace, "Test", "defaultLogger");
+		assertEquals("", outputConsola.toString().trim());	
+		Log.log(Level.info, "Test", "defaultLogger");
 		assertEquals("Test", outputConsola.toString().trim());	
 	}
 

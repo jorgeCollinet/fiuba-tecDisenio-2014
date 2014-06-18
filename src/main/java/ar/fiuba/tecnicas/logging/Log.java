@@ -1,7 +1,9 @@
 package ar.fiuba.tecnicas.logging;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.lang.StackTraceElement;
 
 /**
@@ -10,12 +12,47 @@ import java.lang.StackTraceElement;
  */
 public class Log {
 	
-	protected static ArrayList<Logger> loggers = new ArrayList<Logger>();
+	protected static List<Logger> loggers = null;
 	protected static InputStream inStream;
 	protected static String logFileName;
 	protected static String propertiesLoggersFileName;
 	
 	protected Log() { }
+	
+	private static final String propertiesFilename = "logger-config.properties";
+	private static final String xmlFilename = "logger-config.xml";
+	static // Carga automatica de loggers
+	{
+		File file = new File(propertiesFilename);
+		if(file.exists() && !file.isDirectory()) {
+			try {
+				loadConfigurationFromFile(propertiesFilename);
+			} catch (Exception e) {
+				System.out.println("Error al cargar "+propertiesFilename);
+			}			
+		}
+		file = new File(xmlFilename);
+		if(loggers != null && file.exists() && !file.isDirectory()) {
+			try {
+				loadConfigurationFromFile(xmlFilename);
+			} catch (Exception e) {
+				System.out.println("Error al cargar "+xmlFilename);
+			}			
+		}
+		if(loggers == null)
+		{
+			try {
+				loadConfigurationDefault();
+			} catch (Exception e) {
+				System.out.println("Error al cargar el logger por defecto. "+e.getMessage());
+			}
+		}
+	}
+	
+	public static void loadConfigurationDefault() throws Exception 
+	{
+		loggers = LoggerBuilder.generateDefaultLogger();
+	}
 	
 	/**
 	 * Metodo encargado de cargar la configuracion del log
@@ -23,7 +60,7 @@ public class Log {
 	 * @param configuration
 	 * @throws Exception 
 	 */
-	public static void loadConfiguration(ArrayList<LoggerConfig> loggerConfigs) throws Exception {
+	public static void loadConfiguration(List<LoggerConfig> loggerConfigs) throws Exception {
 		loggers = LoggerBuilder.generateLoggers(loggerConfigs);
 	}
 	
@@ -35,7 +72,7 @@ public class Log {
 	 * @throws Exception 
 	 */
 	public static void loadConfigurationFromFile(String fileName) throws Exception {
-		ArrayList<LoggerConfig> loggersConf = new ArrayList<>();
+		List<LoggerConfig> loggersConf = new ArrayList<>();
 		if (fileName.endsWith("xml")) {
 			loggersConf = XmlLoader.loadConfiguration(fileName);
 		} else {
@@ -48,7 +85,7 @@ public class Log {
 	 * Carga la configuración de un XML
 	 */
 	public static void loadConfigurationFromXML(InputStream input) throws Exception {
-		ArrayList<LoggerConfig> loggersConf = XmlLoader.loadConfiguration(input);
+		List<LoggerConfig> loggersConf = XmlLoader.loadConfiguration(input);
 		Log.loadConfiguration(loggersConf);
 	}
 	
@@ -56,7 +93,7 @@ public class Log {
 	 * Carga la configuración de un properties
 	 */
 	public static void loadConfigurationFromProperties(InputStream input) throws Exception {
-		ArrayList<LoggerConfig> loggersConf = PropertiesLoader.loadConfiguration(input);
+		List<LoggerConfig> loggersConf = PropertiesLoader.loadConfiguration(input);
 		Log.loadConfiguration(loggersConf);
 	}
 	
@@ -144,7 +181,7 @@ public class Log {
 		throw new IllegalArgumentException();
 	}
 	
-	public static ArrayList<Logger> getLoggers(){
+	public static List<Logger> getLoggers(){
 		return loggers;
 	}
 }
