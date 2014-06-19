@@ -3,12 +3,12 @@ package ar.fiuba.tecnicas.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.io.StringBufferInputStream;
 import java.util.Properties;
 
 import org.junit.After;
@@ -27,7 +27,6 @@ public class LogTest
 	private static InputStream inputProperties;
 	private static InputStream inputXML;
 
-	@SuppressWarnings("deprecation")
 	@BeforeClass
 	public static void setUp() throws Exception {
 		// Genera los archivos properties y xml en ram al iniciar los tests
@@ -35,8 +34,8 @@ public class LogTest
 		Properties properties = PropertiesLoaderTest.generateTestProperties();
 		ByteArrayOutputStream propMockFile = new ByteArrayOutputStream();
 		properties.store(propMockFile, "");
-		inputProperties = new StringBufferInputStream(propMockFile.toString());
-		inputXML = new StringBufferInputStream(XMLLoaderTest.generateTestXML());
+		inputProperties = new ByteArrayInputStream(propMockFile.toString().getBytes());
+		inputXML = new ByteArrayInputStream(XMLLoaderTest.generateTestXML().getBytes());
 		viejaConsola = System.out;
 		outputConsola = new ByteArrayOutputStream();
 	    PrintStream printStream = new PrintStream(outputConsola, true);

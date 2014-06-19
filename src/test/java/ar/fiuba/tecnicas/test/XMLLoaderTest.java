@@ -2,8 +2,8 @@ package ar.fiuba.tecnicas.test;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
 import java.util.List;
 
 import org.junit.Test;
@@ -17,8 +17,7 @@ import ar.fiuba.tecnicas.output.OutputType;
 
 public class XMLLoaderTest {
 
-	public static String generateTestXML()
-	{
+	public static String generateTestXML() {
 		String texto = "<?xml version=\"1.0\"?>"
 		+ "<root>"
 		+ "<logger>"
@@ -58,9 +57,8 @@ public class XMLLoaderTest {
 	
 	@Test
 	public void testLoadConfiguration() throws Exception {
-		InputStream inputXML = new StringBufferInputStream(generateTestXML());
-		
-		List<LoggerConfig> loggersConf = XmlLoader.loadConfiguration(inputXML);
+		InputStream stream = new ByteArrayInputStream(generateTestXML().getBytes());
+		List<LoggerConfig> loggersConf = XmlLoader.loadConfiguration(stream);
 		
 		LoggerConfig loggerConf = loggersConf.get(0);
 		assertEquals("logger1", loggerConf.getName());

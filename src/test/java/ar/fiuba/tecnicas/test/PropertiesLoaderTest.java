@@ -2,9 +2,9 @@ package ar.fiuba.tecnicas.test;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
 import java.util.List;
 import java.util.Properties;
 
@@ -48,7 +48,7 @@ public class PropertiesLoaderTest {
 	public void testLoadConfiguration() throws Exception {
 		ByteArrayOutputStream propMockFile = new ByteArrayOutputStream();
 		properties.store(propMockFile, "");
-		InputStream inputProperties = new StringBufferInputStream(propMockFile.toString());
+		InputStream inputProperties = new ByteArrayInputStream(propMockFile.toString().getBytes());
 		propMockFile.close();
 		
 		List<LoggerConfig> loggersConf = PropertiesLoader.loadConfiguration(inputProperties);
