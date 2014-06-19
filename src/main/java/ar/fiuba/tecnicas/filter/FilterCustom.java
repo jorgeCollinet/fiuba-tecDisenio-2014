@@ -34,13 +34,18 @@ public class FilterCustom implements IFilter {
 					return filterCustom.hasToLog(filterData);					
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					e.printStackTrace();
+					System.out.println("Error de programación al intentar instanciar un FilterCustom.");
+					return false;
 				}
 			} catch (NoSuchMethodException | SecurityException e) {
 				e.printStackTrace();
+				System.out.println("Error de programación al intentar instanciar un FilterCustom.");
+				return false;
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("Error de programación al intentar instanciar un FilterCustom.");
+			return false;
 		}
-		return false;
 	}
 }

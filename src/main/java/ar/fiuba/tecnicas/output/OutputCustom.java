@@ -34,12 +34,15 @@ public class OutputCustom implements IOutput {
 					outputCustom.out(message);					
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					e.printStackTrace();
+					System.out.println("Error de programación al intentar instanciar un OutputCustom.");
 				}
 			} catch (NoSuchMethodException | SecurityException e) {
 				e.printStackTrace();
+				System.out.println("Error de programación al intentar instanciar un OutputCustom.");
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("Error de programación al intentar instanciar un OutputCustom.");
 		}
 	}
 }
