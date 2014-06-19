@@ -22,7 +22,8 @@ public class OutputBuilder {
 	 * tipos de outputs, dependiendo de cada output puede tener un valor
 	 * asociado, ej: nombre de archivo
 	 * 
-	 * @param arrayList
+	 * @param typeList		Lista de los tipos de outputs
+	 * @param outputList 	Lista de los parametros de outputs como strings
 	 * @return IOutput
 	 * @throws Exception
 	 */

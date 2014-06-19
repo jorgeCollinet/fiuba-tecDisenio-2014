@@ -21,10 +21,6 @@ public class FilterBuilder {
 	 * A partir de un string con un determinado formato genera los distintos
 	 * tipos de outputs, dependiendo de cada output puede tener un valor
 	 * asociado, ej: nombre de archivo
-	 * 
-	 * @param outputStringValues
-	 * @return IOutput
-	 * @throws Exception
 	 */
 	public static List<IFilter> generateFilters(String loggerName, Level level,
 			List<String> filterList, List<FilterType> typeList)

@@ -56,8 +56,6 @@ public class Log {
 
 	/**
 	 * Metodo encargado de cargar la configuracion del log
-	 * 
-	 * @param configuration
 	 * @throws Exception
 	 */
 	public static void loadConfiguration(List<LoggerConfig> loggerConfigs)
@@ -146,14 +144,10 @@ public class Log {
 
 	/**
 	 * Logea un mensaje y una excepción
-	 * 
-	 * @param nivel
-	 *            Nivel del mensaje
-	 * @parame message Mensaje
-	 * @param throwable
-	 *            Excepción
-	 * @param nombreLogger
-	 *            Nombre del logger
+	 * @param nivel		Nivel del mensaje
+	 * @parame message 	Mensaje
+	 * @param throwable	Excepción
+	 * @param nombreLogger	Nombre del logger
 	 */
 	public static void log(Level nivel, String message, Throwable throwable,
 			String nombreLogger) {

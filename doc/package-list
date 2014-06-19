@@ -1,1 +1,6 @@
-ar.fiuba.tecnicas.formato
+ar.fiuba.tecnicas.filter
+ar.fiuba.tecnicas.format
+ar.fiuba.tecnicas.format.subformat
+ar.fiuba.tecnicas.logging
+ar.fiuba.tecnicas.output
+org.slf4j.impl
