@@ -47,14 +47,8 @@ public class FilterBuilder {
 				filters.add(filterRegex);
 			} else if (typeList.get(i) == FilterType.BehaveClass) {
 				String nombreClaseCustom = filterList.get(i);
-				try {
-					FilterCustom filterCustom = FilterCustom
-							.generateFilterCustom(nombreClaseCustom);
-					filters.add(filterCustom);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
+				FilterCustom filterCustom = FilterCustom.generateFilterCustom(nombreClaseCustom);
+				filters.add(filterCustom);
 			}
 		}
 		return filters;

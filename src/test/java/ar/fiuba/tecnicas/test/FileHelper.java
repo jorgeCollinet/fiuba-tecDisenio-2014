@@ -19,11 +19,11 @@ public class FileHelper {
 	public static String getLastMessageLogged(String fileName) throws IOException {
 		BufferedReader file = new BufferedReader(new FileReader(fileName));
 		try {
-	    	String sCurrentLine;
+	    	String currentLine;
 	        String lastLine = "";
 
-	        while ((sCurrentLine = file.readLine()) != null){
-	            lastLine = sCurrentLine;
+	        while ((currentLine = file.readLine()) != null){
+	            lastLine = currentLine;
 	        }
 
 	        return lastLine;

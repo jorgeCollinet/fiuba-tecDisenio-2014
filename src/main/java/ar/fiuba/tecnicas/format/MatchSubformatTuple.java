@@ -51,8 +51,7 @@ public class MatchSubformatTuple {
 		// No deberia entrar nunca a este catch porque la herencia esta
 		// chequeada
 		catch (Throwable e) {
-			System.out
-					.println("Error de programación al ejecutar TuplaMatchSubformato.");
+			System.out.println("Error de programación al ejecutar TuplaMatchSubformato.");
 			e.printStackTrace();
 			return null;
 		}

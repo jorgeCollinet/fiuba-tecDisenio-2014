@@ -59,7 +59,7 @@ public class Logger {
 	 */
 	public Logger(Level nivel, ArrayList<IFilter> filters, IOutput salida,
 			Format format) {
-		this(Logger.DEFAULT_NAME_LOGGER.toString(), nivel, filters, salida,
+		this(Logger.DEFAULT_NAME_LOGGER, nivel, filters, salida,
 				format);
 	}
 

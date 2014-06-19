@@ -2,7 +2,6 @@ package ar.fiuba.tecnicas.test;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
 import java.util.List;
@@ -10,12 +9,9 @@ import java.util.List;
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.filter.FilterType;
-import ar.fiuba.tecnicas.format.Format;
 import ar.fiuba.tecnicas.format.FormatType;
 import ar.fiuba.tecnicas.logging.Level;
-import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.LoggerConfig;
-import ar.fiuba.tecnicas.logging.PropertiesLoader;
 import ar.fiuba.tecnicas.logging.XmlLoader;
 import ar.fiuba.tecnicas.output.OutputType;
 

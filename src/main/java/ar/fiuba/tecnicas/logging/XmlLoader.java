@@ -22,7 +22,7 @@ public class XmlLoader {
 		return loadConfiguration(new FileInputStream(new File(path)));
 	}
 
-	public static List<LoggerConfig> loadConfiguration(InputStream input) {
+	public static List<LoggerConfig> loadConfiguration(InputStream input) throws Exception {
 		ArrayList<LoggerConfig> loggersConf = new ArrayList<>();
 		try {
 			Document doc = DocumentBuilderFactory.newInstance()
@@ -36,7 +36,7 @@ public class XmlLoader {
 			}
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			System.out.println("Error al parsear XML: " + e.getMessage());
-			e.printStackTrace();
+			throw e;
 		}
 		return loggersConf;
 	}

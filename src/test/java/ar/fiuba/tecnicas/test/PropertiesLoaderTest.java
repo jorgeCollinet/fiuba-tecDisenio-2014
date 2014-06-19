@@ -3,10 +3,7 @@ package ar.fiuba.tecnicas.test;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.StringBufferInputStream;
 import java.util.List;
 import java.util.Properties;
@@ -27,7 +24,7 @@ public class PropertiesLoaderTest {
 	
 	public static Properties generateTestProperties() {
 		Properties properties = new Properties();
-		properties.setProperty("rootLoggers",Logger.DEFAULT_NAME_LOGGER.toString()+",pepe");
+		properties.setProperty("rootLoggers",Logger.DEFAULT_NAME_LOGGER+",pepe");
 		properties.setProperty("defaultFormat", Format.defaultPattern);
 		properties.setProperty("defaultSeparator", Format.defaultSeparator);
 		
@@ -57,7 +54,7 @@ public class PropertiesLoaderTest {
 		List<LoggerConfig> loggersConf = PropertiesLoader.loadConfiguration(inputProperties);
 		
 		LoggerConfig loggerConf = loggersConf.get(0);
-		assertEquals(Logger.DEFAULT_NAME_LOGGER.toString(), loggerConf.getName());
+		assertEquals(Logger.DEFAULT_NAME_LOGGER, loggerConf.getName());
 		assertEquals(Format.defaultPattern, loggerConf.getDefaultFormat());
 		assertEquals(Format.defaultSeparator, loggerConf.getSeparator());
 		assertEquals(Level.debug,loggerConf.getLevel());

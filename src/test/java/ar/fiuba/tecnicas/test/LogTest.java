@@ -17,12 +17,8 @@ import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.format.Format;
-import ar.fiuba.tecnicas.format.FormatType;
 import ar.fiuba.tecnicas.logging.Log;
-import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.Level;
-import ar.fiuba.tecnicas.output.OutputType;
 
 public class LogTest 
 {
