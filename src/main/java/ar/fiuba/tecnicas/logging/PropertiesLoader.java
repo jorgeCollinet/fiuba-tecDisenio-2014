@@ -76,11 +76,8 @@ public class PropertiesLoader {
 			LoggerConfig loggerConf, Properties prop) {
 		int count = 0;
 		String element = prop.getProperty(initialKey + diferentialKey + count);
-		// System.out.println("chequea: "+initialKey + diferentialKey + count);
-		// System.out.println("elemento: "+element);
 		while (element != null) {
 			loggerConf.addOutput(element, diferentialKey);
-			// System.out.println("entro: "+loggerConf.getOutputs());
 			count++;
 			element = prop.getProperty(initialKey + diferentialKey + count);
 		}
