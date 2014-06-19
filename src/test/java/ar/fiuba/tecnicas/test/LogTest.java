@@ -22,10 +22,6 @@ import ar.fiuba.tecnicas.format.FormatType;
 import ar.fiuba.tecnicas.logging.Log;
 import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.Level;
-import ar.fiuba.tecnicas.output.IOutput;
-import ar.fiuba.tecnicas.output.OutputConsole;
-import ar.fiuba.tecnicas.output.OutputContainer;
-import ar.fiuba.tecnicas.output.OutputFile;
 import ar.fiuba.tecnicas.output.OutputType;
 
 public class LogTest 
@@ -34,75 +30,17 @@ public class LogTest
 	private static PrintStream viejaConsola;
 	private static InputStream inputProperties;
 	private static InputStream inputXML;
-	
-	public static String generateTestXML()
-	{
-		String texto = "<?xml version=\"1.0\"?>"
-		+ "<root>"
-		+ "<logger>"
-		+ "	<name>logger1</name>"
-		+ "	<level>debug</level>"
-		+ "	<outputs>"
-		+ "		<console></console>"
-		+ "	</outputs>"
-		+ "	<filters>"
-		+ "		<BehaveRegex>.*</BehaveRegex>"
-		+ "	</filters>"
-		+ "	<format>"
-		+ "		<JSONFormat>%t</JSONFormat>"
-		+ "	</format>"
-		+ "</logger>"
-		+ "<logger>"
-		+ "	<name>logger2</name>"
-		+ "	<level>fatal</level>"
-		+ "	<outputs>"
-		+ "		<console></console>"
-		+ "	</outputs>"
-		+ "	<separator>_</separator>"
-		+ "<format>"
-		+ "		<Format>%m</Format>"
-		+ "	</format>"
-		+ "</logger>"
-		+ "<logger>"
-		+ "	<name>logger3</name>"
-		+ "	<level>trace</level>"
-		+ "	<outputs>"
-		+ "		<console></console>"
-		+ "</outputs>"
-		+ "</logger>"
-		+ "</root>";
-		return texto;
-	}
-	
-	public static Properties generateTestProperties() {
-		Properties properties = new Properties();
-		properties.setProperty("rootLoggers",Logger.DEFAULT_NAME_LOGGER.toString()+",pepe");
-		properties.setProperty("defaultFormat", Format.defaultPattern);
-		properties.setProperty("defaultSeparator", Format.defaultSeparator);
-		
-		//properties.setProperty(Level.debug.toString(),Logger.DEFAULT_NAME_LOGGER+",Output>console");
-		properties.setProperty("Logger." + Logger.DEFAULT_NAME_LOGGER + ".level", Level.debug.toString());
-		properties.setProperty("Logger." + Logger.DEFAULT_NAME_LOGGER+".output." + OutputType.console.toString()+"0", "lalal");
-		
-		//properties.setProperty(Level.fatal.toString(),"pepe"+",Output>console,Output>file:log1.txt,Formato>%m");
-		
-		properties.setProperty("Logger.pepe.level", Level.fatal.toString());
-		properties.setProperty("Logger.pepe.output." + OutputType.console.toString()+"0", "lilili");
-		properties.setProperty("Logger.pepe.output." + OutputType.file.toString()+"0", "log1.txt");
-		properties.setProperty("Logger.pepe.format." + FormatType.Format.toString()+"0", "%m");
-		return properties;
-	}
 
 	@SuppressWarnings("deprecation")
 	@BeforeClass
 	public static void setUp() throws Exception {
 		// Genera los archivos properties y xml en ram al iniciar los tests
 		// Como son inputs de solo lectura esto se hace una sola vez
-		Properties properties = generateTestProperties();
+		Properties properties = PropertiesLoaderTest.generateTestProperties();
 		ByteArrayOutputStream propMockFile = new ByteArrayOutputStream();
 		properties.store(propMockFile, "");
 		inputProperties = new StringBufferInputStream(propMockFile.toString());
-		inputXML = new StringBufferInputStream(generateTestXML());
+		inputXML = new StringBufferInputStream(XMLLoaderTest.generateTestXML());
 		viejaConsola = System.out;
 		outputConsola = new ByteArrayOutputStream();
 	    PrintStream printStream = new PrintStream(outputConsola, true);

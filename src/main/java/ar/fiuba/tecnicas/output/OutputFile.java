@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 
 /**
  * Clase encargada de escribir en un archivo
+ * 
  * @author Grupo3
  * 
  */
@@ -18,12 +19,12 @@ public class OutputFile implements IOutput {
 	public OutputFile(String fileName) {
 		this.fileName = fileName;
 		file = new File(fileName);
-		
+
 	}
 
 	protected void createEmptyFileIfNecesary(String fileName)
 			throws IOException {
-		
+
 		if (!file.isFile() && !file.createNewFile()) {
 			throw new IOException("no se pudo crear el archivo:" + fileName);
 		}
@@ -33,7 +34,8 @@ public class OutputFile implements IOutput {
 	public void out(String message) {
 		try {
 			createEmptyFileIfNecesary(fileName);
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+			PrintWriter out = new PrintWriter(new BufferedWriter(
+					new FileWriter(file, true)));
 			out.println(message);
 			out.flush();
 			out.close();

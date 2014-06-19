@@ -9,26 +9,23 @@ import java.util.Date;
 /**
  * Subformato que devuelve la fecha con un formato especificado
  */
-public class SubformatDate extends Subformat
-{
+public class SubformatDate extends Subformat {
 	private SimpleDateFormat format;
-	
-	public SubformatDate(String match)
-	{
+
+	public SubformatDate(String match) {
 		super(match);
-		String formato = match.substring(match.indexOf("{")+1,match.lastIndexOf("}"));
-		this.format = new SimpleDateFormat(formato);	
+		String formato = match.substring(match.indexOf("{") + 1,
+				match.lastIndexOf("}"));
+		this.format = new SimpleDateFormat(formato);
 	}
 
 	@Override
-	public String giveFormat(SubformatParameters parameters) 
-	{
+	public String giveFormat(SubformatParameters parameters) {
 		return format.format(new Date());
 	}
-	
+
 	@Override
-	public String getJSONTag() 
-	{
+	public String getJSONTag() {
 		return "datetime";
 	}
 

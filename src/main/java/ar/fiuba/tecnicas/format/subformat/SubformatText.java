@@ -6,28 +6,25 @@ import ar.fiuba.tecnicas.format.Subformat;
 /**
  * Subformato que devuelve un texto estático cualquiera
  */
-public class SubformatText extends Subformat 
-{
+public class SubformatText extends Subformat {
 	private String texto;
-	
+
 	/**
-	 * @param match		Texto estático que devuelve este subformato
+	 * @param match
+	 *            Texto estático que devuelve este subformato
 	 */
-	public SubformatText(String match) 
-	{
+	public SubformatText(String match) {
 		super(match);
 		this.texto = match;
 	}
 
 	@Override
-	public String giveFormat(SubformatParameters parameters)
-	{
+	public String giveFormat(SubformatParameters parameters) {
 		return texto;
 	}
-	
+
 	@Override
-	public String getJSONTag() 
-	{
+	public String getJSONTag() {
 		return null;
 	}
 

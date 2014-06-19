@@ -1,17 +1,16 @@
-package ar.fiuba.tecnicas.test;
+package ar.fiuba.tecnicas.output;
 
-import ar.fiuba.tecnicas.output.IOutput;
 
 /**
  * Clase utilizada como mock para emular los distintos tipos de output
  * @author Grupo3
  *
  */
-public class OutputMock implements IOutput {
+public class OutputBuffer implements IOutput {
 
 	protected String buffer;
 
-	public OutputMock() {
+	public OutputBuffer() {
 		buffer = "";
 	}
 

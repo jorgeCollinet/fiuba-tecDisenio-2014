@@ -9,7 +9,6 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Properties;
 
 import ar.fiuba.tecnicas.format.Format;
 import ar.fiuba.tecnicas.format.FormatType;

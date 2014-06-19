@@ -8,11 +8,12 @@ import ar.fiuba.tecnicas.filter.*;
 import ar.fiuba.tecnicas.format.Format;
 import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.Level;
+import ar.fiuba.tecnicas.output.OutputBuffer;
 import static org.junit.Assert.assertEquals;
 
 
 public class LoggerTest {
-	private OutputMock outputMock = new OutputMock();
+	private OutputBuffer outputMock = new OutputBuffer();
 	
 
 	@Test

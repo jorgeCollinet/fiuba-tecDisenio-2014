@@ -26,15 +26,15 @@ public class OutputBuilder {
 	 * @return IOutput
 	 * @throws Exception
 	 */
-	public static IOutput generateOutput(List<OutputType> typeList, List<String> outputList) throws Exception {
-		if (typeList.size() < outputList.size())
-		{
-			throw new Exception("Desacuerdo entre numero de outputs y sus tipos.");
+	public static IOutput generateOutput(List<OutputType> typeList,
+			List<String> outputList) throws Exception {
+		if (typeList.size() < outputList.size()) {
+			throw new Exception(
+					"Desacuerdo entre numero de outputs y sus tipos.");
 		}
 		OutputContainer container = new OutputContainer();
 		OutputConsole consola = new OutputConsole();
-		for (int i = 0; i < outputList.size(); ++i)
-		{
+		for (int i = 0; i < outputList.size(); ++i) {
 			if (typeList.get(i) == OutputType.console) {
 				container.addOutput(consola);
 			} else if (typeList.get(i) == OutputType.file) {
@@ -42,13 +42,14 @@ public class OutputBuilder {
 				container.addOutput(new OutputFile(nombreDeArchivo));
 			} else if (typeList.get(i) == OutputType.OutputClass) {
 				String className = outputList.get(i);
-				container.addOutput(OutputCustom.generateOutputCustom(className));
+				container.addOutput(OutputCustom
+						.generateOutputCustom(className));
 			} else {
 				throw new Exception(
 						"Output que intenta generar no pertenece a ningun tipo conocido, string ingresado: "
-						+ outputList.get(i)
-						+ "\nelemento que no pertenece a ningún tipo: "
-						+ typeList.get(i) + "\n");
+								+ outputList.get(i)
+								+ "\nelemento que no pertenece a ningún tipo: "
+								+ typeList.get(i) + "\n");
 			}
 
 		}

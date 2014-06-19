@@ -26,12 +26,14 @@ public class FilterBuilder {
 	 * @return IOutput
 	 * @throws Exception
 	 */
-	public static List<IFilter> generateFilters(String loggerName, Level level, List<String> filterList, List<FilterType> typeList) throws Exception {
-		if (typeList.size() < filterList.size())
-		{
-			throw new Exception("Desacuerdo entre numero de filtros y sus tipos.");
+	public static List<IFilter> generateFilters(String loggerName, Level level,
+			List<String> filterList, List<FilterType> typeList)
+			throws Exception {
+		if (typeList.size() < filterList.size()) {
+			throw new Exception(
+					"Desacuerdo entre numero de filtros y sus tipos.");
 		}
-		
+
 		ArrayList<IFilter> filters = new ArrayList<>();
 
 		FilterNivel filterNivel = new FilterNivel(level);
@@ -39,20 +41,20 @@ public class FilterBuilder {
 		filters.add(filterNombre);
 		filters.add(filterNivel);
 
-		for (int i = 0; i < filterList.size(); ++i)
-		{
+		for (int i = 0; i < filterList.size(); ++i) {
 			if (typeList.get(i) == FilterType.BehaveRegex) {
 				FilterRegex filterRegex = new FilterRegex(filterList.get(i));
 				filters.add(filterRegex);
 			} else if (typeList.get(i) == FilterType.BehaveClass) {
 				String nombreClaseCustom = filterList.get(i);
 				try {
-					FilterCustom filterCustom = FilterCustom.generateFilterCustom(nombreClaseCustom);
+					FilterCustom filterCustom = FilterCustom
+							.generateFilterCustom(nombreClaseCustom);
 					filters.add(filterCustom);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 		}
 		return filters;

@@ -25,14 +25,19 @@ public class Logger {
 	public static final String DEFAULT_NAME_LOGGER = "";
 	private List<IFilter> filters = new ArrayList<IFilter>();
 
-	
 	/**
 	 * 
-	 * @param nombre nombre del logger
-	 * @param nivel nivel dellogger
-	 * @param filters filtros que utilizará para verificar si corresponde o no logear
-	 * @param salida salida que utilizará el logger para loggear
-	 * @param format formato que utilizara el logger para logear
+	 * @param nombre
+	 *            nombre del logger
+	 * @param nivel
+	 *            nivel dellogger
+	 * @param filters
+	 *            filtros que utilizará para verificar si corresponde o no
+	 *            logear
+	 * @param salida
+	 *            salida que utilizará el logger para loggear
+	 * @param format
+	 *            formato que utilizara el logger para logear
 	 */
 	public Logger(String nombre, Level nivel, List<IFilter> filters,
 			IOutput salida, Format format) {
@@ -42,26 +47,35 @@ public class Logger {
 		this.out = salida;
 		this.formato = format;
 	}
+
 	/**
-	 * Este constructor es similar al anterior salvo que pone su nombre como default
+	 * Este constructor es similar al anterior salvo que pone su nombre como
+	 * default
+	 * 
 	 * @param nivel
 	 * @param filters
 	 * @param salida
 	 * @param format
 	 */
-	public Logger(Level nivel, ArrayList<IFilter> filters, IOutput salida, Format format) {
-		this(Logger.DEFAULT_NAME_LOGGER.toString(), nivel, filters, salida,format);
+	public Logger(Level nivel, ArrayList<IFilter> filters, IOutput salida,
+			Format format) {
+		this(Logger.DEFAULT_NAME_LOGGER.toString(), nivel, filters, salida,
+				format);
 	}
+
 	/**
-	 *Iintenta logear (si le corresponde) con nombre default
+	 * Iintenta logear (si le corresponde) con nombre default
+	 * 
 	 * @param nivel
 	 * @param message
 	 */
 	public void logear(Level nivel, String message) {
 		logear(nivel, message, DEFAULT_NAME_LOGGER);
 	}
+
 	/**
 	 * Intenta loggear (si le corresponde) con nombre ingresado
+	 * 
 	 * @param nivel
 	 * @param message
 	 * @param nombreLogger
