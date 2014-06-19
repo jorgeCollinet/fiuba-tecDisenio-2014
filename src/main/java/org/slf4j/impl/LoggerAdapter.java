@@ -1,4 +1,4 @@
-package ar.fiuba.tecnicas.slf4jadapter;
+package org.slf4j.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.Marker;

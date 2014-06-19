@@ -1,5 +1,6 @@
 package ar.fiuba.tecnicas.logging;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,39 @@ public class Log {
 
 	protected static List<Logger> loggers = null;
 	protected static InputStream inStream;
-	protected static String logFileName;
-	protected static String propertiesLoggersFileName;
 
 	protected Log() {
 	}
-
+	
+	private static final String propertiesFilename = "logger-config.properties";
+	private static final String xmlFilename = "logger-config.xml";
+	static // Carga automatica de loggers
+	{
+		File file = new File(propertiesFilename);
+		if (file.exists() && !file.isDirectory()) {
+			try {
+				Log.loadConfigurationFromFile(propertiesFilename);
+			} catch (Exception e) {
+				System.out.println("Error al cargar " + propertiesFilename);
+			}
+		}
+		file = new File(xmlFilename);
+		if (Log.loggers == null && file.exists() && !file.isDirectory()) {
+			try {
+				Log.loadConfigurationFromFile(xmlFilename);
+			} catch (Exception e) {
+				System.out.println("Error al cargar " + xmlFilename);
+			}
+		}
+		if (Log.loggers == null) {
+			try {
+				Log.loadConfigurationDefault();
+			} catch (Exception e) {
+				System.out.println("Error al cargar el logger por defecto. "
+						+ e.getMessage());
+			}
+		}
+	}
 
 	public static void loadConfigurationDefault() throws Exception {
 		loggers = LoggerBuilder.generateDefaultLogger();

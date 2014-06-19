@@ -16,10 +16,10 @@ import ar.fiuba.tecnicas.logging.Level;
 import ar.fiuba.tecnicas.logging.Log;
 import ar.fiuba.tecnicas.logging.LoggerConfig;
 import ar.fiuba.tecnicas.output.OutputType;
-import ar.fiuba.tecnicas.slf4jadapter.StaticLoggerBinder;
 
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.impl.StaticLoggerBinder;
 
 public class slf4jTest 
 {

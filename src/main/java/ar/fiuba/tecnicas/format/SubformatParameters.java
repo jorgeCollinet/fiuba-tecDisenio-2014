@@ -18,7 +18,7 @@ public class SubformatParameters {
 	private boolean stackWasProcessed = false;
 	private static Pattern trivialPackages = Pattern
 			.compile("(^java\\..*)|(^sun\\..*)|(^org\\.junit\\..*)|"
-					+ "(^ar\\.fiuba\\.tecnicas\\..*)");
+					+ "(^ar\\.fiuba\\.tecnicas\\..*)|(^org\\.slf4j\\..*)");
 	private static Pattern testPackage = Pattern.compile("^.*test.*$");
 
 	/**
